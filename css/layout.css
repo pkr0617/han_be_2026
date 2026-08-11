@@ -1,0 +1,245 @@
+/* =====================================================
+   layout.css — 헤더 · 네비 · 컨텐츠 레이아웃 · 홈 그리드 · 하단 · 푸터
+   ===================================================== */
+
+/* ── HEADER ─────────────────────────────────────────── */
+.top-header {
+  height: 76px;
+  display: grid;
+  grid-template-columns: 380px 1fr 360px;
+  align-items: center;
+  gap: 18px;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--line-dark);
+  background: linear-gradient(#fff, #fbfcfe);
+}
+
+.brand-wrap {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  min-width: 0;
+}
+
+.brand {
+  font-family: Arial Black, "Malgun Gothic", sans-serif;
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: -4px;
+  cursor: pointer;
+}
+
+.tagline {
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.search-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.search-box {
+  width: min(440px, 100%);
+  height: 34px;
+  display: flex;
+  border: 1px solid #222;
+  background: #fff;
+}
+
+.search-box input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  padding: 0 10px;
+  outline: none;
+}
+
+.search-box button {
+  width: 64px;
+  border: 0;
+  border-left: 1px solid #222;
+  background: #f0f0f0;
+  font-weight: 700;
+}
+
+.account-nav {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.account-nav button {
+  border: 0;
+  background: transparent;
+  padding: 5px 7px;
+  color: #111;
+}
+
+.account-nav .divider {
+  color: #999;
+}
+
+/* ── NAV ─────────────────────────────────────────────── */
+.main-nav {
+  display: flex;
+  align-items: stretch;
+  height: 51px;
+  border-bottom: 1px solid var(--line-dark);
+  overflow: auto;
+  background: #fff;
+}
+
+.nav-btn {
+  border: 0;
+  background: #fff;
+  padding: 0 23px;
+  font-weight: 700;
+  white-space: nowrap;
+  border-right: 1px solid transparent;
+}
+
+.nav-btn:hover {
+  background: #f2f5f9;
+}
+
+.nav-btn.active {
+  background: var(--navy);
+  color: #fff;
+}
+
+.nav-spacer {
+  flex: 1;
+}
+
+.write-top {
+  margin: 8px 18px 8px 12px;
+  padding: 0 17px;
+  border: 1px solid var(--line-dark);
+  background: #f8f9fb;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* ── CONTENT LAYOUT ──────────────────────────────────── */
+.content {
+  padding: 12px 14px 0;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 365px;
+  gap: 12px;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.box {
+  border: 1px solid var(--line-dark);
+  background: #fff;
+}
+
+.box-title {
+  min-height: 41px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  border-bottom: 1px solid var(--line-dark);
+  background: linear-gradient(#fff, #f5f7fa);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.title-left {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--red);
+  display: inline-block;
+  border: 1px solid #700;
+}
+
+.square {
+  width: 8px;
+  height: 8px;
+  background: #111;
+  display: inline-block;
+}
+
+.more-link {
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* ── BOTTOM GRID ─────────────────────────────────────── */
+.bottom-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.bottom-body {
+  min-height: 125px;
+  padding: 16px;
+  line-height: 1.8;
+}
+
+.outline-btn {
+  border: 1px solid #566274;
+  background: #f7f7f7;
+  padding: 7px 14px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 180px;
+  gap: 15px;
+  align-items: center;
+}
+
+.bars {
+  height: 72px;
+  display: flex;
+  align-items: flex-end;
+  gap: 7px;
+  border-bottom: 1px solid #bbb;
+}
+
+.bars span {
+  flex: 1;
+  background: #989db6;
+}
+
+/* ── FOOTER ──────────────────────────────────────────── */
+.footer {
+  margin-top: 17px;
+  padding: 25px 18px;
+  border-top: 1px solid #aeb8c4;
+  text-align: center;
+  font-size: 12px;
+  line-height: 2;
+}
+
+.footer a {
+  margin: 0 12px;
+}

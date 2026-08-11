@@ -1,0 +1,95 @@
+/* =====================================================
+   post.css — 게시글 카드 · 댓글 영역
+   ===================================================== */
+
+/* ── POST CARD ───────────────────────────────────────── */
+.post-card {
+  border: 1px solid var(--line-dark);
+  background: #fff;
+}
+
+.post-head {
+  padding: 17px 20px;
+  border-bottom: 1px solid #a9b4c1;
+  background: #f8fafc;
+}
+
+.post-head h2 {
+  font-size: 21px;
+  margin: 0 0 12px;
+}
+
+.post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  color: #666;
+  font-size: 12px;
+}
+
+.post-body {
+  padding: 28px 24px;
+  min-height: 280px;
+  line-height: 1.85;
+  font-size: 15px;
+  white-space: pre-wrap;
+}
+
+.post-actions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px;
+  border-top: 1px solid #d1d6dd;
+}
+
+.recommend {
+  border: 1px solid #9aa5b3;
+  background: #fff;
+  padding: 9px 20px;
+}
+
+/* ── COMMENT ZONE ────────────────────────────────────── */
+.comment-zone {
+  margin-top: 12px;
+  border: 1px solid var(--line-dark);
+}
+
+.comment-row {
+  padding: 13px 16px;
+  border-bottom: 1px dotted #adb6c1;
+}
+
+.comment-row-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 7px;
+  font-size: 12px;
+  color: #666;
+}
+
+.comment-row b {
+  color: #111;
+}
+
+.comment-form {
+  padding: 14px;
+  background: #f8fafc;
+  display: grid;
+  grid-template-columns: 1fr 88px;
+  gap: 8px;
+}
+
+.comment-form textarea {
+  height: 72px;
+  border: 1px solid #9faab7;
+  resize: vertical;
+  padding: 9px;
+}
+
+.comment-form button {
+  border: 1px solid #092c62;
+  background: var(--navy);
+  color: #fff;
+  font-weight: 700;
+}

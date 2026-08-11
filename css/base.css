@@ -1,0 +1,59 @@
+/* =====================================================
+   base.css — CSS 변수 · 리셋 · 앱 래퍼
+   ===================================================== */
+
+:root {
+  --navy: #0d3977;
+  --navy2: #082a5a;
+  --line: #b7c3d5;
+  --line-dark: #173f78;
+  --soft: #f3f6fa;
+  --soft2: #eaf0f7;
+  --red: #d51620;
+  --text: #10141b;
+  --muted: #6d7784;
+  --paper: #fff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: #f4f5f7;
+  color: var(--text);
+  font-family: "Malgun Gothic", "맑은 고딕", Arial, sans-serif;
+  font-size: 14px;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+a {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.hidden {
+  display: none !important;
+}
+
+#app {
+  max-width: 1500px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: #fff;
+  border-left: 1px solid #aeb7c3;
+  border-right: 1px solid #aeb7c3;
+}

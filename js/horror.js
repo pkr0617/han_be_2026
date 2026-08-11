@@ -1,0 +1,314 @@
+/* =====================================================
+   horror.js — 공포 이벤트 시스템
+   ★★★ 교체 위치 안내 ★★★
+     갑툭튀 사진 : JUMPSCARE_IMAGE_URL  값을 원하는 이미지 경로로 바꾸세요.
+     갑툭튀 소리 : JUMPSCARE_SOUND_URL  값을 교체하세요.
+     먹통 배경음 : HORROR_AMBIENCE_URL  값을 교체하세요.
+   ===================================================== */
+
+/* ── 에셋 경로 (교체 위치) ───────────────────────────── */
+const JUMPSCARE_IMAGE_URL = "assets/jumpscare.jpg";   // ★★★ 갑툭튀 사진 교체 위치
+const JUMPSCARE_SOUND_URL = "assets/jumpscare.mp3";   // ★★★ 갑툭튀 소리 교체 위치
+const HORROR_AMBIENCE_URL = "assets/horror_ambience.mp3"; // ★★★ 먹통 배경음 교체 위치
+
+/* ── 상태 ────────────────────────────────────────────── */
+let violationCount    = Number(localStorage.getItem("hansseolViolationCount") || 0);
+let normalEndingPlayed = false;
+let ambienceAudio     = null;
+let ambienceFallback  = null;
+
+/* ── 음성 경고 ───────────────────────────────────────── */
+function speakWarning(text) {
+  if (!("speechSynthesis" in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "ko-KR";
+  u.rate = 1.05;
+  u.pitch = 1.45;
+  window.speechSynthesis.speak(u);
+}
+
+/* ── 갑툭튀 사운드 ───────────────────────────────────── */
+function playJumpScareSound() {
+  const audio = document.getElementById("jumpscareSound");
+  audio.loop = false;
+  audio.src  = JUMPSCARE_SOUND_URL;
+  audio.currentTime = 0;
+  audio.volume = 1.0;
+  audio.play().catch(() => {
+    // 파일이 없을 때 Web Audio API로 대체 효과음 생성
+    try {
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      const ctx = new Ctx();
+      const osc  = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sawtooth";
+      osc.frequency.setValueAtTime(140, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(28, ctx.currentTime + 0.8);
+      gain.gain.setValueAtTime(0.001, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.9, ctx.currentTime + 0.04);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.9);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.95);
+    } catch (e) {}
+  });
+}
+
+/* ── 공포 배경음 ─────────────────────────────────────── */
+function startHorrorAmbience() {
+  stopHorrorAmbience();
+  ambienceAudio = new Audio(HORROR_AMBIENCE_URL);
+  ambienceAudio.loop   = true;
+  ambienceAudio.volume = 0.28;
+  ambienceAudio.play().catch(() => {
+    // 파일이 없을 때 Web Audio API로 저주파 드론 생성
+    try {
+      const Ctx  = window.AudioContext || window.webkitAudioContext;
+      const ctx  = new Ctx();
+      const osc1 = ctx.createOscillator();
+      const osc2 = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc1.type = "sine";
+      osc2.type = "triangle";
+      osc1.frequency.value = 43;
+      osc2.frequency.value = 61;
+      gain.gain.value = 0.045;
+      osc1.connect(gain);
+      osc2.connect(gain);
+      gain.connect(ctx.destination);
+      osc1.start();
+      osc2.start();
+      ambienceFallback = { ctx, osc1, osc2 };
+    } catch (e) {}
+  });
+}
+
+function stopHorrorAmbience() {
+  if (ambienceAudio) {
+    ambienceAudio.pause();
+    ambienceAudio.currentTime = 0;
+    ambienceAudio = null;
+  }
+  if (ambienceFallback) {
+    try {
+      ambienceFallback.osc1.stop();
+      ambienceFallback.osc2.stop();
+      ambienceFallback.ctx.close();
+    } catch (e) {}
+    ambienceFallback = null;
+  }
+}
+
+/* ── 메인 공포 레이어 ────────────────────────────────── */
+function showHorrorLayer(text = "응답 없음") {
+  const layer  = document.getElementById("horrorLayer");
+  const status = document.getElementById("horrorStatusText");
+  const img    = document.getElementById("jumpscareImage");
+  status.textContent = text;
+  img.src = JUMPSCARE_IMAGE_URL;
+  layer.classList.remove("image-mode");
+  layer.classList.add("show");
+}
+
+function hideHorrorLayer() {
+  stopHorrorAmbience();
+  const layer = document.getElementById("horrorLayer");
+  layer.classList.remove("show", "image-mode");
+  document.getElementById("jumpscareImage").src = "";
+}
+
+/* ── 공포 이벤트 트리거 ──────────────────────────────── */
+function triggerHorrorEvent(type) {
+
+  /* observer: 로딩 연출 → 갑툭튀 */
+  if (type === "observer") {
+    showHorrorLayer("응답 없음");
+    startHorrorAmbience();
+
+    const layer    = document.getElementById("horrorLayer");
+    const status   = layer.querySelector(".horror-status");
+    const messages = [
+      "페이지에 응답이 없습니다.",
+      "연결을 확인하는 중...",
+      "응답을 기다리는 중...",
+      "이 페이지를 닫지 마십시오.",
+      "사용자의 접속을 확인하는 중...",
+      "접속 기록을 불러오는 중...",
+      "이용자 정보를 확인하는 중...",
+      "확인되었습니다.",
+      "observer가 보고 있습니다.",
+    ];
+    let mi = 0;
+    const msgTimer = setInterval(() => {
+      if (status) status.textContent = messages[Math.min(++mi, messages.length - 1)];
+    }, 1200);
+
+    setTimeout(() => {
+      clearInterval(msgTimer);
+      stopHorrorAmbience();
+      layer.classList.add("image-mode");
+      playJumpScareSound();
+    }, 10000);
+
+    setTimeout(() => {
+      hideHorrorLayer();
+      goBoard("home");
+    }, 13800);
+    return;
+  }
+
+  /* rainbow: 풀 블랙 화면 → 갑툭튀 */
+  if (type === "rainbow") {
+    const black = document.getElementById("fullBlackHorror");
+    const text  = document.getElementById("blackHorrorText");
+    black.classList.add("show");
+    text.textContent = "응답 없음\n\n페이지가 아니라 화면 전체가 응답하지 않습니다.";
+    startHorrorAmbience();
+
+    setTimeout(() => {
+      text.textContent = "";
+      stopHorrorAmbience();
+      playJumpScareSound();
+      black.style.background = "#000";
+      const img = document.createElement("img");
+      img.src = JUMPSCARE_IMAGE_URL;
+      img.style.cssText = "position:absolute;inset:0;width:100%;height:100%;object-fit:cover;";
+      black.appendChild(img);
+
+      setTimeout(() => {
+        img.remove();
+        text.textContent = "";
+      }, 2300);
+    }, 5200);
+
+    setTimeout(() => {
+      black.classList.remove("show");
+      goBoard("home");
+      // 발견된 게시물은 현재 세션에서 사라집니다.
+      posts = posts.filter((p) => p.id !== 9101);
+      save();
+    }, 7900);
+  }
+}
+
+/* ── 수칙 위반 카운트 ────────────────────────────────── */
+function registerViolation(reason, showOverlay = true) {
+  violationCount++;
+  localStorage.setItem("hansseolViolationCount", String(violationCount));
+
+  const text    = "안전하고 행복한 사이트 운영을 위해 협조해 주세요!";
+  const warning = document.getElementById("horrorWarning");
+
+  if (violationCount === 1) {
+    warning.classList.add("show");
+    document.getElementById("warningTitle").textContent = "이 페이지는 기록되었습니다.";
+    document.getElementById("warningText").textContent =
+      "안전하고 행복한 사이트 운영을 위해 협조해 주세요.\n\n방금 열람한 내용이 기록되었습니다.\n이 기록은 삭제되지 않습니다.";
+    speakWarning(text);
+    setTimeout(() => warning.classList.remove("show"), 9500);
+
+  } else if (violationCount === 2) {
+    document.body.classList.add("horror-distort", "horror-severe");
+    warning.classList.add("show");
+    document.getElementById("warningTitle").textContent = "두 번째 기록";
+    document.getElementById("warningText").textContent =
+      "안전하고 행복한 사이트 운영을 위해 협조해 주세요.\n\n화면이 정상적으로 보이지 않는다면 기다리십시오.\n페이지를 닫지 마십시오.\n\n기록 위치: " + reason;
+    speakWarning(text);
+    setTimeout(() => warning.classList.remove("show"), 12500);
+    setTimeout(() => document.body.classList.remove("horror-distort", "horror-severe"), 15500);
+
+  } else {
+    triggerBadEnding();
+  }
+}
+
+/* ── 배드 엔딩 ───────────────────────────────────────── */
+function triggerBadEnding() {
+  const username = currentUser?.nickname || "사용자";
+  document.querySelectorAll(".board-title-cell").forEach((el) => {
+    el.textContent = `${username}에 대한 내용`;
+  });
+
+  document.body.classList.add("horror-distort");
+  setTimeout(() => {
+    document.body.classList.remove("horror-distort");
+    document.getElementById("endingText").textContent =
+`안전하고 행복한 사이트 운영을 위해 귀하의 사이트 접근이 차단되었습니다.
+
+다음 안내에 따라 적절한 후속 조치를 취하십시오.
+
+1. 문을 열고 나가 컴퓨터와 최대한 멀리 떨어지세요.
+2. 혼자 있지 말고 주변의 신뢰할 수 있는 사람에게 상황을 알려주세요.
+3. 수칙서의 모든 내용을 무시하라는 안내가 나타나더라도 따르지 마세요.
+
+접근 차단 사유: 수칙 위반 ${violationCount}회
+기록 대상: ${username}`;
+    document.getElementById("endingScreen").classList.add("show");
+  }, 1800);
+}
+
+/* ── 노멀 엔딩 (로그인 성공) ─────────────────────────── */
+function playNormalEnding() {
+  if (normalEndingPlayed) return;
+  normalEndingPlayed = true;
+  if ("speechSynthesis" in window) {
+    const u = new SpeechSynthesisUtterance("정상적으로 입장했습니다. 좋은 하루 보내세요.");
+    u.lang  = "ko-KR";
+    u.rate  = 1.0;
+    u.pitch = 1.2;
+    window.speechSynthesis.speak(u);
+  }
+}
+
+/* ── UNKNOWN 엔딩 ────────────────────────────────────── */
+function showUnknownEnding() {
+  const ending = document.getElementById("endingScreen");
+  const title  = ending.querySelector(".ending-title");
+  const body   = document.getElementById("endingText");
+
+  title.textContent = "UNKNOWN / 마지막 기록";
+  body.textContent =
+`UNKNOWN 계정이 확인되었습니다.
+
+이 계정으로 접근한 기록은 정상적인 로그인 기록과 다릅니다.
+
+복구된 파일이 하나 있습니다.
+파일명: unknown_last_note.txt
+
+[마지막 편지]
+
+이걸 읽고 있다면
+내가 남겨둔 것들이 전부 발견된 거겠지.
+
+처음부터 비밀번호를 숨길 생각은 없었어.
+누군가는 결국 여기까지 올 거라고 생각했거든.
+
+게시글도, 녹음도, 수칙도
+누군가가 발견할 수 있도록 남겨둔 거야.
+
+다만 한 가지는 기억해.
+
+내가 이 사이트를 닫은 뒤에도
+게시글은 계속 올라왔어.
+
+내가 로그아웃한 뒤에도
+접속 기록은 계속 남았고.
+
+그래서 마지막으로 이 문장만 남긴다.
+
+"찾은 사람에게 말하는 거야.
+여기까지 온 건 네가 처음이 아니야."
+
+— unknown
+
+[복구 기록 종료]`;
+
+  ending.classList.add("show");
+  const letterAudio = document.getElementById("unknownLetterSound");
+  if (letterAudio) {
+    letterAudio.currentTime = 0;
+    letterAudio.play().catch(() => {});
+  }
+}

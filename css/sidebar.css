@@ -1,0 +1,73 @@
+/* =====================================================
+   sidebar.css — 실시간 인기글 · 최근 댓글 · 바로가기 · 채팅
+   ===================================================== */
+
+.rank-list,
+.comment-list,
+.notice-list {
+  padding: 8px 13px 12px;
+}
+
+.rank-item,
+.recent-comment {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 0;
+  min-width: 0;
+}
+
+.rank-num {
+  width: 18px;
+  color: #d60000;
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.rank-text,
+.comment-text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  flex: 1;
+  cursor: pointer;
+}
+
+.time {
+  font-size: 12px;
+  color: #666;
+  white-space: nowrap;
+}
+
+.shortcuts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 16px;
+  padding: 13px;
+}
+
+.shortcut {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px;
+  border: 1px solid transparent;
+}
+
+.shortcut:hover {
+  border-color: #cbd4df;
+  background: #f7f9fc;
+}
+
+.ico {
+  width: 23px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.chat-box {
+  padding: 13px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

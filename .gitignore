@@ -1,0 +1,33 @@
+# Node / Electron 빌드 결과물
+node_modules/
+dist/
+out/
+release/
+
+# Electron Builder 캐시
+.electron-builder-cache/
+
+# 에디터 설정
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 로그
+*.log
+npm-debug.log*
+
+# 실제 에셋 (저작권 파일은 저장소에 올리지 않음)
+assets/jumpscare.jpg
+assets/jumpscare.mp3
+assets/horror_ambience.mp3
+assets/unknown_letter.mp3
+assets/icon.ico
+
+# 위 에셋의 자리를 채우는 더미 파일은 올려도 됩니다
+# assets/placeholder_*.* 형태로 이름 지어서 올리면 협업자가 교체 위치를 알 수 있음

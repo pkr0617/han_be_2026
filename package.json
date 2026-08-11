@@ -1,0 +1,34 @@
+{
+  "name": "hanccom",
+  "version": "1.0.0",
+  "description": "한찌.com — 한민고 커뮤니티",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win"
+  },
+  "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-builder": "^24.0.0"
+  },
+  "build": {
+    "appId": "com.hanmin.hanccom",
+    "productName": "한찌.com",
+    "files": [
+      "index.html",
+      "main.js",
+      "css/**",
+      "js/**",
+      "assets/**"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": true,
+      "installerLanguages": ["ko"],
+      "language": "1042"
+    }
+  }
+}

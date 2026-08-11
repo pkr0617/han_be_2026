@@ -1,0 +1,174 @@
+/* =====================================================
+   board.css — 게시판 테이블 · 도구 모음 · 페이지네이션 · 페이지 상단
+   ===================================================== */
+
+/* ── BOARD TABLE ─────────────────────────────────────── */
+.board-head,
+.board-row {
+  display: grid;
+  grid-template-columns: 62px minmax(260px, 1fr) 110px 150px 82px 68px;
+  align-items: center;
+}
+
+.board-head {
+  height: 38px;
+  background: var(--soft2);
+  border-bottom: 1px solid #9eabbc;
+  text-align: center;
+  font-weight: 700;
+}
+
+.board-row {
+  min-height: 43px;
+  border-bottom: 1px dotted #abb5c1;
+}
+
+.board-row:hover {
+  background: #f8faff;
+}
+
+.board-row > div {
+  padding: 7px 8px;
+}
+
+.center {
+  text-align: center;
+}
+
+.board-title-cell {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.flame {
+  color: #e20d18;
+  margin-right: 7px;
+}
+
+.new {
+  color: #d3121d;
+  font-weight: 800;
+  font-size: 11px;
+  margin-left: 5px;
+}
+
+.notice-badge {
+  display: inline-block;
+  padding: 2px 5px;
+  background: var(--navy);
+  color: #fff;
+  font-weight: 700;
+  font-size: 11px;
+  margin-right: 7px;
+}
+
+.more-board {
+  width: 100%;
+  border: 0;
+  border-top: 0;
+  background: #fff;
+  height: 40px;
+  font-weight: 700;
+}
+
+.more-board:hover {
+  background: #f5f7fa;
+}
+
+/* ── GENERAL PAGE ────────────────────────────────────── */
+.page-shell {
+  min-height: 620px;
+}
+
+.page-top {
+  border: 1px solid var(--line-dark);
+  border-bottom: 0;
+  background: #f8fafc;
+  padding: 17px 19px;
+}
+
+.page-top h1 {
+  font-size: 22px;
+  margin: 0 0 7px;
+}
+
+.page-top p {
+  margin: 0;
+  color: #586271;
+  font-size: 13px;
+}
+
+/* ── BOARD TOOLS ─────────────────────────────────────── */
+.board-tools {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid var(--line-dark);
+  border-bottom: 0;
+  background: #fff;
+}
+
+.board-tools-left,
+.board-tools-right {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.small-select,
+.small-input {
+  height: 31px;
+  border: 1px solid #9ea9b7;
+  background: #fff;
+  padding: 0 8px;
+}
+
+.small-input {
+  width: 220px;
+}
+
+.primary-btn {
+  height: 32px;
+  border: 1px solid #07285a;
+  background: var(--navy);
+  color: #fff;
+  padding: 0 14px;
+  font-weight: 700;
+}
+
+.secondary-btn {
+  height: 32px;
+  border: 1px solid #7f8b99;
+  background: #f8f8f8;
+  padding: 0 14px;
+  font-weight: 700;
+}
+
+.board-table-wrap {
+  border: 1px solid var(--line-dark);
+}
+
+/* ── PAGINATION ──────────────────────────────────────── */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  padding: 16px;
+}
+
+.page-no {
+  border: 1px solid #a7b1bd;
+  background: #fff;
+  min-width: 31px;
+  height: 30px;
+}
+
+.page-no.active {
+  background: var(--navy);
+  color: #fff;
+  border-color: var(--navy);
+}

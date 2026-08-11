@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <circle cx="60" cy="60" r="55" fill="none" stroke="#555555" stroke-width="5"/>
+  <circle cx="60" cy="60" r="48" fill="none" stroke="#555555" stroke-width="1.5"/>
+  <text x="60" y="52" font-family="Dotum,sans-serif" font-size="11" font-weight="bold"
+        text-anchor="middle" fill="#aaaaaa" letter-spacing="2">알 수</text>
+  <text x="60" y="68" font-family="Dotum,sans-serif" font-size="11" font-weight="bold"
+        text-anchor="middle" fill="#aaaaaa" letter-spacing="2">없음</text>
+  <text x="60" y="84" font-family="Dotum,sans-serif" font-size="9"
+        text-anchor="middle" fill="#888888" letter-spacing="1">ENDING  C</text>
+  <text x="60" y="36" font-family="Dotum,sans-serif" font-size="9"
+        text-anchor="middle" fill="#888888" letter-spacing="2">한찌.com</text>
+</svg>

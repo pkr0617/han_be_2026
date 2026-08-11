@@ -1,0 +1,104 @@
+/* =====================================================
+   responsive.css — 모바일 반응형 (첫 번째 세트)
+   ※ skin.css가 뒤에서 데스크탑 전용으로 재정의합니다.
+   ===================================================== */
+
+@media (max-width: 980px) {
+  #app {
+    border: 0;
+  }
+  .top-header {
+    grid-template-columns: 1fr auto;
+    height: auto;
+    padding: 14px;
+  }
+  .brand-wrap {
+    grid-column: 1/2;
+  }
+  .search-wrap {
+    grid-row: 2;
+    grid-column: 1/-1;
+  }
+  .account-nav {
+    grid-column: 2;
+  }
+  .tagline {
+    display: none;
+  }
+  .home-grid {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .sidebar .box:last-child {
+    grid-column: 1/-1;
+  }
+  .bottom-grid {
+    grid-template-columns: 1fr;
+  }
+  .board-head,
+  .board-row {
+    grid-template-columns: 48px minmax(200px, 1fr) 90px 70px;
+  }
+  .board-head > div:nth-child(4),
+  .board-head > div:nth-child(6),
+  .board-row > div:nth-child(4),
+  .board-row > div:nth-child(6) {
+    display: none;
+  }
+}
+
+@media (max-width: 650px) {
+  .account-nav {
+    font-size: 12px;
+  }
+  .account-nav .optional {
+    display: none;
+  }
+  .content {
+    padding: 8px;
+  }
+  .nav-btn {
+    padding: 0 14px;
+  }
+  .write-top {
+    margin-right: 8px;
+  }
+  .sidebar {
+    grid-template-columns: 1fr;
+  }
+  .sidebar .box:last-child {
+    grid-column: auto;
+  }
+  .board-head,
+  .board-row {
+    grid-template-columns: 42px minmax(150px, 1fr) 64px;
+  }
+  .board-head > div:nth-child(3),
+  .board-head > div:nth-child(4),
+  .board-head > div:nth-child(6),
+  .board-row > div:nth-child(3),
+  .board-row > div:nth-child(4),
+  .board-row > div:nth-child(6) {
+    display: none;
+  }
+  .stats {
+    grid-template-columns: 1fr;
+  }
+  .bars {
+    display: none;
+  }
+  .board-tools {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .board-tools-right {
+    width: 100%;
+  }
+  .small-input {
+    flex: 1;
+    width: auto;
+  }
+}

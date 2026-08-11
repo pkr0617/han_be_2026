@@ -1,0 +1,84 @@
+/* =====================================================
+   forms.css — 글쓰기 · 로그인 · 회원가입 폼 · 검색 결과
+   ===================================================== */
+
+/* ── FORM CARD ───────────────────────────────────────── */
+.form-card {
+  width: min(680px, 100%);
+  margin: 28px auto;
+  border: 1px solid var(--line-dark);
+  background: #fff;
+}
+
+.form-card .form-head {
+  padding: 20px;
+  border-bottom: 1px solid var(--line-dark);
+  background: #f5f8fc;
+}
+
+.form-card .form-head h2 {
+  margin: 0 0 7px;
+}
+
+.form-body {
+  padding: 22px;
+}
+
+.form-row {
+  margin-bottom: 16px;
+}
+
+.form-row label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 7px;
+}
+
+.form-row input,
+.form-row select,
+.form-row textarea {
+  width: 100%;
+  border: 1px solid #98a4b3;
+  padding: 9px;
+  background: #fff;
+}
+
+.form-row textarea {
+  min-height: 220px;
+  resize: vertical;
+}
+
+.help {
+  font-size: 12px;
+  color: #6a7480;
+  margin-top: 5px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.auth-links {
+  text-align: center;
+  margin-top: 15px;
+  color: #555;
+}
+
+.notice-panel {
+  border: 1px solid #c8d1dc;
+  background: #f8fafc;
+  padding: 13px;
+  margin-bottom: 18px;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+/* ── SEARCH RESULT ───────────────────────────────────── */
+.search-summary {
+  padding: 13px 16px;
+  border: 1px solid var(--line-dark);
+  border-bottom: 0;
+  background: #f6f8fb;
+}
