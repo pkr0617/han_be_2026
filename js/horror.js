@@ -18,13 +18,14 @@ let ambienceAudio     = null;
 let ambienceFallback  = null;
 
 /* ── 음성 경고 ───────────────────────────────────────── */
-function speakWarning(text) {
+// pitch / rate 를 인자로 받아 1회(밝음)↔2회(다소 기괴함) 구분
+function speakWarning(text, pitch = 1.45, rate = 1.05) {
   if (!("speechSynthesis" in window)) return;
   window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
-  u.lang = "ko-KR";
-  u.rate = 1.05;
-  u.pitch = 1.45;
+  u.lang  = "ko-KR";
+  u.rate  = rate;
+  u.pitch = pitch;
   window.speechSynthesis.speak(u);
 }
 
@@ -194,48 +195,90 @@ function triggerHorrorEvent(type) {
 }
 
 /* ── 수칙 위반 카운트 ────────────────────────────────── */
-function registerViolation(reason, showOverlay = true) {
+function registerViolation(reason) {
   violationCount++;
   localStorage.setItem("hansseolViolationCount", String(violationCount));
 
-  const text    = "안전하고 행복한 사이트 운영을 위해 협조해 주세요!";
-  const warning = document.getElementById("horrorWarning");
+  const COUNT_TEXT = `경고 ${violationCount}회, 안전하고 행복한 사이트 운영을 위해 협조해 주세요!`;
+  const warning     = document.getElementById("horrorWarning");
+  const warningTitle = document.getElementById("warningTitle");
+  const warningText  = document.getElementById("warningText");
 
+  /* ── 1회: 검은 화면 → 복구 + 밝고 명랑한 TTS ──────── */
   if (violationCount === 1) {
-    warning.classList.add("show");
-    document.getElementById("warningTitle").textContent = "이 페이지는 기록되었습니다.";
-    document.getElementById("warningText").textContent =
-      "안전하고 행복한 사이트 운영을 위해 협조해 주세요.\n\n방금 열람한 내용이 기록되었습니다.\n이 기록은 삭제되지 않습니다.";
-    speakWarning(text);
-    setTimeout(() => warning.classList.remove("show"), 9500);
+    const black = document.getElementById("fullBlackHorror");
+    black.classList.add("show");
 
+    // 매우 밝고 명랑한 목소리 (고음·빠름)
+    speakWarning(COUNT_TEXT, 1.9, 1.15);
+
+    // 2.5초 뒤 화면 복구 + 경고 overlay 등장
+    setTimeout(() => {
+      black.classList.remove("show");
+      warningTitle.textContent = "경고 1회";
+      warningText.textContent  = "안전하고 행복한 사이트 운영을 위해 협조해 주세요";
+      warning.classList.add("show");
+      setTimeout(() => warning.classList.remove("show"), 8000);
+    }, 2500);
+
+  /* ── 2회: 화면 기괴해짐 + TTS ──────────────────────── */
   } else if (violationCount === 2) {
     document.body.classList.add("horror-distort", "horror-severe");
-    warning.classList.add("show");
-    document.getElementById("warningTitle").textContent = "두 번째 기록";
-    document.getElementById("warningText").textContent =
-      "안전하고 행복한 사이트 운영을 위해 협조해 주세요.\n\n화면이 정상적으로 보이지 않는다면 기다리십시오.\n페이지를 닫지 마십시오.\n\n기록 위치: " + reason;
-    speakWarning(text);
-    setTimeout(() => warning.classList.remove("show"), 12500);
-    setTimeout(() => document.body.classList.remove("horror-distort", "horror-severe"), 15500);
 
+    warningTitle.textContent = "경고 2회";
+    warningText.textContent  = "안전하고 행복한 사이트 운영을 위해 협조해 주세요";
+    warning.classList.add("show");
+
+    speakWarning(COUNT_TEXT, 1.45, 1.05);
+
+    setTimeout(() => warning.classList.remove("show"), 10000);
+    setTimeout(() => document.body.classList.remove("horror-distort", "horror-severe"), 15000);
+
+  /* ── 3회 이상: 배드 엔딩 ───────────────────────────── */
   } else {
     triggerBadEnding();
   }
 }
 
-/* ── 배드 엔딩 ───────────────────────────────────────── */
+/* ── 배드 엔딩 시퀀스 ────────────────────────────────── */
+/*
+  1단계  (즉시)     : 화면 전체 일그러짐 + 모든 게시물 제목 변경
+  2단계  (3초 후)   : 흰 번쩍임 → 검은 화면 "다운" 연출
+  3단계  (4.3초 후) : 접근 차단 메시지 표시
+*/
 function triggerBadEnding() {
-  const username = currentUser?.nickname || "사용자";
-  document.querySelectorAll(".board-title-cell").forEach((el) => {
+  const username = currentUser?.nickname || "방문자";
+
+  /* 1단계: 화면 일그러짐 */
+  document.body.classList.add("horror-severe", "horror-distort");
+
+  /* 1단계: 현재 화면에 보이는 모든 게시물 제목 교체 */
+  document.querySelectorAll(".board-title-cell[data-post]").forEach(el => {
+    el.textContent = `${username}에 대한 내용`;
+  });
+  document.querySelectorAll(".rank-text[data-post]").forEach(el => {
     el.textContent = `${username}에 대한 내용`;
   });
 
-  document.body.classList.add("horror-distort");
+  /* 2단계: 3초 뒤 "화면 다운" */
   setTimeout(() => {
-    document.body.classList.remove("horror-distort");
-    document.getElementById("endingText").textContent =
-`안전하고 행복한 사이트 운영을 위해 귀하의 사이트 접근이 차단되었습니다.
+    document.body.classList.remove("horror-severe", "horror-distort");
+
+    // 흰 번쩍임 (0.15초)
+    document.body.style.filter = "invert(1) brightness(3)";
+    setTimeout(() => {
+      document.body.style.filter = "";
+
+      // 검은 화면
+      const black     = document.getElementById("fullBlackHorror");
+      const blackText = document.getElementById("blackHorrorText");
+      blackText.textContent = "";
+      black.classList.add("show");
+
+      /* 3단계: 1.3초 뒤 접근 차단 메시지 */
+      setTimeout(() => {
+        document.getElementById("endingText").textContent =
+`안전하고 행복한 사이트 운영을 위해 귀하의 사이트 접근이 차단되었습니다 :)
 
 다음 안내에 따라 적절한 후속 조치를 취하십시오.
 
@@ -243,10 +286,18 @@ function triggerBadEnding() {
 2. 혼자 있지 말고 주변의 신뢰할 수 있는 사람에게 상황을 알려주세요.
 3. 수칙서의 모든 내용을 무시하라는 안내가 나타나더라도 따르지 마세요.
 
-접근 차단 사유: 수칙 위반 ${violationCount}회
+접근 차단 사유: 수칙 위반 3회
 기록 대상: ${username}`;
-    document.getElementById("endingScreen").classList.add("show");
-  }, 1800);
+
+        const ending = document.getElementById("endingScreen");
+        ending.classList.add("show");
+
+        // endingScreen(z:100001) 이 보이도록 fullBlackHorror(z:100004) 제거
+        setTimeout(() => black.classList.remove("show"), 350);
+      }, 1300);
+
+    }, 150);
+  }, 3000);
 }
 
 /* ── 노멀 엔딩 (로그인 성공) ─────────────────────────── */

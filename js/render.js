@@ -320,18 +320,17 @@ function renderLogin() {
     const pw = document.getElementById("loginPw").value;
     if (!id || !pw) return;
 
-    currentUser = {
-      id,
-      nickname:  id,
-      isUnknown: id === UNKNOWN_ID && pw === UNKNOWN_PASSWORD,
-    };
+    const isUnknown = id === UNKNOWN_ID && pw === UNKNOWN_PASSWORD;
+    currentUser = { id, nickname: id, isUnknown };
     save();
     updateAccount();
-    goBoard("home");
 
-    if (currentUser.isUnknown) {
-      showUnknownEnding();
+    if (isUnknown) {
+      // 다크 사이트 진입: 게시글/댓글 교체 후 홈으로
+      switchToDarkSite();
+      goBoard("home");
     } else {
+      goBoard("home");
       playNormalEnding();
       showModal("로그인 완료", `${esc(id)} 계정으로 데모 로그인되었습니다.`);
     }

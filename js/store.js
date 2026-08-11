@@ -20,6 +20,20 @@ let comments = JSON.parse(localStorage.getItem(COMMENTS_KEY) || "null") || seedC
 let currentUser  = JSON.parse(localStorage.getItem(USER_KEY) || "null");
 let currentBoard = "home";
 
+/* ── 다크 사이트 상태 ────────────────────────────────── */
+let _isDarkSite = false;
+
+// UNKNOWN 계정으로 로그인하면 게시글/댓글을 다크 버전으로 교체
+function switchToDarkSite() {
+  _isDarkSite = true;
+  posts    = [...darkSeedPosts];
+  comments = [...darkSeedComments];
+  document.body.classList.add("dark-site");
+}
+
+// 새로고침 후 UNKNOWN 유저로 복귀 시 자동 복원
+if (currentUser?.isUnknown) switchToDarkSite();
+
 /* ── 개발자 콘솔 트리거 맵 ──────────────────────────── */
 // 브라우저 콘솔에서 showTriggerMap() 실행 시 공포 트리거 위치를 확인할 수 있습니다.
 const TRIGGER_MAP = posts
@@ -30,8 +44,11 @@ window.showTriggerMap = () => console.table(TRIGGER_MAP);
 
 /* ── 저장 ────────────────────────────────────────────── */
 function save() {
-  localStorage.setItem(POSTS_KEY,    JSON.stringify(posts));
-  localStorage.setItem(COMMENTS_KEY, JSON.stringify(comments));
+  // 다크 사이트 중에는 게시글/댓글을 localStorage에 덮어쓰지 않음
+  if (!_isDarkSite) {
+    localStorage.setItem(POSTS_KEY,    JSON.stringify(posts));
+    localStorage.setItem(COMMENTS_KEY, JSON.stringify(comments));
+  }
   if (currentUser) localStorage.setItem(USER_KEY, JSON.stringify(currentUser));
   else             localStorage.removeItem(USER_KEY);
 }
