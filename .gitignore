@@ -1,3 +1,6 @@
+# Claude Code 내부 파일 (세션, 메모리 등)
+.claude/
+
 # Node / Electron 빌드 결과물
 node_modules/
 dist/
