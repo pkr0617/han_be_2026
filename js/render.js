@@ -323,13 +323,12 @@ function renderLogin() {
     const isUnknown = id === UNKNOWN_ID && pw === UNKNOWN_PASSWORD;
     currentUser = { id, nickname: id, isUnknown };
     save();
-    updateAccount();
 
     if (isUnknown) {
-      // 다크 사이트 진입: 게시글/댓글 교체 후 홈으로
-      switchToDarkSite();
-      goBoard("home");
+      // 다크 사이트: 별도 HTML로 이동
+      window.location.href = "dark.html";
     } else {
+      updateAccount();
       goBoard("home");
       playNormalEnding();
       showModal("로그인 완료", `${esc(id)} 계정으로 데모 로그인되었습니다.`);

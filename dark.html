@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- ★★★ 협업자: 다크 사이트 탭 제목을 여기서 바꾸세요 ★★★ -->
+    <title>한찌.com — 한민고 커뮤니티</title>
+
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/board.css" />
+    <link rel="stylesheet" href="css/sidebar.css" />
+    <link rel="stylesheet" href="css/post.css" />
+    <link rel="stylesheet" href="css/forms.css" />
+    <link rel="stylesheet" href="css/modal.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" href="css/skin.css" />
+    <link rel="stylesheet" href="css/horror.css" />
+    <link rel="stylesheet" href="css/minigame.css" />
+  </head>
+  <body>
+    <div id="app">
+
+      <!-- ── 헤더 ───────────────────────────────────── -->
+      <header class="top-header">
+        <div class="brand-wrap">
+          <!-- ★★★ 협업자: 사이트 이름·태그라인을 여기서 바꾸세요 ★★★ -->
+          <div class="brand" data-go="home">한찌.com</div>
+          <div class="tagline">한민고의 모든 이야기, 이곳에 집결</div>
+        </div>
+
+        <div class="search-wrap">
+          <form class="search-box" id="globalSearchForm">
+            <input id="globalSearchInput" type="search" placeholder="게시글 검색" />
+            <button type="submit">검색</button>
+          </form>
+        </div>
+
+        <div class="account-nav" id="accountNav">
+          <button data-go="login">로그인</button><span class="divider">|</span>
+          <button data-go="signup">회원가입</button
+          ><span class="divider optional">|</span>
+          <button class="optional" data-go="inquiry">✉ 문의사항</button>
+        </div>
+      </header>
+
+      <!-- ── 네비게이션 ─────────────────────────────── -->
+      <!-- ★★★ 협업자: 게시판 이름을 여기서 바꿀 수 있습니다 ★★★ -->
+      <nav class="main-nav" id="mainNav">
+        <button class="nav-btn active" data-board="home">홈</button>
+        <button class="nav-btn" data-board="hot">핫이슈</button>
+        <button class="nav-btn" data-board="free">자유게시판</button>
+        <button class="nav-btn" data-board="anon">익명게시판</button>
+        <button class="nav-btn" data-board="love">연애&썰</button>
+        <button class="nav-btn" data-board="dorm">기숙사</button>
+        <button class="nav-btn" data-board="exam">시험&성적</button>
+        <button class="nav-btn" data-board="club">동아리</button>
+        <button class="nav-btn" data-board="alumni">졸업생</button>
+        <button class="nav-btn" data-board="inquiry">문의사항</button>
+        <div class="nav-spacer"></div>
+        <button class="write-top" data-go="write">✎ 글 게시</button>
+      </nav>
+
+      <!-- ── 메인 콘텐츠 ───────────────────────────── -->
+      <main class="content">
+
+        <!-- 홈 페이지 -->
+        <section class="page active" id="page-home">
+          <div class="home-grid">
+            <section class="box">
+              <div class="box-title">
+                <div class="title-left"><span class="dot"></span>핫이슈</div>
+                <button class="more-link" style="border:0;background:transparent" data-board="hot">
+                  더보기 ▶
+                </button>
+              </div>
+              <div id="homeHotBoard"></div>
+              <button class="more-board" data-board="hot">더보기 ▼</button>
+            </section>
+
+            <aside class="sidebar">
+              <div class="box">
+                <div class="box-title">
+                  <div class="title-left"><span class="dot"></span>실시간 인기글</div>
+                </div>
+                <div class="rank-list" id="popularList"></div>
+              </div>
+              <div class="box">
+                <div class="box-title">
+                  <div class="title-left"><span class="square"></span>최근 댓글</div>
+                </div>
+                <div class="comment-list" id="recentComments"></div>
+              </div>
+              <div class="box">
+                <div class="box-title">
+                  <div class="title-left"><span class="square"></span>바로가기</div>
+                </div>
+                <div class="shortcuts">
+                  <button class="shortcut" data-board="free"><span class="ico">▣</span>자유게시판</button>
+                  <button class="shortcut" data-board="love"><span class="ico">♡</span>연애&썰</button>
+                  <button class="shortcut" data-board="anon"><span class="ico">▧</span>익명게시판</button>
+                  <button class="shortcut" data-board="dorm"><span class="ico">⌂</span>기숙사 이야기</button>
+                  <button class="shortcut" data-board="club"><span class="ico">♧</span>동아리 게시판</button>
+                  <button class="shortcut" data-board="inquiry"><span class="ico">✉</span>문의사항</button>
+                </div>
+              </div>
+              <div class="box">
+                <div class="box-title">
+                  <div class="title-left"><span class="square"></span>개인 채팅</div>
+                </div>
+                <div class="chat-box">
+                  <span>친구들과 대화를 나눠보세요!</span>
+                  <button class="outline-btn" id="openChat">채팅창 열기</button>
+                </div>
+              </div>
+            </aside>
+          </div>
+
+          <div class="bottom-grid">
+            <section class="box">
+              <div class="box-title">
+                <div class="title-left"><span class="square"></span>오늘의 한찌.com</div>
+              </div>
+              <div class="bottom-body">
+                오늘의 한찌.com은 가장 많은 공감을 받은 글 중 선정됩니다.<br />
+                오늘의 주인공이 되어보세요.
+                <div style="text-align:right;margin-top:8px">
+                  <button class="outline-btn" data-go="write">글 게시하기</button>
+                </div>
+              </div>
+            </section>
+            <section class="box">
+              <div class="box-title">
+                <div class="title-left"><span class="square"></span>접속자 통계</div>
+              </div>
+              <div class="bottom-body stats">
+                <div>
+                  현재 접속자　: <b>128명</b><br />
+                  오늘 방문자　: <b>1,241명</b><br />
+                  전체 회원수　: <b>12,857명</b>
+                </div>
+                <div class="bars">
+                  <span style="height:18%"></span><span style="height:38%"></span>
+                  <span style="height:55%"></span><span style="height:32%"></span>
+                  <span style="height:69%"></span><span style="height:46%"></span>
+                  <span style="height:92%"></span><span style="height:67%"></span>
+                </div>
+              </div>
+            </section>
+            <section class="box">
+              <div class="box-title">
+                <div class="title-left"><span class="square"></span>공지사항</div>
+              </div>
+              <div class="bottom-body">
+                <button class="notice-link" data-notice="nickname">가입 시 닉네임 규칙 안내 (필독)</button>
+                <button class="notice-link" data-notice="rules">게시판 이용 규칙 안내</button>
+                <button class="notice-link" data-notice="privacy">개인정보 작성 주의 안내</button>
+                <button class="notice-link" data-notice="inquiry">문의사항 이용 안내</button>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <!-- 동적으로 채워지는 페이지들 -->
+        <section class="page page-shell" id="page-board"></section>
+        <section class="page page-shell" id="page-post"></section>
+        <section class="page page-shell" id="page-write"></section>
+        <section class="page page-shell" id="page-login"></section>
+        <section class="page page-shell" id="page-signup"></section>
+        <section class="page page-shell" id="page-search"></section>
+      </main>
+
+      <!-- ── 푸터 ──────────────────────────────────── -->
+      <footer class="footer">
+        <div>
+          <a href="#">이용약관</a> | <a href="#">개인정보처리방침</a> |
+          <a href="#">회원제휴</a> | <a data-board="inquiry">문의사항</a>
+        </div>
+        <div>© 2026 hansseol.net. All rights reserved. · Prototype</div>
+      </footer>
+    </div><!-- /#app -->
+
+    <!-- 미니게임 레이어 -->
+    <div id="mg-popupLayer" aria-hidden="true"></div>
+    <div id="mg-crashOverlay" class="mg-hidden" aria-hidden="true">
+      <pre id="mg-logText"></pre>
+    </div>
+    <div id="mg-captchaOverlay" class="mg-hidden" role="dialog" aria-modal="true" aria-label="보안 확인">
+      <div class="mg-captcha-box">
+        <div class="mg-captcha-title">🔒 보안 확인이 필요합니다</div>
+        <div class="mg-captcha-image">
+          <span class="mg-captcha-text">????</span>
+        </div>
+        <input class="mg-captcha-input" type="text" placeholder="위의 문자를 입력하세요" autocomplete="off" />
+        <button class="mg-captcha-submit" type="button">확인</button>
+        <div class="mg-captcha-msg"></div>
+      </div>
+    </div>
+    <div id="mg-rescueBanner" class="mg-hidden" role="alert">
+      ⚠ 문제가 발생했나요? 고객센터 연결하기 (클릭)
+    </div>
+    <div id="mg-countdownWidget" class="mg-hidden" aria-label="세션 남은 시간">
+      <div class="mg-countdown-label">SESSION</div>
+      <div id="mg-countdownText">--:--</div>
+    </div>
+    <div id="mg-kakaoWidget" class="mg-hidden">
+      <div id="mg-kakaoPreview" class="mg-hidden">
+        <div class="mg-kakao-preview-name">알 수 없는 사용자</div>
+        <div class="mg-kakao-preview-text"></div>
+      </div>
+      <div id="mg-kakaoBubble" role="button" tabindex="0" aria-label="채팅 열기">
+        <span class="mg-kakao-icon">💬</span>
+        <span id="mg-kakaoBadge" class="mg-hidden">0</span>
+      </div>
+    </div>
+    <div id="mg-kakaoChatPanel" class="mg-hidden" role="dialog" aria-label="채팅">
+      <div class="mg-kakao-chat-header">
+        <span>알 수 없는 사용자</span>
+        <button id="mg-kakaoChatClose" aria-label="채팅 닫기">✕</button>
+      </div>
+      <div id="mg-kakaoChatBody"></div>
+    </div>
+    <div id="mg-endingOverlay" class="mg-hidden" aria-modal="true" role="dialog"></div>
+    <div id="mg-adminPanel" class="mg-hidden" aria-label="관리자 패널"></div>
+
+    <!-- 공포 이벤트 레이어 -->
+    <div id="fullBlackHorror">
+      <div class="black-horror-text" id="blackHorrorText"></div>
+    </div>
+    <div id="modalRoot"></div>
+    <div id="horrorLayer" aria-hidden="true">
+      <div class="horror-status">
+        <div class="spinner"></div>
+        <div id="horrorStatusText">응답 없음</div>
+      </div>
+      <img id="jumpscareImage" class="jumpscare-img" src="" alt="" />
+      <audio id="jumpscareSound" preload="auto"></audio>
+      <audio id="unknownLetterSound" preload="auto" src="assets/unknown_letter.mp3"></audio>
+    </div>
+    <div id="horrorWarning">
+      <b id="warningTitle">이 페이지는 기록되었습니다.</b>
+      <div id="warningText" style="margin-top:12px">안전하고 행복한 사이트 운영을 위해 협조해 주세요!</div>
+    </div>
+    <div id="endingScreen">
+      <div class="ending-inner">
+        <div class="ending-title">사이트 접근 차단</div>
+        <div id="endingText"></div>
+      </div>
+    </div>
+
+    <!-- =====================================================
+         JS 로드 순서
+         ★ dark.html 전용: dark-data.js 를 data.js 대신 로드
+         ===================================================== -->
+    <!-- 다크 사이트 플래그: store.js 가 이 값을 읽어 localStorage 를 건드리지 않음 -->
+    <script>window.__DARK_SITE__ = true;</script>
+    <script src="js/dark-data.js"></script>  <!-- data.js 대신 dark-data.js -->
+    <script src="js/store.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/horror.js"></script>
+    <script src="js/notices.js"></script>
+    <script src="js/render.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/game-data.js"></script>
+    <script src="js/game-corrupt.js"></script>
+    <script src="js/game-trigger.js"></script>
+    <script src="js/game-kakao.js"></script>
+    <script src="js/game-minigame.js"></script>
+    <script>
+      (function bootMinigame() {
+        if (typeof GM_TRIGGER   !== "undefined") GM_TRIGGER.init();
+        if (typeof GM_KAKAO     !== "undefined") GM_KAKAO.init();
+        if (typeof GM_MINIGAME  !== "undefined") GM_MINIGAME.init();
+      })();
+    </script>
+  </body>
+</html>
