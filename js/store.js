@@ -3,7 +3,7 @@
    ★ 버전을 올리면 localStorage가 초기화됩니다.
    ===================================================== */
 
-const STORAGE_VERSION = "v7";
+const STORAGE_VERSION = "v10"; // v10: 9102·9103 본문 ㄴ댓글 분리
 const POSTS_KEY    = `hansseolPosts_${STORAGE_VERSION}`;
 const COMMENTS_KEY = `hansseolComments_${STORAGE_VERSION}`;
 const USER_KEY     = "hansseolUser";
@@ -23,6 +23,10 @@ if (!posts) {
 let comments = _dark
   ? [...seedComments]
   : (JSON.parse(localStorage.getItem(COMMENTS_KEY) || "null") || seedComments);
+
+// 대댓글 기능: id 없는 기존 댓글에 순서 기반 id 부여 (하위 호환)
+{ let _mid = Math.max(0, ...comments.map(c => c.id || 0));
+  comments = comments.map(c => c.id ? c : { ...c, id: ++_mid }); }
 
 let currentUser  = JSON.parse(localStorage.getItem(USER_KEY) || "null");
 let currentBoard = "home";

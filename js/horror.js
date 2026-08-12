@@ -8,7 +8,7 @@
 
 /* ── 에셋 경로 (교체 위치) ───────────────────────────── */
 const JUMPSCARE_IMAGE_URL = "assets/jumpscare.jpg";   // ★★★ 갑툭튀 사진 교체 위치
-const JUMPSCARE_SOUND_URL = "assets/jumpscare.mp3";   // ★★★ 갑툭튀 소리 교체 위치
+const JUMPSCARE_SOUND_URL = "assets/jumpscarem.mp3";  // ★★★ 갑툭튀 소리 교체 위치
 const HORROR_AMBIENCE_URL = "assets/horror_ambience.mp3"; // ★★★ 먹통 배경음 교체 위치
 
 /* ── 상태 ────────────────────────────────────────────── */
@@ -121,7 +121,7 @@ function hideHorrorLayer() {
 }
 
 /* ── 공포 이벤트 트리거 ──────────────────────────────── */
-function triggerHorrorEvent(type) {
+function triggerHorrorEvent(type, postId = null) {
 
   /* observer: 로딩 연출 → 갑툭튀 */
   if (type === "observer") {
@@ -188,7 +188,7 @@ function triggerHorrorEvent(type) {
       black.classList.remove("show");
       goBoard("home");
       // 발견된 게시물은 현재 세션에서 사라집니다.
-      posts = posts.filter((p) => p.id !== 9101);
+      if (postId !== null) posts = posts.filter((p) => p.id !== postId);
       save();
     }, 7900);
   }

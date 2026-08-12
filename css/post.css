@@ -93,3 +93,14 @@
   color: #fff;
   font-weight: 700;
 }
+
+/* ── 대댓글 ──────────────────────────────────────────── */
+.reply-btn {
+  background: none;
+  border: none;
+  color: #5577aa;
+  font-size: 11px;
+  cursor: pointer;
+  padding: 1px 4px;
+}
+.reply-btn:hover { text-decoration: underline; }

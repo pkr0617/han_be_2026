@@ -4,7 +4,7 @@
 
 /* ── 홈 ──────────────────────────────────────────────── */
 function renderHome() {
-  const hot = posts.filter((p) => !p.hiddenUntilSearch);
+  const hot = posts.filter((p) => p.hot && !p.hiddenUntilSearch);
 
   document.getElementById("homeHotBoard").innerHTML = boardRows(hot, 10);
 
@@ -44,9 +44,8 @@ function goBoard(key) {
   }
 
   const meta = BOARD_META[key] || BOARD_META.free;
-  const list = (
-    key === "hot" ? [...posts] : posts.filter((p) => p.board === key)
-  ).filter((p) => !p.hiddenUntilSearch);
+  const rawList = key === "hot" ? [...posts] : posts.filter((p) => p.board === key);
+  const list = rawList.filter((p) => !p.hiddenUntilSearch);
 
   document.getElementById("page-board").innerHTML = `
     <div class="page-top"><h1>${meta.name}</h1><p>${meta.desc}</p></div>
@@ -76,12 +75,47 @@ function goBoard(key) {
 
   document.getElementById("boardSearchBtn").onclick = () => {
     const q = document.getElementById("boardSearch").value.trim().toLowerCase();
-    const searchable = q.includes("observer") ? list : list.filter((p) => !p.hiddenUntilSearch);
+    const searchable = q.includes("observer") ? rawList : list;
     const filtered = searchable.filter(
       (p) => p.title.toLowerCase().includes(q) || p.body.toLowerCase().includes(q),
     );
     document.getElementById("boardTable").innerHTML = boardRows(filtered);
   };
+}
+
+/* ── 대댓글 트리 ─────────────────────────────────────── */
+function buildCommentTree(cmts) {
+  const map = {};
+  const roots = [];
+  cmts.forEach(c => { map[c.id] = { ...c, children: [] }; });
+  cmts.forEach(c => {
+    if (c.parentId != null && map[c.parentId]) {
+      map[c.parentId].children.push(map[c.id]);
+    } else {
+      roots.push(map[c.id]);
+    }
+  });
+  return roots;
+}
+
+function renderCommentNode(c, depth) {
+  const indent = Math.min(depth * 22, 88);
+  const replyBtn = currentUser
+    ? `<button class="reply-btn" data-reply="${c.id}">↳ 대댓글</button>`
+    : '';
+  const depthStyle = depth > 0
+    ? `style="margin-left:${indent}px;background:#f5f7f9;border-left:2px solid #c5cfd8;"`
+    : '';
+  return `
+    <div class="comment-row" ${depthStyle}>
+      <div class="comment-row-top">
+        <b>${esc(c.author)}</b>
+        <span>${esc(c.time || '방금 전')}${replyBtn ? '&ensp;' + replyBtn : ''}</span>
+      </div>
+      <div>${esc(c.text)}</div>
+      <div id="reply-slot-${c.id}"></div>
+      ${c.children.map(ch => renderCommentNode(ch, depth + 1)).join('')}
+    </div>`;
 }
 
 /* ── 게시글 상세 ─────────────────────────────────────── */
@@ -91,7 +125,7 @@ function openPost(id) {
 
   // 공포 트리거 체크
   if (p.horror === "observer") { triggerHorrorEvent("observer"); return; }
-  if (p.horror === "rainbow")  { triggerHorrorEvent("rainbow");  return; }
+  if (p.horror === "rainbow")  { triggerHorrorEvent("rainbow", p.id);  return; }
   if (p.horror === "blank")    { registerViolation("빈 게시글 접근"); return; }
   if (p.horror === "author")   { registerViolation("작성자 게시글 접근"); }
   // "audio" 트리거는 세 번째 녹음 재생 시 적립됩니다 (아래 audio 이벤트 참조).
@@ -148,17 +182,7 @@ function openPost(id) {
       <div id="commentItems">
         ${
           pcs.length
-            ? pcs
-                .map(
-                  (c) => `
-              <div class="comment-row">
-                <div class="comment-row-top">
-                  <b>${esc(c.author)}</b><span>${esc(c.time || "방금 전")}</span>
-                </div>
-                <div>${esc(c.text)}</div>
-              </div>`,
-                )
-                .join("")
+            ? buildCommentTree(pcs).map(c => renderCommentNode(c, 0)).join("")
             : '<div class="comment-row">아직 댓글이 없습니다.</div>'
         }
       </div>
@@ -177,11 +201,12 @@ function openPost(id) {
 
   showPage("page-post");
 
-  // 공감 버튼
+  // 공감 버튼 (숫자만 갱신 — 전체 재렌더 금지)
   document.getElementById("likeBtn").onclick = () => {
     p.likes++;
     save();
-    openPost(p.id);
+    const btn = document.getElementById("likeBtn");
+    if (btn) btn.textContent = `♡ 공감 ${p.likes}`;
   };
 
   // 세 번째 녹음 재생 감지
@@ -205,13 +230,42 @@ function openPost(id) {
       if (!currentUser) { renderLogin(); return; }
       const text = document.getElementById("commentText").value.trim();
       if (!text) return;
-      comments.push({ postId: p.id, author: currentUser.nickname, text, time: "방금 전" });
+      const nextId = Math.max(0, ...comments.map(c => c.id || 0)) + 1;
+      comments.push({ id: nextId, postId: p.id, author: currentUser.nickname, text, time: "방금 전" });
       save();
       openPost(p.id);
     };
   }
   const cl = document.getElementById("commentLoginBtn");
   if (cl) cl.onclick = () => renderLogin();
+
+  // 대댓글 버튼 이벤트 (이벤트 위임)
+  const ci = document.getElementById("commentItems");
+  if (ci) {
+    ci.addEventListener("click", (e) => {
+      const btn = e.target.closest(".reply-btn");
+      if (!btn || !currentUser) return;
+      const parentId = Number(btn.dataset.reply);
+      const slot = document.getElementById(`reply-slot-${parentId}`);
+      if (!slot) return;
+      // 토글: 이미 열려있으면 닫기
+      if (slot.querySelector(".reply-form")) { slot.innerHTML = ""; return; }
+      slot.innerHTML = `
+        <form class="reply-form comment-form" style="margin-top:6px">
+          <textarea placeholder="대댓글을 입력하세요" style="height:52px"></textarea>
+          <button type="submit">등록</button>
+        </form>`;
+      slot.querySelector("form").onsubmit = (ev) => {
+        ev.preventDefault();
+        const text = slot.querySelector("textarea").value.trim();
+        if (!text) return;
+        const nextId = Math.max(0, ...comments.map(c => c.id || 0)) + 1;
+        comments.push({ id: nextId, postId: p.id, author: currentUser.nickname, text, time: "방금 전", parentId });
+        save();
+        openPost(p.id);
+      };
+    });
+  }
 }
 
 /* ── 글쓰기 ──────────────────────────────────────────── */

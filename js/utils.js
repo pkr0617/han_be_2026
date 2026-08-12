@@ -58,7 +58,7 @@ function boardRows(list, limit = null) {
   </div>`;
 
   arr.forEach((p, i) => {
-    const commentCount = comments.filter((c) => c.postId === p.id).length || p.comments || 0;
+    const commentCount = comments.filter((c) => c.postId === p.id).length;
     html += `<div class="board-row">
       <div class="center">${i + 1}</div>
       <div class="board-title-cell" data-post="${p.id}">

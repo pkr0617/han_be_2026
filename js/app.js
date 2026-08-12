@@ -84,6 +84,14 @@ document.getElementById("openChat").onclick = () =>
 updateAccount();
 renderHome();
 
+/* ── dark.html: UNKNOWN 계정 → 마지막 편지 엔딩 ────────
+   unknown 계정으로 로그인하면 dark.html 로 리다이렉트되고,
+   2초 뒤 showUnknownEnding() 오버레이가 자동으로 뜹니다.
+─────────────────────────────────────────────────────── */
+if (_dark && currentUser?.isUnknown) {
+  setTimeout(() => showUnknownEnding(), 2000);
+}
+
 /* =====================================================
    개발 도구 (배포 후에도 유지 — 제작자 전용)
    ===================================================== */
