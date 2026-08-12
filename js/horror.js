@@ -7,8 +7,10 @@
    ===================================================== */
 
 /* ── 에셋 경로 (교체 위치) ───────────────────────────── */
-const JUMPSCARE_IMAGE_URL = "assets/jumpscare.jpg";   // ★★★ 갑툭튀 사진 교체 위치
-const JUMPSCARE_SOUND_URL = "assets/jumpscarem.mp3";  // ★★★ 갑툭튀 소리 교체 위치
+const JUMPSCARE_IMAGE_URL      = "assets/KakaoTalk_20260811_194334532.jpg"; // ★★★ 기본 갑툭튀 사진 (fallback)
+const JUMPSCARE_IMAGE_OBSERVER = "assets/Daisy.jpeg";                       // ★★★ observer 트리거 갑툭튀
+const JUMPSCARE_IMAGE_RAINBOW  = "assets/KakaoTalk_20260811_193424745.png"; // ★★★ rainbow 트리거 갑툭튀
+const JUMPSCARE_SOUND_URL      = "assets/jumpscarem.mp3";                   // ★★★ 갑툭튀 소리
 const HORROR_AMBIENCE_URL = "assets/horror_ambience.mp3"; // ★★★ 먹통 배경음 교체 위치
 
 /* ── 상태 ────────────────────────────────────────────── */
@@ -103,12 +105,12 @@ function stopHorrorAmbience() {
 }
 
 /* ── 메인 공포 레이어 ────────────────────────────────── */
-function showHorrorLayer(text = "응답 없음") {
+function showHorrorLayer(text = "응답 없음", imageUrl = JUMPSCARE_IMAGE_URL) {
   const layer  = document.getElementById("horrorLayer");
   const status = document.getElementById("horrorStatusText");
   const img    = document.getElementById("jumpscareImage");
   status.textContent = text;
-  img.src = JUMPSCARE_IMAGE_URL;
+  img.src = imageUrl;
   layer.classList.remove("image-mode");
   layer.classList.add("show");
 }
@@ -125,7 +127,7 @@ function triggerHorrorEvent(type, postId = null) {
 
   /* observer: 로딩 연출 → 갑툭튀 */
   if (type === "observer") {
-    showHorrorLayer("응답 없음");
+    showHorrorLayer("응답 없음", JUMPSCARE_IMAGE_OBSERVER);
     startHorrorAmbience();
 
     const layer    = document.getElementById("horrorLayer");
@@ -174,7 +176,7 @@ function triggerHorrorEvent(type, postId = null) {
       playJumpScareSound();
       black.style.background = "#000";
       const img = document.createElement("img");
-      img.src = JUMPSCARE_IMAGE_URL;
+      img.src = JUMPSCARE_IMAGE_RAINBOW;
       img.style.cssText = "position:absolute;inset:0;width:100%;height:100%;object-fit:cover;";
       black.appendChild(img);
 
@@ -249,8 +251,9 @@ function registerViolation(reason) {
 function triggerBadEnding() {
   const username = currentUser?.nickname || "방문자";
 
-  /* 1단계: 화면 일그러짐 */
+  /* 1단계: 화면 일그러짐 + 낮고 느린 경고 음성 */
   document.body.classList.add("horror-severe", "horror-distort");
+  speakWarning("경고 3회. 안전하고 행복한 사이트 운영을 위해 협조해 주세요.", 0.7, 0.8);
 
   /* 1단계: 현재 화면에 보이는 모든 게시물 제목 교체 */
   document.querySelectorAll(".board-title-cell[data-post]").forEach(el => {
@@ -291,6 +294,13 @@ function triggerBadEnding() {
 
         const ending = document.getElementById("endingScreen");
         ending.classList.add("show");
+
+        // 접근 차단 메시지를 낮고 느린 목소리로 낭독
+        speakWarning(
+          `안전하고 행복한 사이트 운영을 위해 귀하의 사이트 접근이 차단되었습니다. 문을 열고 나가 컴퓨터와 최대한 멀리 떨어지세요. 혼자 있지 말고 주변의 신뢰할 수 있는 사람에게 상황을 알려주세요.`,
+          0.65,
+          0.8,
+        );
 
         // endingScreen(z:100001) 이 보이도록 fullBlackHorror(z:100004) 제거
         setTimeout(() => black.classList.remove("show"), 350);

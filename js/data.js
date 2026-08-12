@@ -27,6 +27,78 @@ const BOARD_META = {
 
 const seedPosts = [
   {
+    id: 66,
+    board: "free",
+    title: "OO 국회의원, 50억 상당의 현금 한민고에 전달하다 적발…",
+    author: "지켜본다",
+    date: "2026-08-11 09:14",
+    views: 6210,
+    comments: 4,
+    likes: 389,
+    body: `00당 그분 왜 한민고 왔음?`,
+    hot: false,
+  },
+  {
+    id: 67,
+    board: "club",
+    title: "베타, 알고보니 알파고의 수하들?",
+    author: "고양이편",
+    date: "2026-08-11 07:52",
+    views: 2350,
+    comments: 4,
+    likes: 88,
+    body: `알파고 베타 유착관계 해명해`,
+    hot: false,
+  },
+  {
+    id: 68,
+    board: "free",
+    title: "제발 택배좀 제때 가져가",
+    author: "기숙사생",
+    date: "2026-08-10 21:30",
+    views: 1730,
+    comments: 4,
+    likes: 64,
+    body: `한민고에 택배 엄청 많어`,
+    hot: false,
+  },
+  {
+    id: 69,
+    board: "free",
+    title: "야 걸생 누구 연못에 뛰어듦 ㄸ",
+    author: "한찌.com러",
+    date: "2026-08-10 18:47",
+    views: 940,
+    comments: 0,
+    likes: 51,
+    body: `걸생 리스펙`,
+    hot: false,
+  },
+  {
+    id: 70,
+    board: "club",
+    title: "업로드? 라고 작년에 동아리 있었던거같은데 뭐 없어진거임 뭐임?",
+    author: "13기익명",
+    date: "2026-08-10 12:03",
+    views: 1220,
+    comments: 0,
+    likes: 37,
+    body: `ㅈㄱㄴ`,
+    hot: false,
+  },
+  {
+    id: 71,
+    board: "free",
+    title: "이거 눌러보셈ㅋㅋ",
+    author: "익명",
+    date: "2026-08-10 08:15",
+    views: 512,
+    comments: 1,
+    likes: 9,
+    body: `히히 시간뺏기 야호`,
+    hot: false,
+  },
+  {
     id: 1,
     board: "free",
     title: "14년 전 한민고에서 사라진 학생 기록… 그런데 오늘 다시 올라왔다",
@@ -203,7 +275,7 @@ const seedPosts = [
     views: 1124,
     comments: 51,
     likes: 171,
-    body: "네. 그겁니다.",
+    body: "CPS 또 터졌네 폴라랑 뭐 있어??",
     hot: true,
   },
   {
@@ -227,7 +299,7 @@ const seedPosts = [
     views: 3675,
     comments: 109,
     likes: 58,
-    body: "의혹만 있었을 뿐, 정말 어려웠던 거라고 합니다.",
+    body: "미 1 서술형 조작이야 조작이여야만 해",
     hot: true,
   },
   {
@@ -239,7 +311,7 @@ const seedPosts = [
     views: 1155,
     comments: 152,
     likes: 190,
-    body: "최대한 빠른 시일 내로 고쳐졌다고 합니다.",
+    body: "ㅇㄴ 기숙사 에어컨 진짜 뭐 있는거 아니야",
     hot: true,
   },
   {
@@ -251,7 +323,7 @@ const seedPosts = [
     views: 5316,
     comments: 150,
     likes: 452,
-    body: "한민고는 도심과 멀고 자연환경이 좋도록 걸생에서 나서서 지키고 있다. 그렇기에 도심에 주로 분포하는 비둘기보다 다양한 야생 새들이 많이 자리하고 있다.",
+    body: "생각해보면 한민고에는 비둘기가 없음",
     hot: true,
   },
   {
@@ -263,7 +335,7 @@ const seedPosts = [
     views: 2511,
     comments: 197,
     likes: 178,
-    body: "자연사. 교장쌤 아님.",
+    body: "님들 나 어제 3타임 이동하다가 교장실 앞에서 개구리 죽어있는거봄 이거 뭐임",
     hot: true,
   },
   {
@@ -275,7 +347,7 @@ const seedPosts = [
     views: 1188,
     comments: 55,
     likes: 425,
-    body: "지구를 지켰다. 알고보니 참된 교사상 받으러 갔다.",
+    body: "그 물리하쟈 하는 에어컨 마스터 쌤 어떻게 됨??",
     hot: false,
   },
   {
@@ -299,7 +371,7 @@ const seedPosts = [
     views: 4709,
     comments: 151,
     likes: 391,
-    body: "알고보니, 왜요 기장 이 모씨는 알려진 사실과 달리←? 여성을 좋아한다고 밝힌 바가 있다.",
+    body: "왜요 기장 여자야?",
     hot: false,
   },
   {
@@ -383,7 +455,7 @@ const seedPosts = [
     views: 7022,
     comments: 79,
     likes: 359,
-    body: "왜요 창시 당시 CPS에 가장 먼저 홍보함. 그냥 CPS에 서브컬쳐에 관심 많은 사람이 많아서.",
+    body: "왜요 12기 대부분 다 낙하산인거 알음?",
     hot: false,
   },
   {
@@ -395,7 +467,7 @@ const seedPosts = [
     views: 2808,
     comments: 61,
     likes: 182,
-    body: "목격자에 따르면 배식 30분 만에 전부 소진되었다고 한다.",
+    body: "ㅇㄴ 님들 저 1학년인데 배식시간 되자마자 내려갔는데 두쫀쿠 없대요 말이됨?",
     hot: false,
   },
   {
@@ -905,7 +977,8 @@ const seedPosts = [
     views: 3401,
     comments: 2,
     likes: 156,
-    body: `이거 풀면 님들도 기장먹기 쌉가능
+    body: `(가을이가 만든 퀴즈 이미지)
+이거 풀면 님들도 기장먹기 쌉가능
 아 나는 풀었음ㅋ`,
     hot: false,
   },
@@ -950,6 +1023,82 @@ const seedComments = [
 
   /* ── 9103: 책 표지 플라스틱 ──────────────────────── */
   { id: 23, postId: 9103,                 author: "익명", text: "무슨 플라스틱으로 책을 만드냐 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ 그냥 착각이겠지",                    time: "방금 전"   },
+
+  /* ── 66: 국회의원 뇌물 ───────────────────────────── */
+  { id: 24, postId: 66,                   author: "익명", text: "돈 들고 왔던데",              time: "50분 전" },
+  { id: 25, postId: 66, parentId: 24,     author: "익명", text: "헐 비리 뭐 그런거야",          time: "47분 전" },
+  { id: 26, postId: 66, parentId: 25,     author: "익명", text: "아니 기부",                    time: "44분 전" },
+  { id: 27, postId: 66, parentId: 26,     author: "익명", text: "아 뭐야",                      time: "41분 전" },
+
+  /* ── 67: 베타-알파고 유착 ────────────────────────── */
+  { id: 28, postId: 67,                   author: "익명", text: "이건 또 뭔소리야",             time: "40분 전" },
+  { id: 29, postId: 67, parentId: 28,     author: "익명", text: "알파 베타 알파고 베타 히히",    time: "37분 전" },
+  { id: 30, postId: 67, parentId: 29,     author: "익명", text: "…",                            time: "35분 전" },
+  { id: 31, postId: 67, parentId: 29,     author: "익명", text: "학생회 힘내라 ㅋㅋ",            time: "33분 전" },
+
+  /* ── 7: CPS와 폴라리스의 유착관계 ─────────────────── */
+  { id: 32, postId: 7,                    author: "익명", text: "CPS랑 폴라리스 << 얘네들은 왜 매년마다 이러는거임 ㅈㅂ", time: "방금 전" },
+
+  /* ── 9: 미적분 1 서술형 ──────────────────────────── */
+  { id: 33, postId: 9,                    author: "익명", text: "…유감이다",     time: "10분 전" },
+  { id: 34, postId: 9,                    author: "익명", text: "힘내",          time: "8분 전"  },
+  { id: 35, postId: 9,                    author: "익명", text: "넌 할 수 있어", time: "5분 전"  },
+
+  /* ── 10: 기숙사 에어컨 고장 ──────────────────────── */
+  { id: 36, postId: 10,                   author: "익명", text: "ㅇㅇ 있는듯",                                              time: "30분 전" },
+  { id: 37, postId: 10,                   author: "익명", text: "5층 a동 에어컨 언제 고치냐",                                time: "27분 전" },
+  { id: 38, postId: 10, parentId: 37,     author: "익명", text: "오늘 고쳤다는데",                                          time: "24분 전" },
+  { id: 39, postId: 10,                   author: "익명", text: "그냥 부품 교체하는 척만 하는듯",                            time: "21분 전" },
+  { id: 40, postId: 10, parentId: 39,     author: "익명", text: "그래도 고치면 잘 돌아가긴 하자나…",                        time: "18분 전" },
+  { id: 41, postId: 10,                   author: "익명", text: "2관 아니면 조용히 해라 여기는 고장나면 건물 단위로 왔다갔다해야됨", time: "15분 전" },
+
+  /* ── 11: 한민고에 비둘기가 없는 이유 ─────────────── */
+  { id: 42, postId: 11,                   author: "익명", text: "있는데",                     time: "1시간 전" },
+  { id: 43, postId: 11, parentId: 42,     author: "익명", text: "서울보다 적잖아",             time: "58분 전"  },
+  { id: 44, postId: 11, parentId: 43,     author: "익명", text: "여긴 파주야",                 time: "55분 전"  },
+  { id: 45, postId: 11, parentId: 44,     author: "익명", text: "걸생이 뭐 하나보지",          time: "52분 전"  },
+  { id: 46, postId: 11, parentId: 45,     author: "익명", text: "그런가",                      time: "49분 전"  },
+  { id: 47, postId: 11, parentId: 45,     author: "익명", text: "나 비둘긴데 이거 맞다",        time: "47분 전"  },
+  { id: 48, postId: 11, parentId: 47,     author: "익명", text: "비둘기는 그런 말투 안씀",      time: "44분 전"  },
+  { id: 49, postId: 11, parentId: 48,     author: "익명", text: "구 구구구구 구구 구구",        time: "41분 전"  },
+  { id: 50, postId: 11, parentId: 49,     author: "익명", text: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",          time: "38분 전"  },
+  { id: 51, postId: 11, parentId: 49,     author: "익명", text: "찐 등장 ㅋㅋㅋㅋㅋ",          time: "36분 전"  },
+  { id: 52, postId: 11, parentId: 49,     author: "익명", text: "비둘기다",                    time: "34분 전"  },
+
+  /* ── 12: 교장실 앞 개구리 ────────────────────────── */
+  { id: 53, postId: 12,                   author: "익명", text: "걸생 친구한테 물어봤는데 그냥 자연사한거라는디", time: "방금 전" },
+
+  /* ── 13: 반에서 에어컨 못 틀게 하는 물리쌤 ───────── */
+  { id: 54, postId: 13,                   author: "익명", text: "에어컨 레이드하러 떠남",             time: "20분 전" },
+  { id: 55, postId: 13,                   author: "익명", text: "얼마 전에 교장실 들어가던데",         time: "18분 전" },
+  { id: 56, postId: 13, parentId: 55,     author: "익명", text: "엥??",                              time: "16분 전" },
+  { id: 57, postId: 13, parentId: 55,     author: "익명", text: "교장실 에어컨도 끄려고 ㄷㄷ",         time: "14분 전" },
+  { id: 58, postId: 13, parentId: 55,     author: "익명", text: "지구 지켰다고 참된 교사상 받았다는데", time: "12분 전" },
+  { id: 59, postId: 13, parentId: 58,     author: "익명", text: "와우",                              time: "10분 전" },
+  { id: 60, postId: 13, parentId: 58,     author: "익명", text: "학생들도 지켜주세요",                time: "8분 전"  },
+
+  /* ── 15: 왜요 기장 알고보니 여자 ──────────────────── */
+  { id: 61, postId: 15,                   author: "익명", text: "ㅇㅇ 몰랐어?",                      time: "25분 전" },
+  { id: 62, postId: 15, parentId: 61,     author: "익명", text: "ㅇㅇ…",                              time: "22분 전" },
+  { id: 63, postId: 15, parentId: 61,     author: "익명", text: "뭐라는거야",                         time: "20분 전" },
+  { id: 64, postId: 15, parentId: 61,     author: "익명", text: "나 왜요 기장인데 이거 맞다 (최ㅅㄱ)", time: "18분 전" },
+
+  /* ── 68: 제발 택배좀 제때 가져가 ──────────────────── */
+  { id: 65, postId: 68,                   author: "익명", text: "그니까 좀 가져가",                        time: "45분 전" },
+  { id: 66, postId: 68, parentId: 65,     author: "익명", text: "다른 사람 택배 말고 본인 거나 잘 가져가자", time: "42분 전" },
+  { id: 67, postId: 68, parentId: 66,     author: "익명", text: "ㅇㄱㄹㅇ",                                time: "40분 전" },
+  { id: 68, postId: 68, parentId: 66,     author: "익명", text: "ㅇㅈ",                                    time: "38분 전" },
+
+  /* ── 22: 왜요에 모집 비리가 있다 ──────────────────── */
+  { id: 69, postId: 22,                   author: "익명", text: "당연하지 첫개설이잖음;;;;;;;", time: "15분 전" },
+  { id: 70, postId: 22, parentId: 69,     author: "익명", text: "아 맞네 ㅈㅅ",                  time: "12분 전" },
+
+  /* ── 23: 급식실 두쫀쿠 실종 사건 ──────────────────── */
+  { id: 71, postId: 23,                   author: "익명", text: "대x 데o",     time: "10분 전" },
+  { id: 72, postId: 23, parentId: 71,     author: "익명", text: "대가 맞음",   time: "8분 전"  },
+
+  /* ── 71: 이거 눌러보셈 ────────────────────────────── */
+  { id: 73, postId: 71,                   author: "익명", text: "나가라그냥", time: "방금 전" },
 ];
 
 /* ── 공개 채팅 (사이드바용 더미) ─────────────────────── */

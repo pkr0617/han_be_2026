@@ -31,6 +31,8 @@ function renderHome() {
 }
 
 /* ── 게시판 목록 ─────────────────────────────────────── */
+const BOARD_PAGE_SIZE = 15; // 페이지당 게시글 수
+
 function goBoard(key) {
   currentBoard = key;
   document.querySelectorAll(".nav-btn").forEach((b) =>
@@ -44,7 +46,7 @@ function goBoard(key) {
   }
 
   const meta = BOARD_META[key] || BOARD_META.free;
-  const rawList = key === "hot" ? [...posts] : posts.filter((p) => p.board === key);
+  const rawList = key === "hot" ? posts.filter((p) => p.hot) : posts.filter((p) => p.board === key);
   const list = rawList.filter((p) => !p.hiddenUntilSearch);
 
   document.getElementById("page-board").innerHTML = `
@@ -62,25 +64,39 @@ function goBoard(key) {
         <button class="primary-btn" data-go="write">글쓰기</button>
       </div>
     </div>
-    <div class="board-table-wrap" id="boardTable">${boardRows(list)}</div>
-    <div class="pagination">
-      <button class="page-no">‹</button>
-      <button class="page-no active">1</button>
-      <button class="page-no">2</button>
-      <button class="page-no">3</button>
-      <button class="page-no">›</button>
-    </div>`;
+    <div class="board-table-wrap" id="boardTable"></div>
+    <div class="pagination" id="boardPagination"></div>`;
 
   showPage("page-board");
+
+  // 현재 검색/필터 결과에 대해 지정 페이지를 그림
+  let activeList = list;
+  function renderPage(page) {
+    const totalPages = Math.max(1, Math.ceil(activeList.length / BOARD_PAGE_SIZE));
+    const current    = Math.min(Math.max(1, page), totalPages);
+    const startIndex = (current - 1) * BOARD_PAGE_SIZE;
+    const pageItems  = activeList.slice(startIndex, startIndex + BOARD_PAGE_SIZE);
+
+    document.getElementById("boardTable").innerHTML = boardRows(pageItems, null, startIndex);
+    document.getElementById("boardPagination").innerHTML = paginationHtml(current, totalPages);
+  }
+
+  document.getElementById("boardPagination").addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-page]");
+    if (!btn || btn.disabled) return;
+    renderPage(Number(btn.dataset.page));
+  });
 
   document.getElementById("boardSearchBtn").onclick = () => {
     const q = document.getElementById("boardSearch").value.trim().toLowerCase();
     const searchable = q.includes("observer") ? rawList : list;
-    const filtered = searchable.filter(
+    activeList = searchable.filter(
       (p) => p.title.toLowerCase().includes(q) || p.body.toLowerCase().includes(q),
     );
-    document.getElementById("boardTable").innerHTML = boardRows(filtered);
+    renderPage(1);
   };
+
+  renderPage(1);
 }
 
 /* ── 대댓글 트리 ─────────────────────────────────────── */
