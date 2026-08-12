@@ -3,7 +3,7 @@
    ★ 버전을 올리면 localStorage가 초기화됩니다.
    ===================================================== */
 
-const STORAGE_VERSION = "v10"; // v10: 9102·9103 본문 ㄴ댓글 분리
+const STORAGE_VERSION = "v11"; // v11: 게시글 66~71 추가 + 기존 게시글 다수 본문/댓글 갱신
 const POSTS_KEY    = `hansseolPosts_${STORAGE_VERSION}`;
 const COMMENTS_KEY = `hansseolComments_${STORAGE_VERSION}`;
 const USER_KEY     = "hansseolUser";

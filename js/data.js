@@ -371,7 +371,8 @@ const seedPosts = [
     views: 4709,
     comments: 151,
     likes: 391,
-    body: "왜요 기장 여자야?",
+    body: `왜요 기장 여자야?
+(알고보니, 왜요 기장 이 모씨는 알려진 사실과 달리←? 여성을 좋아한다고 밝힌 바가 있다)`,
     hot: false,
   },
   {
