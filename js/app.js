@@ -88,14 +88,11 @@ document.getElementById("openChat").onclick = () =>
 // ★ 파일을 열면(=새 사용자가 앉으면) 로그인 화면이 먼저 뜹니다.
 //   로그인 없이 둘러보고 싶으면 상단 네비게이션의 "홈"을 누르면 됩니다.
 updateAccount();
-renderLogin();
 
-/* ── dark.html: UNKNOWN 계정 → 마지막 편지 엔딩 ────────
-   unknown 계정으로 로그인하면 dark.html 로 리다이렉트되고,
-   2초 뒤 showUnknownEnding() 오버레이가 자동으로 뜹니다.
-─────────────────────────────────────────────────────── */
-if (_dark && currentUser?.isUnknown) {
-  setTimeout(() => showUnknownEnding(), 2000);
+if (_dark) {
+  goBoard("home");
+} else {
+  renderLogin();
 }
 
 /* =====================================================

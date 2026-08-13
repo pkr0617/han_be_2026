@@ -409,6 +409,7 @@ function showUnknownEnding() {
 "찾은 사람에게 말하는 거야.
 여기까지 온 건 네가 처음이 아니야."
 
+- 2030년 8월 22일
 — unknown
 
 [복구 기록 종료]`;

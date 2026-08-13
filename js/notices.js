@@ -39,6 +39,11 @@ const NOTICE_DATA = {
 
 /** 공지사항 게시글 렌더링 */
 function openNotice(key) {
+  if (window.__DARK_SITE__ === true) {
+    showUnknownEnding();
+    return;
+  }
+
   const n = NOTICE_DATA[key] || NOTICE_DATA.rules;
   document.getElementById("page-post").innerHTML = `
     <div class="page-top"><h1>공지사항</h1><p>한찌.com 운영 안내</p></div>
