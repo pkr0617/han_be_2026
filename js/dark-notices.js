@@ -4,15 +4,9 @@
 
 const NOTICE_DATA = {
   rules: {
-    title: "한찌.com 이용 규칙 및 운영 정책 안내 (필독)",
+    title: "한찌.com 서버 종료 안내",
     date: "2026-08-01",
-    body: `한찌.com은 학생들이 학교생활과 정보를 자유롭게 나누기 위한 커뮤니티입니다.
-
-1. 다른 이용자를 비방하거나 괴롭히는 글은 금지됩니다.
-2. 실명, 연락처 등 개인정보를 허락 없이 게시하지 마세요.
-3. 사실처럼 보이는 패러디 글은 오해가 없도록 맥락을 분명히 해주세요.
-4. 신고가 누적되거나 운영 규칙을 위반한 글은 관리자 판단에 따라 제한될 수 있습니다.
-5. 학교 공식 공지와 커뮤니티 게시글은 구분해서 확인해주세요.`,
+    body: `그동안 감사했습니다.`,
   },
   nickname: {
     title: "가입 시 닉네임 규칙 안내 (필독)",
@@ -39,23 +33,41 @@ const NOTICE_DATA = {
 
 /** 공지사항 게시글 렌더링 */
 function openNotice(key) {
-
   const n = NOTICE_DATA[key] || NOTICE_DATA.rules;
+
   document.getElementById("page-post").innerHTML = `
-    <div class="page-top"><h1>공지사항</h1><p>한찌.com 운영 안내</p></div>
+    <div class="page-top">
+      <h1>공지사항</h1>
+      <p>한썰 운영 안내</p>
+    </div>
+
     <article class="post-card">
       <div class="post-head">
         <h2>${esc(n.title)}</h2>
+
         <div class="post-meta">
           <span>작성자 <b>관리자</b></span>
           <span>${esc(n.date)}</span>
           <span>공지</span>
         </div>
       </div>
-      <div class="post-body">${esc(n.body)}</div>
-      <div class="post-actions">
-        <button class="recommend" data-board="home">홈으로</button>
+
+      <div
+        class="post-body"
+        style="font-size:24px; color:#d00000; font-weight:700"
+      >
+        ${esc(n.body)}
       </div>
-    </article>`;
+    </article>
+  `;
+
+  // 먼저 공지 본문으로 이동
   showPage("page-post");
+
+  // dark.html에서는 본문이 열린 뒤 3초 후 편지 표시
+  if (window.__DARK_SITE__ === true) {
+    setTimeout(() => {
+      showUnknownEnding();
+    }, 3000);
+  }
 }
