@@ -163,38 +163,75 @@ function triggerHorrorEvent(type, postId = null) {
     }, 13800);
     return;
   }
-
-  /* rainbow: 풀 블랙 화면 → 갑툭튀 */
+   
+  /* rainbow: 2초 → 가짜 응답 없음 → 검은 화면 → 갑툭튀 */
   if (type === "rainbow") {
     const black = document.getElementById("fullBlackHorror");
     const text  = document.getElementById("blackHorrorText");
-    black.classList.add("show");
-    text.textContent = "응답 없음\n\n페이지가 아니라 화면 전체가 응답하지 않습니다.";
-    startHorrorAmbience();
 
+    // 게시글 클릭 후 2초 대기
     setTimeout(() => {
+
+      // 1. 실제 응답 없음처럼 희게 덮기
       text.textContent = "";
-      stopHorrorAmbience();
-      playJumpScareSound();
-      black.style.background = "#000";
-      const img = document.createElement("img");
-      img.src = JUMPSCARE_IMAGE_RAINBOW;
-      img.style.cssText = "position:absolute;inset:0;width:100%;height:100%;object-fit:cover;";
-      black.appendChild(img);
 
+      black.style.background = "rgba(255,255,255,0.82)";
+      black.style.backdropFilter = "blur(1px)";
+      black.style.webkitBackdropFilter = "blur(1px)";
+      black.style.cursor = "wait";
+
+      black.classList.add("show");
+
+      // 2. 2.5초 뒤 검은 화면
       setTimeout(() => {
-        img.remove();
-        text.textContent = "";
-      }, 2300);
-    }, 5200);
 
-    setTimeout(() => {
-      black.classList.remove("show");
-      goBoard("home");
-      // 발견된 게시물은 현재 세션에서 사라집니다.
-      if (postId !== null) posts = posts.filter((p) => p.id !== postId);
-      save();
-    }, 7900);
+        black.style.background = "#000";
+        black.style.backdropFilter = "none";
+        black.style.webkitBackdropFilter = "none";
+        black.style.cursor = "none";
+
+        // 3. 0.8초 뒤 갑툭튀
+        setTimeout(() => {
+
+          playJumpScareSound();
+
+          const img = document.createElement("img");
+          img.src = JUMPSCARE_IMAGE_RAINBOW;
+
+          img.style.cssText = `
+            position:absolute;
+            inset:0;
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            z-index:999999;
+          `;
+
+          black.appendChild(img);
+
+          // 4. 2.3초 뒤 원래 화면으로
+          setTimeout(() => {
+
+            img.remove();
+
+            black.classList.remove("show");
+
+            black.style.background = "";
+            black.style.backdropFilter = "";
+            black.style.webkitBackdropFilter = "";
+            black.style.cursor = "";
+
+            text.textContent = "";
+
+          }, 7900);
+
+        }, 1800);
+
+      }, 2500);
+
+    }, 2000);
+
+    return;
   }
 }
 
