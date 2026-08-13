@@ -715,6 +715,52 @@ const seedPosts = [
       { key: "c2", delay: 8000, author: "익명", replyToKey: "c1", text: "얘 맨날 그러던데 안피곤한가" },
     ],
   },
+  {
+    id: 63,
+    board: "free",
+    title: "안ㄴㅇ << 얘 아이패드 비번 뚫었음 정보공유하러옴ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+    author: "익명",
+    date: "2026-08-09 13:04",
+    views: 5912,
+    comments: 3,
+    likes: 87,
+    body: `곧 사라지니까 빨리 보고 가라
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+142857이다 이것들아 ㅋㅋㅋㅋㅋㅋㅋㅋㅋ`,
+    hot: false,
+  },
+  {
+    id: 65,
+    board: "club",
+    title: "동아리 기장들은 다풀었다는 전설의 문제 지금바로ㄱㄱ",
+    author: "익명",
+    date: "2026-08-09 20:37",
+    views: 3401,
+    comments: 2,
+    likes: 156,
+    body: `이거 풀면 님들도 기장먹기 쌉가능
+아 나는 풀었음ㅋ`,
+    // ★ 육면체 금고 힌트 퀴즈 이미지 (숫자 대응 문제 → 금고 비번 = ①+②-③)
+    bodyHtml: `이거 풀면 님들도 기장먹기 쌉가능<br>아 나는 풀었음ㅋ
+      <div style="margin-top:16px">
+        <img src="assets/KakaoTalk_20260813_190854002.png" alt="동아리 기장 문제" style="max-width:100%;border:1px solid #ccc;">
+      </div>`,
+    hot: false,
+  },
 ];
 
 /* ── 초기 댓글 ───────────────────────────────────────── */

@@ -6,7 +6,7 @@
 .top-header {
   height: 76px;
   display: grid;
-  grid-template-columns: 380px 1fr 360px;
+  grid-template-columns: 380px minmax(220px, 1fr) 160px 360px;
   align-items: center;
   gap: 18px;
   padding: 0 24px;
@@ -61,6 +61,29 @@
   border-left: 1px solid #222;
   background: #f0f0f0;
   font-weight: 700;
+}
+
+.post-progress-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+
+.post-progress {
+  width: 100%;
+  max-width: 160px;
+  height: 18px;
+  overflow: hidden;
+  border: 1px solid #222;
+  background: #fff;
+}
+
+.post-progress-fill {
+  width: 0;
+  height: 100%;
+  background: #24a148;
+  transition: width 0.35s ease;
 }
 
 .account-nav {

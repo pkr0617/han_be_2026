@@ -95,6 +95,7 @@ document.getElementById("openChat").onclick = () =>
 ──────────────────────────────────────────────────────── */
 function _startApp() {
   updateAccount();
+  updatePostProgress();
 
   if (_dark) {
     goBoard("home");
@@ -160,6 +161,7 @@ function _fullReset(reload = true) {
   stopSiren();
   localStorage.clear();
   sessionStorage.clear();
+  resetPostProgress();
   currentUser        = null;
   posts              = [...seedPosts];
   comments           = [...seedComments];

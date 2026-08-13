@@ -6,17 +6,17 @@
     <!-- ★★★ 협업자: 다크 사이트 탭 제목을 여기서 바꾸세요 ★★★ -->
     <title>한찌.com — 한민고 커뮤니티</title>
 
-    <link rel="stylesheet" href="css/base.css?v=30" />
-    <link rel="stylesheet" href="css/layout.css?v=30" />
-    <link rel="stylesheet" href="css/board.css?v=30" />
-    <link rel="stylesheet" href="css/sidebar.css?v=30" />
-    <link rel="stylesheet" href="css/post.css?v=30" />
-    <link rel="stylesheet" href="css/forms.css?v=30" />
-    <link rel="stylesheet" href="css/modal.css?v=30" />
-    <link rel="stylesheet" href="css/responsive.css?v=30" />
-    <link rel="stylesheet" href="css/skin.css?v=30" />
-    <link rel="stylesheet" href="css/horror.css?v=30" />
-    <link rel="stylesheet" href="css/minigame.css?v=30" />
+    <link rel="stylesheet" href="css/base.css?v=35" />
+    <link rel="stylesheet" href="css/layout.css?v=36" />
+    <link rel="stylesheet" href="css/board.css?v=35" />
+    <link rel="stylesheet" href="css/sidebar.css?v=35" />
+    <link rel="stylesheet" href="css/post.css?v=35" />
+    <link rel="stylesheet" href="css/forms.css?v=35" />
+    <link rel="stylesheet" href="css/modal.css?v=35" />
+    <link rel="stylesheet" href="css/responsive.css?v=36" />
+    <link rel="stylesheet" href="css/skin.css?v=36" />
+    <link rel="stylesheet" href="css/horror.css?v=35" />
+    <link rel="stylesheet" href="css/minigame.css?v=35" />
   </head>
   <body>
     <div id="app">
@@ -34,6 +34,20 @@
             <input id="globalSearchInput" type="search" placeholder="게시글 검색" />
             <button type="submit">검색</button>
           </form>
+        </div>
+
+        <div class="post-progress-wrap" aria-label="게시글 탐색 진척도">
+          <div
+            class="post-progress"
+            id="postProgress"
+            role="progressbar"
+            aria-valuemin="0"
+            aria-valuemax="3"
+            aria-valuenow="0"
+            title="게시글 탐색 진척도: 0/3"
+          >
+            <div class="post-progress-fill" id="postProgressFill"></div>
+          </div>
         </div>
 
         <div class="account-nav" id="accountNav">
@@ -263,24 +277,19 @@
          ===================================================== -->
     <!-- 다크 사이트 플래그: store.js 가 이 값을 읽어 localStorage 를 건드리지 않음 -->
     <script>window.__DARK_SITE__ = true;</script>
-    <script src="js/dark-data.js?v=30"></script>  <!-- data.js 대신 dark-data.js -->
-    <script src="js/store.js?v=30"></script>
-    <script src="js/utils.js?v=30"></script>
-    <script src="js/horror.js?v=30"></script>
-    <script src="js/dark-notices.js?v=30"></script>
-    <script src="js/render.js?v=30"></script>
-    <script src="js/app.js?v=30"></script>
-    <script src="js/game-data.js?v=30"></script>
-    <script src="js/game-corrupt.js?v=30"></script>
-    <script src="js/game-trigger.js?v=30"></script>
-    <script src="js/game-kakao.js?v=30"></script>
-    <script src="js/game-minigame.js?v=30"></script>
-    <script>
-      (function bootMinigame() {
-        if (typeof GM_TRIGGER   !== "undefined") GM_TRIGGER.init();
-        if (typeof GM_KAKAO     !== "undefined") GM_KAKAO.init();
-        if (typeof GM_MINIGAME  !== "undefined") GM_MINIGAME.init();
-      })();
-    </script>
+    <script src="js/dark-data.js?v=35"></script>  <!-- data.js 대신 dark-data.js -->
+    <script src="js/store.js?v=36"></script>
+    <script src="js/utils.js?v=35"></script>
+    <script src="js/horror.js?v=35"></script>
+    <script src="js/dark-notices.js?v=35"></script>
+    <script src="js/render.js?v=36"></script>
+    <script src="js/app.js?v=36"></script>
+    <script src="js/game-data.js?v=35"></script>
+    <script src="js/game-corrupt.js?v=35"></script>
+    <script src="js/game-trigger.js?v=35"></script>
+    <script src="js/game-kakao.js?v=35"></script>
+    <script src="js/game-minigame.js?v=35"></script>
+    <!-- ★ 게임 모듈 초기화는 js/app.js 의 _startApp() 에서 실행됩니다
+         (dark.html은 아이콘 게이트 없이 바로 시작됨) -->
   </body>
 </html>

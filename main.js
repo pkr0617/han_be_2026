@@ -13,7 +13,10 @@ function createWindow() {
     minWidth: 1100,
     minHeight: 700,
     title: "한찌.com — 한민고 커뮤니티",
-    // icon: path.join(__dirname, "assets/icon.ico"), // ★ 아이콘 교체 시 주석 해제
+    fullscreen: true, // ★ blueport-horror처럼 전체화면으로 몰입감 있게 시작
+    autoHideMenuBar: true,
+    backgroundColor: "#0b0d10", // ★ 가짜 바탕화면과 동일한 색 — 로드 중에도 검은 화면 유지
+    // icon: path.join(__dirname, "assets/icon.ico"), // ★ 아이콘 준비되면 주석 해제 + package.json build.win.icon도 설정
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,

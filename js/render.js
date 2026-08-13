@@ -221,10 +221,57 @@ function renderCommentNode(c, depth) {
 }
 
 /* ── 게시글 상세 ─────────────────────────────────────── */
+const PROGRESS_POST_TITLES = new Set([
+  "동아리 기장들은 다풀었다는 전설의 문제 지금바로ㄱㄱ",
+  "안ㄴㅇ << 얘 아이패드 비번 뚫었음 정보공유하러옴ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+  "님들 내가 바로 레전드 책-지피티를 발견해버렸잖아ㅋㅋ",
+]);
+const POST_PROGRESS_KEY = "hansseolPostProgress_v1";
+
+let viewedProgressPosts;
+try {
+  const storedTitles = JSON.parse(localStorage.getItem(POST_PROGRESS_KEY) || "[]");
+  viewedProgressPosts = new Set(
+    Array.isArray(storedTitles)
+      ? storedTitles.filter((title) => PROGRESS_POST_TITLES.has(title))
+      : [],
+  );
+} catch {
+  viewedProgressPosts = new Set();
+}
+
+function updatePostProgress() {
+  const progress = document.getElementById("postProgress");
+  const fill = document.getElementById("postProgressFill");
+  if (!progress || !fill) return;
+
+  const count = viewedProgressPosts.size;
+  fill.style.width = `${(count / PROGRESS_POST_TITLES.size) * 100}%`;
+  progress.setAttribute("aria-valuenow", String(count));
+  progress.setAttribute("aria-valuetext", `${count}/3 완료`);
+  progress.title = `게시글 탐색 진척도: ${count}/3`;
+}
+
+function trackPostProgress(post) {
+  if (!PROGRESS_POST_TITLES.has(post.title) || viewedProgressPosts.has(post.title)) return;
+
+  viewedProgressPosts.add(post.title);
+  localStorage.setItem(POST_PROGRESS_KEY, JSON.stringify([...viewedProgressPosts]));
+  updatePostProgress();
+}
+
+function resetPostProgress() {
+  viewedProgressPosts.clear();
+  localStorage.removeItem(POST_PROGRESS_KEY);
+  updatePostProgress();
+}
+
 // countView: false로 호출하면 조회수를 올리지 않음 (댓글 등록 후 같은 게시글을 다시 그릴 때 사용)
 function openPost(id, { countView = true } = {}) {
   const p = posts.find((x) => x.id === Number(id));
   if (!p) return;
+
+  trackPostProgress(p);
 
   // 공포 트리거 체크
   if (p.horror === "observer") { triggerHorrorEvent("observer"); return; }
