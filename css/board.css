@@ -172,3 +172,28 @@
   color: #fff;
   border-color: var(--navy);
 }
+
+/* 특정 게시글 제목 강조 */
+.board-title-cell[data-post="65"],
+.board-title-cell[data-post="65"]:hover,
+.board-title-cell[data-post="65"]:focus,
+.board-title-cell[data-post="65"]:active {
+  color: #4da6ff !important;
+  font-weight: 700 !important;
+}
+
+.board-title-cell[data-post="63"],
+.board-title-cell[data-post="63"]:hover,
+.board-title-cell[data-post="63"]:focus,
+.board-title-cell[data-post="63"]:active {
+  color: #4da6ff !important;
+  font-weight: 700 !important;
+}
+
+.board-title-cell[data-post="64"],
+.board-title-cell[data-post="64"]:hover,
+.board-title-cell[data-post="64"]:focus,
+.board-title-cell[data-post="64"]:active {
+  color: #4da6ff !important;
+  font-weight: 700 !important;
+}

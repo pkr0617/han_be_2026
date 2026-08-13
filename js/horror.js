@@ -293,6 +293,7 @@ function registerViolation(reason) {
   3단계  (4.3초 후) : 접근 차단 메시지 표시
 */
 function triggerBadEnding() {
+  clearLoginCountdown(); // ★ 다른 엔딩(시간초과)과 겹치지 않도록 정리
   const username = currentUser?.nickname || "방문자";
 
   /* 1단계: 화면 일그러짐 + 낮고 느린 경고 음성 */
@@ -377,8 +378,8 @@ function showUnknownEnding() {
   const body   = document.getElementById("endingText");
 
   title.textContent = "UNKNOWN / 마지막 기록";
-  body.textContent =
-`UNKNOWN 계정이 확인되었습니다.
+  body.innerHTML =
+`<div style="white-space:pre-wrap;">UNKNOWN 계정이 확인되었습니다.
 
 이 계정으로 접근한 기록은 정상적인 로그인 기록과 다릅니다.
 
@@ -390,29 +391,38 @@ function showUnknownEnding() {
 이걸 읽고 있다면
 내가 남겨둔 것들이 전부 발견된 거겠지.
 
-처음부터 비밀번호를 숨길 생각은 없었어.
-누군가는 결국 여기까지 올 거라고 생각했거든.
+나도 처음엔 몰랐어.
 
-게시글도, 녹음도, 수칙도
-누군가가 발견할 수 있도록 남겨둔 거야.
+사람들이 그저 재미를 위해,
+그저 들은 이야기라는 이유로 하는 것들이
+누군가에겐 비수로 다가올 수도 있다는걸.
 
-다만 한 가지는 기억해.
+누군가 잘 모른체 한 이야기들이
+어떻게 나쁘게 변할 수 있는지.
 
-내가 이 사이트를 닫은 뒤에도
-게시글은 계속 올라왔어.
+내가 이런 일을 벌인건
+나와 같은 피해자가 나오지 않길 바래서 그랬어.
 
-내가 로그아웃한 뒤에도
-접속 기록은 계속 남았고.
+하지만 어디선가 또 같은 이야기들이 반복되고 있겠지...
 
-그래서 마지막으로 이 문장만 남긴다.
+하지만 이 글을 읽고 있는 너희들은,
+너희들에게는 그런 일이 일어나지 않기를 바래.
 
-"찾은 사람에게 말하는 거야.
-여기까지 온 건 네가 처음이 아니야."
+고마워, 내 긴 이야기 들어줘서
+
+이제 난 가봐야 할 것 같아.
+
+부디 행복한 한민고 생활, 보낼 수 있기를.
+
+너라도
 
 - 2030년 8월 22일
 — unknown
+[복구 기록 종료]
 
-[복구 기록 종료]`;
+<span style="color:#00ff00; font-size:30px; font-weight:700;">
+(true end - 알아줘서 고마워)
+</span></div>`;
 
   ending.classList.add("show");
   const letterAudio = document.getElementById("unknownLetterSound");
@@ -507,4 +517,123 @@ function appendLiveCommentToDOM(c, parentId) {
   if (titleEl) {
     titleEl.innerHTML = `<span class="square"></span>댓글 ${commentItems.querySelectorAll("[data-comment-id]").length}`;
   }
+}
+
+/* =====================================================
+   로그인 15분 제한 → 시간 초과 배드엔딩
+   ★ 일반 로그인(또는 게스트 입장) 시점부터 15분 안에 UNKNOWN 계정으로
+     로그인하지 못하면 "시간 초과" 배드엔딩이 뜹니다.
+   ★ 수칙 위반 경고(registerViolation)와는 완전히 별개의 엔딩입니다.
+   ===================================================== */
+const LOGIN_TIME_LIMIT_MS = 15 * 60 * 1000; // 15분
+let loginCountdownTimer = null;
+
+/** 로그인(또는 게스트 입장) 시점에 호출 — 15분 카운트다운 시작
+ *  ★ 이미 타이머가 돌고 있으면 그대로 둠(리셋 안 함) — 로그아웃 후
+ *    재로그인을 반복해서 시간제한을 우회하지 못하게 하기 위함.
+ *    "최초 로그인 시점부터" 15분이 기준. */
+function armLoginCountdown() {
+  if (loginCountdownTimer) return;
+  loginCountdownTimer = setTimeout(triggerTimeoutBadEnding, LOGIN_TIME_LIMIT_MS);
+}
+
+/** UNKNOWN 로그인 성공 / 다른 엔딩 발생 시 호출 — 타이머 취소 (로그아웃으로는 취소되지 않음) */
+function clearLoginCountdown() {
+  if (loginCountdownTimer) {
+    clearTimeout(loginCountdownTimer);
+    loginCountdownTimer = null;
+  }
+}
+
+/* ── 재난경보음 사이렌 (Web Audio 합성, 파일 없이) ────── */
+let _sirenCtx  = null;
+let _sirenOsc  = null;
+let _sirenGain = null;
+let _sirenLfo  = null;
+
+function playSiren(durationMs = 8000) {
+  stopSiren();
+  try {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    _sirenCtx = new Ctx();
+
+    _sirenOsc  = _sirenCtx.createOscillator();
+    _sirenGain = _sirenCtx.createGain();
+    _sirenOsc.type = "sawtooth";
+    _sirenGain.gain.value = 0.001;
+
+    // 주파수를 오르내리며 사이렌처럼 반복 (약 1초 주기)
+    const now = _sirenCtx.currentTime;
+    const cycles = Math.ceil(durationMs / 1000);
+    _sirenOsc.frequency.setValueAtTime(440, now);
+    for (let i = 0; i < cycles; i++) {
+      _sirenOsc.frequency.linearRampToValueAtTime(880, now + i + 0.5);
+      _sirenOsc.frequency.linearRampToValueAtTime(440, now + i + 1.0);
+    }
+
+    // 서서히 커졌다가 끝에서 페이드아웃
+    _sirenGain.gain.linearRampToValueAtTime(0.22, now + 0.3);
+    _sirenGain.gain.setValueAtTime(0.22, now + durationMs / 1000 - 0.4);
+    _sirenGain.gain.linearRampToValueAtTime(0.0001, now + durationMs / 1000);
+
+    _sirenOsc.connect(_sirenGain);
+    _sirenGain.connect(_sirenCtx.destination);
+    _sirenOsc.start();
+    _sirenOsc.stop(now + durationMs / 1000);
+    _sirenOsc.onended = () => stopSiren();
+  } catch (e) {}
+}
+
+function stopSiren() {
+  if (_sirenOsc) { try { _sirenOsc.stop(); } catch (e) {} _sirenOsc = null; }
+  if (_sirenCtx) { try { _sirenCtx.close(); } catch (e) {} _sirenCtx = null; }
+  _sirenGain = null;
+}
+
+/* ── 시간 초과 배드엔딩 ────────────────────────────────── */
+function triggerTimeoutBadEnding() {
+  clearLoginCountdown();
+
+  const TIMEOUT_MSG =
+    "경고. 지정된 시간을 초과하였습니다. " +
+    "이를 인지한 즉시 정신 오염 상태를 파악하시고 " +
+    "방을 나가 최대한 멀리 떨어져 주십시오.";
+
+  /* 1단계: 화면 일그러짐 + 사이렌 + TTS */
+  document.body.classList.add("horror-severe", "horror-distort");
+  playSiren(8000);
+  speakWarning(TIMEOUT_MSG, 0.75, 0.82);
+
+  /* 2단계: 3초 뒤 "화면 다운" */
+  setTimeout(() => {
+    document.body.classList.remove("horror-severe", "horror-distort");
+
+    document.body.style.filter = "invert(1) brightness(3)";
+    setTimeout(() => {
+      document.body.style.filter = "";
+
+      const black     = document.getElementById("fullBlackHorror");
+      const blackText = document.getElementById("blackHorrorText");
+      blackText.textContent = "";
+      black.classList.add("show");
+
+      /* 3단계: 1.3초 뒤 엔딩 메시지 표시 */
+      setTimeout(() => {
+        const ending = document.getElementById("endingScreen");
+        ending.querySelector(".ending-title").innerHTML =
+          `<span class="ending-badend-label">배드엔딩</span><span class="ending-badend-sub">시간 초과</span>`;
+        document.getElementById("endingText").textContent =
+`지정된 시간을 초과하였습니다.
+
+이를 인지한 즉시 정신 오염 상태를 파악하시고
+방을 나가 최대한 멀리 떨어져 주십시오.
+
+사유: 제한 시간(15분) 초과`;
+
+        ending.classList.add("show");
+        setTimeout(() => black.classList.remove("show"), 350);
+      }, 1300);
+
+    }, 150);
+  }, 3000);
 }

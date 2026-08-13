@@ -12,7 +12,7 @@ const BOARD_META = {
   dorm:    { name: "기숙사",    desc: "기숙사 생활, 생활 팁, 시설 관련 정보를 공유합니다." },
   exam:    { name: "시험&성적", desc: "시험 일정, 공부법, 과목별 정보와 학습 경험을 나눕니다." },
   club:    { name: "동아리",    desc: "동아리 소개, 모집, 활동 후기와 정보를 모아봅니다." },
-  alumni:  { name: "졸업생",    desc: "졸업생들의 학교 이야기와 진로 경험을 공유합니다." },
+  alumni:  { name: "뉴스",    desc: "학교의 긴급 소식을 알립니다." },
   inquiry: { name: "문의사항",  desc: "사이트 이용 중 불편한 점이나 운영 관련 문의를 남겨주세요." },
 };
 
@@ -28,7 +28,7 @@ const BOARD_META = {
 const seedPosts = [
   {
     id: 66,
-    board: "free",
+    board: "alumni",
     title: "OO 국회의원, 50억 상당의 현금 한민고에 전달하다 적발…",
     author: "지켜본다",
     date: "2026-08-11 09:14",
@@ -42,6 +42,24 @@ const seedPosts = [
       { key: "c1", delay: 4000, author: "익명", text: "실화냐 ㄷㄷ" },
       { key: "c2", delay: 8000, author: "익명", text: "이거 기사남?" },
     ],
+  },
+  {
+    id: 65,
+    board: "alumni",
+    title: "동아리 기장들은 다풀었다는 전설의 문제 지금바로ㄱㄱ",
+    author: "익명",
+    date: "2026-08-09 20:37",
+    views: 3401,
+    comments: 2,
+    likes: 156,
+    body: `이거 풀면 님들도 기장먹기 쌉가능
+아 나는 풀었음ㅋ`,
+    // ★ 육면체 금고 힌트 퀴즈 이미지 (숫자 대응 문제 → 금고 비번 = ①+②-③)
+    bodyHtml: `이거 풀면 님들도 기장먹기 쌉가능<br>아 나는 풀었음ㅋ
+      <div style="margin-top:16px">
+        <img src="assets/KakaoTalk_20260813_190854002.png" alt="동아리 기장 문제" style="max-width:100%;border:1px solid #ccc;">
+      </div>`,
+    hot: true,
   },
   {
     id: 67,
@@ -105,7 +123,7 @@ const seedPosts = [
   },
   {
     id: 1,
-    board: "free",
+    board: "alumni",
     title: "14년 전 한민고에서 사라진 학생 기록… 그런데 오늘 다시 올라왔다",
     author: "한찌.com러",
     date: "2026-08-09 03:27",
@@ -177,6 +195,34 @@ const seedPosts = [
       { key: "c1", delay: 5000, author: "익명", text: "지금 몇명 보고있는거임" },
       { key: "c2", delay: 9500, author: "익명", text: "재생하지 말라니까" },
     ],
+  },
+  {
+    id: 63,
+    board: "alumni",
+    title: "안ㄴㅇ << 얘 아이패드 비번 뚫었음 정보공유하러옴ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+    author: "익명",
+    date: "2026-08-09 13:04",
+    views: 5912,
+    comments: 3,
+    likes: 87,
+    body: `곧 사라지니까 빨리 보고 가라
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+142857이다 이것들아 ㅋㅋㅋㅋㅋㅋㅋㅋㅋ`,
+    hot: true,
   },
   {
     id: 9002,
@@ -300,7 +346,7 @@ const seedPosts = [
   },
   {
     id: 64,
-    board: "free",
+    board: "alumni",
     title: "님들 내가 바로 레전드 책-지피티를 발견해버렸잖아ㅋㅋ",
     author: "익명",
     date: "2026-08-09 16:51",
@@ -316,11 +362,11 @@ const seedPosts = [
 책은 무엇이든 딱 피면 바로 알려주시잖아
 심지어 말이야 어? 면학 <b>3</b>타임때도 당당하게 쓸수있다 <b>이</b>말이야
 <b>구</b>라안까고 이게 ㄹㅇ 챗지피티아니냐?`,
-    hot: false,
+    hot: true,
   },
   {
     id: 22,
-    board: "club",
+    board: "alumnni",
     title: "왜요에 모집 비리가 있다?",
     author: "수학은어려워",
     date: "2026-07-03 12:04",
@@ -504,7 +550,7 @@ const seedPosts = [
   },
   {
     id: 48,
-    board: "free",
+    board: "alumni",
     title: "매점 가격 인상 - 편의점보다 높은 가격으로 학생들 기만하나",
     author: "13기익명",
     date: "2026-05-05 07:07",
@@ -668,48 +714,6 @@ const seedPosts = [
       { key: "c1", delay: 4000, author: "익명", parentId: 14, text: "오늘도 자냐 ㅋㅋ" },
       { key: "c2", delay: 8000, author: "익명", replyToKey: "c1", text: "얘 맨날 그러던데 안피곤한가" },
     ],
-  },
-  {
-    id: 63,
-    board: "free",
-    title: "안ㄴㅇ << 얘 아이패드 비번 뚫었음 정보공유하러옴ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
-    author: "익명",
-    date: "2026-08-09 13:04",
-    views: 5912,
-    comments: 3,
-    likes: 87,
-    body: `곧 사라지니까 빨리 보고 가라
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-142857이다 이것들아 ㅋㅋㅋㅋㅋㅋㅋㅋㅋ`,
-    hot: false,
-  },
-  {
-    id: 65,
-    board: "club",
-    title: "동아리 기장들은 다풀었다는 전설의 문제 지금바로ㄱㄱ",
-    author: "익명",
-    date: "2026-08-09 20:37",
-    views: 3401,
-    comments: 2,
-    likes: 156,
-    body: `(가을이가 만든 퀴즈 이미지)
-이거 풀면 님들도 기장먹기 쌉가능
-아 나는 풀었음ㅋ`,
-    hot: false,
   },
 ];
 

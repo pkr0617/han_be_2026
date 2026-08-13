@@ -489,12 +489,14 @@ function renderLogin() {
     save();
 
     if (isUnknown) {
-      // 다크 사이트: 별도 HTML로 이동
+      // 다크 사이트: 별도 HTML로 이동 (제한 시간 안에 도달했으므로 타이머 취소)
+      clearLoginCountdown();
       window.location.href = "dark.html";
     } else {
       updateAccount();
       goBoard("home");
       playNormalEnding();
+      armLoginCountdown(); // ★ 이 시점부터 15분 안에 UNKNOWN 로그인 못하면 시간초과 배드엔딩
       showModal("로그인 완료", `${esc(id)} 계정으로 데모 로그인되었습니다.`);
     }
   };
@@ -531,6 +533,7 @@ function renderSignup() {
     updateAccount();
     goBoard("home");
     playNormalEnding();
+    armLoginCountdown(); // ★ 게스트 입장도 "로그인 시점"으로 간주 — 15분 타이머 시작
     showModal("입장 완료", `${esc(nickname)}님, 게스트로 입장했습니다.`);
   };
 }

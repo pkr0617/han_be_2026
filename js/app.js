@@ -57,6 +57,8 @@ document.addEventListener("click", (e) => {
   // 먼저 로그아웃할 수 있어야 하므로 비밀번호로 막지 않음)
   // ★ 게시글/댓글은 그대로 남겨서 다음 사용자가 이어볼 수 있게 하되,
   //   수칙 위반 경고(violationCount)는 사용자별로 초기화됩니다.
+  // ★ 15분 시간초과 타이머는 로그아웃해도 취소되지 않습니다 — 오직 UNKNOWN
+  //   계정으로 성공 로그인해야만 멈춥니다 (로그아웃으로 우회 못 하게 하려는 의도).
   if (e.target.id === "logoutBtn") {
     currentUser = null;
     violationCount = 0;
@@ -84,15 +86,64 @@ document.getElementById("openChat").onclick = () =>
     "현재는 인터페이스용 버튼입니다. 실제 서비스에서는 별도의 채팅 데이터 구조와 신고·차단 기능을 함께 설계하는 것이 좋습니다.",
   );
 
-/* ── 초기화 ──────────────────────────────────────────── */
-// ★ 파일을 열면(=새 사용자가 앉으면) 로그인 화면이 먼저 뜹니다.
-//   로그인 없이 둘러보고 싶으면 상단 네비게이션의 "홈"을 누르면 됩니다.
-updateAccount();
+/* ── 앱 시작 ─────────────────────────────────────────────
+   ★ 파일을 열면(=새 사용자가 앉으면) 로그인 화면이 먼저 뜹니다.
+     로그인 없이 둘러보고 싶으면 상단 네비게이션의 "홈"을 누르면 됩니다.
+   ★ 미니게임 모듈(GM_*) 초기화도 여기서 함께 실행됩니다 — 즉,
+     바탕화면 아이콘을 더블클릭해 실제로 앱이 열리기 전까지는
+     어떤 로직도 시작되지 않습니다.
+──────────────────────────────────────────────────────── */
+function _startApp() {
+  updateAccount();
+
+  if (_dark) {
+    goBoard("home");
+  } else {
+    renderLogin();
+  }
+
+  if (typeof GM_TRIGGER  !== "undefined") GM_TRIGGER.init();
+  if (typeof GM_KAKAO    !== "undefined") GM_KAKAO.init();
+  if (typeof GM_MINIGAME !== "undefined") GM_MINIGAME.init();
+}
 
 if (_dark) {
-  goBoard("home");
+  // dark.html은 이미 게임이 진행되던 세션에서 넘어오는 페이지라
+  // 바탕화면 아이콘 게이트 없이 곧바로 시작합니다.
+  _startApp();
 } else {
-  renderLogin();
+  // index.html: 바탕화면 아이콘(#desktopIcon)을 더블클릭해야 시작됩니다.
+  // blueport-horror와 동일한 연출 — 클릭하면 선택, 더블클릭하면 열림.
+  const _desktopIcon   = document.getElementById("desktopIcon");
+  const _desktopScreen = document.getElementById("desktopScreen");
+  let _appOpenStarted  = false;
+
+  if (_desktopIcon && _desktopScreen) {
+    _desktopIcon.addEventListener("click", () => _desktopIcon.classList.add("selected"));
+
+    _desktopScreen.addEventListener("click", (e) => {
+      if (e.target !== _desktopIcon && !_desktopIcon.contains(e.target)) {
+        _desktopIcon.classList.remove("selected");
+      }
+    });
+
+    _desktopIcon.addEventListener("dblclick", () => {
+      if (_appOpenStarted) return;
+      _appOpenStarted = true;
+      _desktopIcon.classList.add("opening");
+
+      setTimeout(() => {
+        _desktopScreen.classList.add("hidden");
+        const appEl = document.getElementById("app");
+        appEl.classList.remove("hidden");
+        appEl.classList.add("app-opening");
+        _startApp();
+      }, 320);
+    });
+  } else {
+    // 바탕화면 마크업이 없는 예외 상황에 대한 안전장치
+    _startApp();
+  }
 }
 
 /* =====================================================
@@ -105,6 +156,8 @@ if (_dark) {
  */
 function _fullReset(reload = true) {
   stopHorrorAmbience();
+  clearLoginCountdown();
+  stopSiren();
   localStorage.clear();
   sessionStorage.clear();
   currentUser        = null;

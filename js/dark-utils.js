@@ -51,7 +51,7 @@ function boardRows(list, limit = null, startIndex = 0) {
     html += `<div class="board-row">
       <div class="center" style="color:#d40000;font-weight:700">공지</div>
       <div class="board-title-cell" data-notice="rules">
-        <span class="notice-badge">공지</span>한찌.com 이용 규칙 및 운영 정책 안내 (필독)
+        <span class="notice-badge">공지</span>한찌.com 서버 종료 안내
       </div>
       <div class="center">관리자</div>
       <div class="center">2026-08-01 12:00</div>

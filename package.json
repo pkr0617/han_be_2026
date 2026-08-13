@@ -16,6 +16,7 @@
     "productName": "한찌.com",
     "files": [
       "index.html",
+      "dark.html",
       "main.js",
       "css/**",
       "js/**",
