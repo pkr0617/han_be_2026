@@ -198,20 +198,23 @@ function buildCommentTree(cmts) {
 }
 
 function renderCommentNode(c, depth) {
-  const indent = Math.min(depth * 22, 88);
+  const indent = Math.min(depth * 20, 100);
+  const corner = depth > 0 ? '<span class="comment-corner">└</span>' : '';
   const replyBtn = currentUser
-    ? `<button class="reply-btn" data-reply="${c.id}">↳ 대댓글</button>`
+    ? `<button class="reply-btn" data-reply="${c.id}">답글</button>`
     : '';
-  const depthStyle = depth > 0
-    ? `style="margin-left:${indent}px;background:#f5f7f9;border-left:2px solid #c5cfd8;"`
-    : '';
+  const rowClass = depth > 0 ? 'comment-row is-reply' : 'comment-row';
+  const indentStyle = depth > 0 ? `style="margin-left:${indent}px"` : '';
   return `
-    <div class="comment-row" data-comment-id="${c.id}" data-depth="${depth}" ${depthStyle}>
-      <div class="comment-row-top">
-        <b>${esc(c.author)}</b>
-        <span>${esc(c.time || '방금 전')}${replyBtn ? '&ensp;' + replyBtn : ''}</span>
+    <div class="${rowClass}" data-comment-id="${c.id}" data-depth="${depth}" ${indentStyle}>
+      <div class="comment-line">
+        <span class="comment-author-cell">${corner}<b class="comment-author">${esc(c.author)}</b></span>
+        <span class="comment-text">${esc(c.text)}</span>
+        <span class="comment-meta-right">
+          <span class="comment-time">${esc(c.time || '방금 전')}</span>
+          ${replyBtn}
+        </span>
       </div>
-      <div>${esc(c.text)}</div>
       <div id="reply-slot-${c.id}"></div>
       ${c.children.map(ch => renderCommentNode(ch, depth + 1)).join('')}
     </div>`;
@@ -285,7 +288,7 @@ function openPost(id, { countView = true } = {}) {
         ${
           pcs.length
             ? buildCommentTree(pcs).map(c => renderCommentNode(c, 0)).join("")
-            : '<div class="comment-row">아직 댓글이 없습니다.</div>'
+            : '<div class="comment-row comment-empty">💬 아직 댓글이 없습니다.<br>첫 댓글을 남겨보세요.</div>'
         }
       </div>
       ${
@@ -294,9 +297,9 @@ function openPost(id, { countView = true } = {}) {
               <textarea id="commentText" placeholder="댓글을 입력하세요. 서로를 존중하는 표현을 사용해주세요."></textarea>
               <button type="submit">등록</button>
              </form>`
-          : `<div class="comment-form" style="display:flex;align-items:center;justify-content:space-between">
+          : `<div class="comment-form comment-login-prompt">
               <span>댓글을 작성하려면 로그인해주세요.</span>
-              <button type="button" id="commentLoginBtn" style="height:40px;padding:0 18px">로그인</button>
+              <button type="button" id="commentLoginBtn" class="comment-login-btn">로그인</button>
              </div>`
       }
     </section>`;
@@ -353,8 +356,8 @@ function openPost(id, { countView = true } = {}) {
       // 토글: 이미 열려있으면 닫기
       if (slot.querySelector(".reply-form")) { slot.innerHTML = ""; return; }
       slot.innerHTML = `
-        <form class="reply-form comment-form" style="margin-top:6px">
-          <textarea placeholder="대댓글을 입력하세요" style="height:52px"></textarea>
+        <form class="reply-form comment-form">
+          <textarea placeholder="답글을 입력하세요"></textarea>
           <button type="submit">등록</button>
         </form>`;
       slot.querySelector("form").onsubmit = (ev) => {

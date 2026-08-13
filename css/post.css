@@ -49,27 +49,88 @@
   padding: 9px 20px;
 }
 
-/* ── COMMENT ZONE ────────────────────────────────────── */
+/* ── COMMENT ZONE ─────────────────────────────────────
+   디시인사이드류 갤러리 댓글창을 참고한 레이아웃.
+   박스/배경 없이 플랫하게, [작성자] [본문] [시간·답글]을 한 줄에 붙여
+   표시하고 대댓글은 └ 기호 + 들여쓰기로 구분합니다.
+   각 댓글은 위아래 여백 + 밑줄 구분선으로 서로 분리됩니다.
+   ───────────────────────────────────────────────────── */
 .comment-zone {
   margin-top: 12px;
   border: 1px solid var(--line-dark);
+  background: #fff;
 }
 
+#commentItems {
+  padding: 4px 0;
+}
+
+/* 댓글 한 줄 컨테이너 — 좌우 여백/들여쓰기만 담당 (위아래 간격은 .comment-line 이 담당) */
 .comment-row {
-  padding: 13px 16px;
-  border-bottom: 1px dotted #adb6c1;
+  padding: 0 16px;
 }
 
-.comment-row-top {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 7px;
+/* 대댓글: 들여쓰기는 margin-left(inline)로 처리, 오른쪽 여백만 유지 */
+.comment-row.is-reply {
+  padding: 0 16px 0 0;
+}
+
+.comment-empty {
+  padding: 40px 16px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+/* [작성자] [본문] [시간·답글] 3열 그리드
+   위아래 padding + 밑줄을 여기서 고정 부여 → 원댓글이든 대댓글이든,
+   중첩 위치와 상관없이 댓글 간 간격이 항상 동일하게 유지됩니다.
+   본문이 길어 줄바꿈돼도 시간은 항상 오른쪽 상단 고정 */
+.comment-line {
+  display: grid;
+  grid-template-columns: minmax(64px, max-content) minmax(0, 1fr) auto;
+  align-items: baseline;
+  column-gap: 10px;
+  padding: 11px 0;
+  border-bottom: 1px solid #e4e7eb;
+}
+
+.comment-author-cell {
+  white-space: nowrap;
+}
+
+.comment-corner {
+  color: #c1c8d0;
   font-size: 12px;
-  color: #666;
+  margin-right: 3px;
 }
 
-.comment-row b {
-  color: #111;
+.comment-author {
+  color: #333;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.comment-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.comment-meta-right {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  justify-self: end;
+  white-space: nowrap;
+}
+
+.comment-time {
+  font-size: 11px;
+  color: #aaa;
 }
 
 .comment-form {
@@ -81,10 +142,17 @@
 }
 
 .comment-form textarea {
-  height: 72px;
-  border: 1px solid #9faab7;
+  height: 68px;
+  border: 1px solid #b6c0cc;
   resize: vertical;
-  padding: 9px;
+  padding: 10px 12px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  transition: border-color 0.15s;
+}
+.comment-form textarea:focus {
+  outline: none;
+  border-color: var(--navy);
 }
 
 .comment-form button {
@@ -92,18 +160,44 @@
   background: var(--navy);
   color: #fff;
   font-weight: 700;
+  transition: background 0.15s;
+}
+.comment-form button:hover {
+  background: var(--navy2);
 }
 
-/* ── 대댓글 ──────────────────────────────────────────── */
+.comment-login-prompt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.comment-login-btn {
+  height: 40px;
+  padding: 0 18px;
+  border: 1px solid #092c62;
+  background: var(--navy);
+  color: #fff;
+  font-weight: 700;
+}
+
+/* ── 대댓글 답글 달기 ─────────────────────────────────── */
 .reply-btn {
   background: none;
   border: none;
-  color: #5577aa;
+  color: var(--muted);
   font-size: 11px;
   cursor: pointer;
-  padding: 1px 4px;
+  padding: 0;
 }
-.reply-btn:hover { text-decoration: underline; }
+.reply-btn:hover { color: var(--navy); text-decoration: underline; }
+
+.reply-form {
+  margin: 6px 0 4px;
+}
+.reply-form textarea {
+  height: 52px;
+}
 
 /* ── 실시간 댓글 강조 효과 ────────────────────────────── */
 .comment-live-new {
