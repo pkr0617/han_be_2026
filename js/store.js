@@ -3,7 +3,7 @@
    ★ 버전을 올리면 localStorage가 초기화됩니다.
    ===================================================== */
 
-const STORAGE_VERSION = "v12"; // v12: 실시간 댓글(liveComments) 기능 추가
+const STORAGE_VERSION = "v13"; // v13: 책-지피티 볼드 힌트(bodyHtml) 등 게시글 내용 갱신
 const POSTS_KEY    = `hansseolPosts_${STORAGE_VERSION}`;
 const COMMENTS_KEY = `hansseolComments_${STORAGE_VERSION}`;
 const USER_KEY     = "hansseolUser";
