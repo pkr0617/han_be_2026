@@ -233,6 +233,10 @@ function openPost(id, { countView = true } = {}) {
   if (p.horror === "author")   { registerViolation("작성자 게시글 접근"); }
   // "audio" 트리거는 세 번째 녹음 재생 시 적립됩니다 (아래 audio 이벤트 참조).
 
+  // ★ 특정 게시글에서만 미니게임(캡챠→팝업폭탄→블랙아웃) 시작
+  //   data.js 에서 원하는 게시글에 startsMinigame: true 를 추가하면 됩니다.
+  if (p.startsMinigame && typeof GM_MINIGAME !== "undefined") GM_MINIGAME.start();
+
   clearLiveComments(); // 이전에 열어둔 게시글의 실시간 댓글 타이머 정리
 
   if (countView) p.views++;
@@ -274,7 +278,7 @@ function openPost(id, { countView = true } = {}) {
           <span>공감 ${p.likes}</span>
         </div>
       </div>
-      <div class="post-body">${esc(p.body)}${audioHtml}</div>
+      <div class="post-body">${p.bodyHtml ? p.bodyHtml : esc(p.body)}${audioHtml}</div>
       <div class="post-actions">
         <button class="recommend" id="likeBtn">♡ 공감 ${p.likes}</button>
         <button class="recommend" data-board="${p.board}">목록으로</button>

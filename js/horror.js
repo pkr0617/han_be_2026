@@ -160,6 +160,7 @@ function triggerHorrorEvent(type, postId = null) {
     setTimeout(() => {
       hideHorrorLayer();
       goBoard("home");
+      registerViolation("observer 게시글 접근"); // ★ 옵저버도 수칙 위반으로 카운트됨
     }, 13800);
     return;
   }

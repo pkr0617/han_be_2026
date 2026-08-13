@@ -25,6 +25,14 @@ function createWindow() {
   // 메뉴바 숨기기 (일반 웹사이트처럼 보이게)
   win.setMenuBarVisibility(false);
 
+  // ★ 프로그램(exe) 종료 시 localStorage 전체 초기화
+  //   → 다음에 실행하면 게시글/댓글/로그인 상태가 전부 처음(seed) 상태로 돌아감.
+  //   로그아웃은 자유롭게 하되(이어쓰기 유지), 초기화는 "하루 세션이 끝날 때"에만
+  //   일어나도록 초기화 기준을 로그아웃이 아닌 프로그램 종료로 옮긴 것.
+  win.on("close", (e) => {
+    win.webContents.session.clearStorageData().catch(() => {});
+  });
+
   // 개발 시에만 DevTools 열기
   // win.webContents.openDevTools();
 }
