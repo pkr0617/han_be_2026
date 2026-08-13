@@ -112,9 +112,7 @@ const seedPosts = [
     views: 3415,
     comments: 78,
     likes: 231,
-    body: `새벽 3시 27분에 작성된 글입니다.
-
-14년 전 삭제된 학생 기록을 찾았다는 내용이 올라왔습니다.
+    body: `14년 전 삭제된 학생 기록을 찾았다는 내용이 올라왔습니다.
 그런데 이상한 점이 있습니다.
 
 게시물의 작성 시간이 현재 시간과 똑같습니다.
@@ -123,20 +121,6 @@ const seedPosts = [
 댓글을 읽어보지 마세요.
 특히 마지막 댓글은 열지 않는 것을 권합니다.`,
     hot: true,
-    horror: "rainbow",
-  },
-  {
-    id: 287,
-    board: "free",
-    title: "안ㄴㅇ << 얘 아이패드 비번 뚫었음 정보공유하러옴ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
-    author: "한민러()",
-    date: "2026-08-08 23:41",
-    views: 6877,
-    comments: 146,
-    likes: 292,
-    body: `급함 ㅋㅋ
-누가 저번에 아이패드 잠금번호 알려줬던 거 같은데 기억이 안 남.
-댓글에 142857이라던데 맞음?`,
   },
   {
     id: 3,
@@ -197,17 +181,15 @@ const seedPosts = [
   {
     id: 9002,
     board: "free",
-    title: "작성자가 작성자인 글",
-    author: "작성자",
+    title: "한찌.com 긴급 공지",
+    author: "관리자",
     date: "2026-08-05 00:06",
     views: 1917,
     comments: 6,
     likes: 8,
-    body: `작성자입니다.
+    body: `이 글을 발견했다면 수칙을 이미 한 번 어긴 것입니다.
 
-이 글을 발견했다면 수칙을 이미 한 번 어긴 것입니다.
-
-왜냐하면 이 게시물은 원래 존재하지 않아야 하기 때문입니다.`,
+존재할 수 없는 게시글입니다.`,
     hot: true,
     horror: "author",
     liveComments: [
@@ -235,7 +217,7 @@ const seedPosts = [
   {
     id: 9102,
     board: "free",
-    title: "그ㅅㄲ 패드 비번 뭐냐",
+    title: "전설의 '그 사람' 패드 비번 뭐냐",
     author: "익명",
     date: "2026-08-03 21:16",
     views: 4831,
@@ -243,66 +225,6 @@ const seedPosts = [
     likes: 24,
     body: `뭐 없나 하고 패드 뒤지니까 비번 걸려있는데.`,
     hot: false,
-  },
-  {
-    id: 9103,
-    board: "free",
-    title: "책 표지 플라스틱으로도 만드냐",
-    author: "익명",
-    date: "2026-08-02 19:52",
-    views: 3264,
-    comments: 12,
-    likes: 8,
-    body: `책장 만지다가 차가운 거 있어서 일단 튀었는데 뭔지 아는 사람?`,
-    hot: false,
-  },
-  {
-    id: 5,
-    board: "love",
-    title: "00와 00의 연애… 이대로 괜찮은가",
-    author: "고양이편",
-    date: "2026-08-01 03:57",
-    views: 6425,
-    comments: 212,
-    likes: 458,
-    body: "찰리와 쮸쮸는 이전부터 연애 관계였던 고양이들로 아직도 잘 지내고 있어영.",
-    hot: true,
-  },
-  {
-    id: 6,
-    board: "club",
-    title: "CPS 기장과 클리어 기장의 유착관계… 그 진실은?",
-    author: "지켜본다",
-    date: "2026-07-30 18:33",
-    views: 2487,
-    comments: 179,
-    likes: 30,
-    body: "둘은 자율동아리 '왜요'에서 만난 관계로 서로 음악을 공유하는 왜요 단톡방을 함께 사용 중이고 현재 친해지는 관계라고 밝힌 바가 있다.",
-    hot: true,
-  },
-  {
-    id: 7,
-    board: "club",
-    title: "CPS와 폴라리스의 유착관계… 매 기수마다 생긴다는…. 동아리간의 … 00",
-    author: "왜요단톡방",
-    date: "2026-07-30 07:31",
-    views: 1124,
-    comments: 51,
-    likes: 171,
-    body: "CPS 또 터졌네 폴라랑 뭐 있어??",
-    hot: true,
-  },
-  {
-    id: 8,
-    board: "free",
-    title: "한민고 급식실의 칼로리 허위 기재… 이대로 괜찮은가?",
-    author: "폴라리스",
-    date: "2026-07-29 02:59",
-    views: 5034,
-    comments: 147,
-    likes: 274,
-    body: "무려 칼로리의 소수점 14번째 자리를 반올림으로 올려버렸던 사건이다…",
-    hot: true,
   },
   {
     id: 9,
@@ -343,7 +265,7 @@ const seedPosts = [
   {
     id: 12,
     board: "free",
-    title: "교장실 앞에 죽어있는 개구리 발견… 한민 개구리 슬레이어의 정체?",
+    title: "교장실 앞에 죽어있는 개구리 발견했는데",
     author: "13기익명",
     date: "2026-07-19 08:28",
     views: 2511,
@@ -365,18 +287,6 @@ const seedPosts = [
     hot: false,
   },
   {
-    id: 14,
-    board: "free",
-    title: "13기들의 0000… 이대로 괜찮은가?",
-    author: "익명",
-    date: "2026-07-17 16:20",
-    views: 4416,
-    comments: 113,
-    likes: 409,
-    body: "13기의 급식시간이 계속 늦어지며 급식을 못 먹는 학생들도 있음.. 급식시간.. 이대로 괜찮은가.",
-    hot: false,
-  },
-  {
     id: 15,
     board: "club",
     title: "왜요 기장 알고보니 여자….?",
@@ -385,86 +295,28 @@ const seedPosts = [
     views: 4709,
     comments: 151,
     likes: 391,
-    body: `왜요 기장 여자야?
-(알고보니, 왜요 기장 이 모씨는 알려진 사실과 달리←? 여성을 좋아한다고 밝힌 바가 있다)`,
+    body: `왜요 기장 여자야?`,
     hot: false,
   },
   {
-    id: 16,
+    id: 64,
     board: "free",
-    title: "시계 실종사건… 목격자들의 증언으로 한 학생이 특정돼…",
-    author: "Beta",
-    date: "2026-07-13 23:10",
-    views: 6148,
-    comments: 195,
-    likes: 395,
-    body: "베개 뒤 시계로 실제 범인임이 드러났다고 밝혀져.",
-    hot: false,
-  },
-  {
-    id: 17,
-    board: "club",
-    title: "TAP 기장과 CPS 기장, 그 비밀스러운 연애관계의 진실",
-    author: "고양이편",
-    date: "2026-07-12 22:29",
-    views: 5696,
-    comments: 18,
-    likes: 46,
-    body: "네 제 여친입니다) – 제 여친인데 이거 정정하시죠.",
-    hot: false,
-  },
-  {
-    id: 18,
-    board: "free",
-    title: "한비제의 비밀… 베타가 숨기고 있는 그것은 무엇인가",
-    author: "지켜본다",
-    date: "2026-07-11 23:40",
-    views: 3173,
-    comments: 48,
-    likes: 32,
-    body: "한비제의 컨셉은 작년의 여행 테마를 벗어나기 위해 노력한 결과로 많은 베타들이 갈려나갔다고 한다.",
-    hot: false,
-  },
-  {
-    id: 19,
-    board: "club",
-    title: "한민고 대표 동아리 PEBC 담당교사, 김태호. 사실 걸생에 더 큰 애착 있는 걸로 알려져…",
-    author: "왜요단톡방",
-    date: "2026-07-09 08:15",
-    views: 3465,
-    comments: 179,
-    likes: 460,
-    body: "한민고 대표 동아리 펩시의 담당교사 김태호와 동명이인인 김태호가 걸생의 기장으로서 펩시보다 걸생을 아끼고 있다고 밝혔다. 걸생의 기장은 매일 열심히 뛰어다니며 걸생의 인원을 모을 정도로 애착이 깊은 것으로 유명하다.",
-    hot: false,
-  },
-  {
-    id: 20,
-    board: "club",
-    title: "인테그랄… 알고보니 정식 과학 동아리?",
-    author: "폴라리스",
-    date: "2026-07-09 01:04",
-    views: 3307,
-    comments: 150,
-    likes: 179,
-    body: "네 맞습니다. 인테그랄은 과학동아리입니다.",
-    hot: false,
-  },
-  {
-    id: 21,
-    board: "free",
-    title: "한민고의 택배가 사라지지 않는 이유… 000으로 밝혀져…",
-    author: "급식러",
-    date: "2026-07-05 13:08",
-    views: 5785,
-    comments: 152,
-    likes: 20,
-    body: "한민고의 택배가 사라지지 않는 이유는 아직 본인의 택배를 가져가지 않는 사람들이 많기에 그렇다. 사감선생님들의 걱정이 크다고 한다.",
+    title: "님들 내가 바로 레전드 책-지피티를 발견해버렸잖아ㅋㅋ",
+    author: "익명",
+    date: "2026-08-09 16:51",
+    views: 1203,
+    comments: 2,
+    likes: 34,
+    body: `챗지피티 아니다 바로 책-지피티라는거다
+책은 무엇이든 딱 피면 바로 알려주시잖아
+심지어 말이야 어? 면학 3타임때도 당당하게 쓸수있다 이말이야
+구라안까고 이게 ㄹㅇ 챗지피티아니냐?`,
     hot: false,
   },
   {
     id: 22,
     board: "club",
-    title: "왜요에 모집 비리가 있다? CPS와 관계 있어",
+    title: "왜요에 모집 비리가 있다?",
     author: "수학은어려워",
     date: "2026-07-03 12:04",
     views: 7022,
@@ -486,183 +338,63 @@ const seedPosts = [
     hot: false,
   },
   {
-    id: 24,
-    board: "free",
-    title: "한민고, 학생들 몰래 5층 만들다 적발",
-    author: "13기익명",
-    date: "2026-06-25 19:28",
-    views: 8078,
-    comments: 45,
-    likes: 162,
-    body: "한민고 계단이 열심히 계단을 오르는 학생들을 놀리기 위해 은근슬쩍 층고수를 높이다 적발되었다. 이에 학생들은 '왠지 계단이 많더라', '앞으로 엘베만 탄다' 등의 반응을 보이고 있다. 불법 증축된 계단의 블럭수는 총 10개. 수정해야함.",
-    hot: false,
-  },
-  {
-    id: 25,
-    board: "free",
-    title: "한민고 연못에 뛰어든 걸생의 유 모군… 그의 행방은?",
-    author: "한찌.com러",
-    date: "2026-06-25 01:52",
-    views: 5537,
-    comments: 163,
-    likes: 469,
-    body: "한민고 연못의 수질오염을 걱정한 유 모군은 과학과제연구 탐구주제로 생물활성탄을 만들고자 하였다. 앞으로 연구가 어떻게 진행되는지가 기대되는 바이다.",
-    hot: false,
-  },
-  {
-    id: 26,
-    board: "club",
-    title: "가장 강력한 동아리라고 주장하는 000",
-    author: "익명",
-    date: "2026-06-24 20:46",
-    views: 1961,
-    comments: 203,
-    likes: 208,
-    body: "정체는 아직 밝혀지지 않았다.",
-    hot: false,
-  },
-  {
-    id: 27,
-    board: "free",
-    title: "최근 와이파이 품질 저하의 이유, 한민고에서 예산 줄이려고….",
-    author: "관전자",
-    date: "2026-06-21 13:10",
-    views: 1251,
-    comments: 78,
-    likes: 410,
-    body: "선생님들이 와이파이를 다 쓰고 있다는 소문이 돌고 있다.",
-    hot: false,
-  },
-  {
-    id: 28,
-    board: "club",
-    title: "엠퍼런스가 원래 없었던 동아리라고??..",
-    author: "Beta",
-    date: "2026-06-15 11:27",
-    views: 2139,
-    comments: 52,
-    likes: 143,
-    body: "엠퍼런스는 없고 엠퍼러스에요.",
-    hot: false,
-  },
-  {
-    id: 29,
-    board: "free",
-    title: "한민고 급식먹고 구토한 학생… 한민고 급식, 이대로 괜찮은가..?",
-    author: "고양이편",
-    date: "2026-06-07 05:31",
-    views: 7401,
-    comments: 26,
-    likes: 140,
-    body: "독감 때문에 고열로 인한 증상이었답니다.",
-    hot: false,
-  },
-  {
-    id: 30,
-    board: "free",
-    title: "어디에도 기재되지 않은 '업로드'... 실존 가능성은?",
-    author: "지켜본다",
-    date: "2026-06-06 20:12",
-    views: 2510,
-    comments: 103,
-    likes: 378,
-    body: "있'었'습니다. 2025년에 만들어져서 1년 만에 증발함. 있었는데요 없었습니다.",
-    hot: false,
-  },
-  {
-    id: 31,
-    board: "free",
-    title: "한민고 깨진 유리창… 총기 사용 의혹.. 곧 북한 내려오나..",
-    author: "왜요단톡방",
-    date: "2026-06-06 11:06",
-    views: 1900,
-    comments: 135,
-    likes: 387,
-    body: "이 모씨가 야구공을 이용해 강속구로 깨부신 거라고 하네요.",
-    hot: false,
-  },
-  {
-    id: 32,
-    board: "free",
-    title: "한민고 지하의 비밀: 120인의 방공호",
-    author: "폴라리스",
-    date: "2026-05-31 17:35",
-    views: 2401,
-    comments: 57,
-    likes: 131,
-    body: "한민고는 군자녀 대상 고등학교로 설립 이래부터 조국수호의 의지를 다져왔다. 때문에 유사시 상황을 대비하여 지하에 최대 120명까지 수용 가능한 방공호를 만들어두었다고 한다. 수정해야함.....?",
-    hot: false,
-  },
-  {
     id: 33,
     board: "free",
-    title: "주차장에 있는 피묻은 벽돌이 발견돼… 타살 가능성?",
+    title: "주차장에 피 묻은 벽돌 있던데",
     author: "급식러",
     date: "2026-05-30 11:53",
     views: 3690,
     comments: 28,
     likes: 367,
-    body: "사실 피가 아니라 촬영용으로 칠한 마카라고 하네요.",
-    hot: false,
-  },
-  {
-    id: 34,
-    board: "free",
-    title: "한민고 도서관 이름이 '규장각'인 이유… 군사시설, '장용영'",
-    author: "수학은어려워",
-    date: "2026-05-27 13:30",
-    views: 7268,
-    comments: 47,
-    likes: 117,
-    body: "이름을 둘러싼 학교식 패러디 기사입니다.",
+    body: "생각해보니까 겁나 무섭네",
     hot: false,
   },
   {
     id: 35,
     board: "free",
-    title: "한민고에서 출판한 [한민고 이야기] 판매 수 조작 의혹 생겨",
+    title: "한민고 이야기 <-- 판매수 조작 고트 ㅋㅋㅋㅋㅋㅋ",
     author: "기숙사생",
     date: "2026-05-27 13:17",
     views: 742,
     comments: 108,
     likes: 152,
-    body: "한민고 이야기 독후감이 방학 숙제였다고 하네요.",
+    body: "방학숙제로 강매 ㄹㅈㄷ",
     hot: false,
   },
   {
     id: 36,
     board: "free",
-    title: "일산화이수소 위험성 논란 재조명… 한민고에서 한 학생의 언급. 염산보다 높은 pH인데 상용화되어도 괜찮은가",
+    title: "친구가 일산화이수소 위험하다는데",
     author: "13기익명",
     date: "2026-05-24 03:11",
     views: 1283,
     comments: 142,
     likes: 468,
-    body: "일산화이수소는 물입니다. 네, 물이요. H2O. pH는 작을수록 산이 강합니다.",
+    body: "화학 안 듣는데 일산화이수소가 뭐임?",
     hot: false,
   },
   {
     id: 37,
     board: "exam",
-    title: "신청자 적은 과목 선택 이유, 알고보니 합반?",
+    title: "합반 ㄲㅂ",
     author: "한찌.com러",
     date: "2026-05-23 05:17",
     views: 2683,
     comments: 66,
     likes: 107,
-    body: "합반 가고 싶어서 고급 화학 선택했는데 안 됐대요 …?",
+    body: "합반가고 싶어서 고화 골랐는데 이제 그냥 고화 고른 인간임;;;",
     hot: false,
   },
   {
     id: 38,
     board: "free",
-    title: "운돌했다는 사실만으로 공격받아, 물리적 피해 없이도 정신적 피해 남겨….",
+    title: "운돌했다고 뭐라고 하는 게 맞는 문화냐",
     author: "익명",
     date: "2026-05-20 00:56",
     views: 3441,
     comments: 57,
     likes: 215,
-    body: "얼레리꼴레리 친구들이 놀려요 ㅋ",
+    body: "운돌 좀 하는 게 죄는 아니잖아",
     hot: false,
   },
   {
@@ -674,7 +406,7 @@ const seedPosts = [
     views: 1492,
     comments: 203,
     likes: 251,
-    body: "이는 바다에서 나온 물고기를 활용한 회전초밥의 원리와 비슷하다. 중간에 끼어들 수도 있고, 한 방향으로만 돌 수 있다. 정해진 라인을 벗어나지 않고, 그 수는 늘어나거나 줄어든다는 공통점이 있다.",
+    body: "사실 한민고 커플들은 물고기가 아닐까",
     hot: false,
   },
   {
@@ -686,7 +418,11 @@ const seedPosts = [
     views: 6441,
     comments: 172,
     likes: 181,
-    body: "친구인 줄 알고 잘못 외쳤고, 평소 존경하던 선생님이라 굉장히 죄송하다고 여기고 있다고 알린 바가 있습니다.",
+    body: `#공론화
+    
+    
+    
+    쌤한테 샤@갈 날린 B 공론화`,
     hot: false,
   },
   {
@@ -698,43 +434,43 @@ const seedPosts = [
     views: 2030,
     comments: 156,
     likes: 361,
-    body: "별명이 코끼리라네요~",
+    body: "1학년에 코끼리 키우는 애 있다는데",
     hot: false,
   },
   {
     id: 42,
     board: "anon",
-    title: "남자 혼자 하루에 소개팅 9번… 익명의 위험성",
+    title: "소개팅 부스 몇 번까지 될까?",
     author: "익명",
     date: "2026-05-17 11:27",
     views: 5870,
     comments: 139,
     likes: 300,
-    body: "2025년 아가판더스 소개팅 부스에서 혼자 부스 9번 돈 사람이 있다고 알려진 바 있다.",
+    body: "각자 직접 해보고 댓글 ㄱㄱ 일단 난  17범",
     hot: false,
   },
   {
     id: 43,
     board: "free",
-    title: "합반의 짝꿍 운영, 결국은 '이것' 만들어…",
+    title: "합반 짝꿍",
     author: "왜요단톡방",
     date: "2026-05-16 18:47",
     views: 3436,
     comments: 156,
     likes: 401,
-    body: "합반의 짝꿍 운영으로 인해 무려 29명이 거주하던 교실에 드디어 통행로가 만들어졌다. 학생들은 매우 만족 중이라고 한다.",
+    body: "합반 짝꿍하는 게 맞냐 쫌에반데",
     hot: false,
   },
   {
     id: 44,
     board: "free",
-    title: "합반 남자 둘 사이에 여자 자리 앉혀… 여학생 차별?",
+    title: "남자 둘 사이에 여자 앉히는 건 좀;;",
     author: "폴라리스",
     date: "2026-05-13 03:07",
     views: 3481,
     comments: 188,
     likes: 193,
-    body: "홀수라 3명 앉는 자리가 있는데 랜덤으로 뽑았는데 운이 안 좋은 학생이었다고 하네요.",
+    body: "여잔데 합반인 룸메가 자기 바로 양옆으로 남자자리 됐다고 거의 울던데",
     hot: false,
   },
   {
@@ -746,31 +482,19 @@ const seedPosts = [
     views: 2313,
     comments: 47,
     likes: 332,
-    body: "용철공주는 다은쌤의 고양이 용철이로 지금은 성별이 없다고 한다.",
+    body: "남자도 공주 할 수 있다고",
     hot: false,
   },
   {
     id: 46,
     board: "free",
-    title: "교실에 젓가락 한 쌍 발견… 급식실에서 무단 반출했나…",
+    title: "교실에 젓가락 한 쌍 돌아다니던데 누가 몰래 빼왔나",
     author: "수학은어려워",
     date: "2026-05-09 10:30",
     views: 6767,
     comments: 88,
     likes: 178,
-    body: "이 모씨와 이 모씨 두 사람이 너무 가벼워 항상 젓가락 소리를 듣는다고 하네요.",
-    hot: false,
-  },
-  {
-    id: 47,
-    board: "free",
-    title: "합반에서 양다리 걸친 남학생 A… 그 진실은?",
-    author: "기숙사생",
-    date: "2026-05-08 10:07",
-    views: 3602,
-    comments: 180,
-    likes: 148,
-    body: "최 모씨가 의자 두 개를 한 번에 두고 양다리를 걸쳤다고 한다…",
+    body: "지나가다 14반에서 젓가락 보이는데 당황스럽더라",
     hot: false,
   },
   {
@@ -782,139 +506,118 @@ const seedPosts = [
     views: 6811,
     comments: 102,
     likes: 140,
-    body: "이건.. 실제입니다..",
+    body: "아니분명어제까지캔제티가850원이였다니까?????????",
     hot: false,
   },
   {
     id: 49,
     board: "club",
-    title: "한민고 과학 동아리, 9개가 아니라고?",
+    title: "한민고 과학 동아리 9개 아니냐",
     author: "한찌.com러",
     date: "2026-05-05 01:58",
     views: 4093,
     comments: 136,
     likes: 432,
-    body: "원래 9개였지만 올해 오스가 과동이 되며 10개가 됐답니다.",
-    hot: false,
-  },
-  {
-    id: 50,
-    board: "exam",
-    title: '한민고 수행평가, 형평성 논란? "같은 반인데 수행은 달라요"',
-    author: "익명",
-    date: "2026-05-04 22:25",
-    views: 8433,
-    comments: 43,
-    likes: 463,
-    body: "같은 반이지만 제2외국어가 달라서 수행이 다릅니다.",
+    body: "10개라는 애들은 뭐하는 애들임",
     hot: false,
   },
   {
     id: 51,
     board: "free",
-    title: "남학생 반에서 여학생 다수 발견…",
+    title: "17반 남자반 아니냐 여자랑 눈마주쳤는데",
     author: "관전자",
-    date: "2026-05-02 22:10",
+    date: "2029-04-01 12:10",
     views: 3507,
     comments: 153,
     likes: 244,
-    body: "만우절에 2학년 남자 반이랑 1학년 여자 반이 교실 바꿨답니다.",
+    body: `2학년 17반 지나가다가 교실에서 나오는 여자랑 눈마주침
+    심지어 교실에 여자 엄청 많던데 좀 무서워질라 함`,
     hot: false,
   },
   {
     id: 52,
     board: "anon",
-    title: '학생 정 모씨, "난 아빠 덕분에 한민고 입학했다" 발언… 이사장 특혜?',
+    title: '한민고 결국 다 부모 빽 아니냐',
     author: "익명",
     date: "2026-04-30 17:32",
     views: 2083,
     comments: 196,
     likes: 50,
-    body: "아버지께서 이사장님과 동명이인이라 합니다. 아버지께서 군인이신 덕에 군자녀로 왔다네요.",
-    hot: false,
-  },
-  {
-    id: 53,
-    board: "club",
-    title: "한민고 모 동아리에서 000 8명 발각… 무서울 지경",
-    author: "고양이편",
-    date: "2026-04-29 10:06",
-    views: 2813,
-    comments: 13,
-    likes: 447,
-    body: "CPS에서 마니또 8명이 발각됐죠..",
-    hot: false,
-  },
-  {
-    id: 54,
-    board: "love",
-    title: '한민고 내부 교제의 폐해… "내가 더 좋아 쟤가 더 좋아?"',
-    author: "지켜본다",
-    date: "2026-04-29 08:34",
-    views: 4707,
-    comments: 78,
-    likes: 114,
-    body: "룸메들이 장난으로 물어봤다 합니다.",
+    body: "일단 나부터 ㅋㅋㅋㅋㅋ 나도 아빠 아니었음 입학 못함",
     hot: false,
   },
   {
     id: 55,
     board: "free",
-    title: "한민고 13기, 특정 반만 00 없어… 반 단위 차별?",
+    title: "13기 반 차별 진짜 심하네",
     author: "왜요단톡방",
     date: "2026-04-28 05:40",
     views: 6997,
     comments: 95,
     likes: 252,
-    body: "한 반만 햇빛이 없습니다..",
-    hot: false,
-  },
-  {
-    id: 56,
-    board: "free",
-    title: '만우절 지나친 장난에 내려진 특단의 조치… "운동장으로 나오세요"',
-    author: "폴라리스",
-    date: "2026-04-20 23:57",
-    views: 1190,
-    comments: 147,
-    likes: 170,
-    body: "운동장 댄스파티 재밌었어요.",
+    body: "1학년 중에 우리 반만 없는 게 맞냐",
     hot: false,
   },
   {
     id: 57,
     board: "free",
-    title: "밤 9시, 운동장 한복판 비명소리의 진실은?",
+    title: "어제 밤에 운동장에서 누가 소리지르던데",
     author: "급식러",
     date: "2026-04-19 18:44",
     views: 1579,
     comments: 36,
     likes: 97,
-    body: "별똥별 떨어졌다네요.",
-    hot: false,
-  },
-  {
-    id: 58,
-    board: "anon",
-    title: "학생 윤 모씨, 도플갱어 발견…?",
-    author: "익명",
-    date: "2026-04-18 22:26",
-    views: 3642,
-    comments: 161,
-    likes: 469,
-    body: "동명이인이라네요~",
+    body: "9시쯤에 운동장에서 소리지른 거 뭐냐... 나만 들었음? 주변에 들었다는 애들이 없던데",
     hot: false,
   },
   {
     id: 59,
     board: "free",
-    title: "야밤에 내리는 비를 틈 타 나가려다 교문에서 적발되는 사례 증가, 이대로 괜찮은가",
+    title: "한밤중에 비오면 정문으로 대놓고 나가는 존경의 대상",
     author: "기숙사생",
     date: "2026-04-16 00:18",
     views: 1664,
     comments: 176,
     likes: 250,
-    body: "맹꽁이가 비올 때마다 계속 밖으로 나온대요…ㅜㅜ 걸생이들이 잘 잡아서 호수에 넣어주고 있다고 합니다.",
+    body: `비오는 날마다 한탈하는 그저 GOAT
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    어쩔맹꽁이 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ`,
     hot: false,
   },
   {
@@ -926,19 +629,19 @@ const seedPosts = [
     views: 6328,
     comments: 39,
     likes: 439,
-    body: "누가 CPS 보고 Cutie Pretty Sangcheonteacher 아니냐고 하더라고요.",
+    body: "ㅇㄴ 내 룸메 CPS인데 좀 무서움",
     hot: false,
   },
   {
     id: 61,
     board: "club",
-    title: "동아리의 유령부원 증가 추세… 장 모씨 '항상 주변을 경계할 필요있어'",
+    title: "요즘 동아리 유령부원 늘어나니까 주변 잘 보고 다녀라",
     author: "한찌.com러",
     date: "2026-04-15 00:10",
     views: 4970,
     comments: 156,
     likes: 251,
-    body: "요즘 동아리에서 부원의 이름은 적혀 있지 않으나 새 동아리 옷을 맞춘 뒤 그 옷과 똑같은 디자인의 옷을 입은 채 배회하는 존재들이 확인되었다. 이 존재들은 새 동아리 옷을 맞추는 시기에 대량으로 발생하는 존재들로, 실제 동아리 부원이 아니나 그 모습과 유사해 착각하기 쉽다… 이들을 보고 주의깊게 생각하고, 경계하지 않을 경우 같은 동아리 선배의 연인에게 인사하는 낯부끄러운 일이 생길 수 있다… 주의하자.",
+    body: "ㅁㅊㅁㅊㅁㅊ나실수로 우리동아리기장남친분한테 인사함ㅁㅊ 아제발진짜아왜그랬지",
     hot: false,
   },
   /* ── 퍼즐 관련 게시글 ─────────────────────────────── */
@@ -970,22 +673,23 @@ const seedPosts = [
     views: 5912,
     comments: 3,
     likes: 87,
-    body: `142857이다 이것들아`,
-    hot: false,
-  },
-  {
-    id: 64,
-    board: "free",
-    title: "님들 내가 바로 레전드 책-지피티를 발견해버렸잖아ㅋㅋ",
-    author: "익명",
-    date: "2026-08-09 16:51",
-    views: 1203,
-    comments: 2,
-    likes: 34,
-    body: `챗지피티 아니다 바로 책-지피티라는거다
-책은 무엇이든 딱 피면 바로 알려주시잖아
-심지어 말이야 어? 면학 3타임때도 당당하게 쓸수있다 이말이야
-구라안까고 이게 ㄹㅇ 챗지피티아니냐?`,
+    body: `곧 사라지니까 빨리 보고 가라
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+142857이다 이것들아 ㅋㅋㅋㅋㅋㅋㅋㅋㅋ`,
     hot: false,
   },
   {
@@ -1008,13 +712,6 @@ const seedPosts = [
 // id    : 댓글 고유 번호 (대댓글 연결에 필요)
 // parentId : 대댓글일 때 부모 댓글의 id (없으면 생략)
 const seedComments = [
-  { id: 1, postId: 287,  author: "ㅇㅇ",    text: "야 아이패드 비번 뭐냐?ㅋㅋ 게시물에 댓글로 그거 142857이래", time: "방금 전" },
-  { id: 2, postId: 9001, author: "익명",    text: "세 번째 파일만 재생하지 마.",                               time: "1분 전" },
-  { id: 3, postId: 1,    author: "ㅇㅇ",    text: "이런 형태 게시판 진짜 오랜만이다",                         time: "2분 전" },
-  { id: 4, postId: 9002, author: "관전자",  text: "작성자가 작성자라고?",                                      time: "3분 전" },
-  { id: 5, postId: 5,    author: "뉴런123", text: "활동 내용이 동아리마다 꽤 다르더라",                       time: "4분 전" },
-  { id: 6, postId: 6,    author: "시간표",  text: "아직 공식 공지는 못 봤어",                                  time: "5분 전" },
-
   /* ── 62: 2학년 15반 ──────────────────────────────── */
   { id: 7,  postId: 62,                   author: "익명", text: "걔 유명하자나 ㅇㄴㅇ(안노운) 아니야",                                                       time: "1시간 전"  },
   { id: 8,  postId: 62, parentId: 7,      author: "익명", text: "어어 맞는 것 같으",                                                                           time: "58분 전"   },
@@ -1039,10 +736,7 @@ const seedComments = [
   { id: 21, postId: 65, parentId: 20,     author: "익명", text: "혹시모름? 이걸로 세상의 진리를 알게 될수도 있잖음;;;;;;;;;",                                  time: "1시간 전"  },
 
   /* ── 9102: 패드 비번 ─────────────────────────────── */
-  { id: 22, postId: 9102,                 author: "익명", text: "작년에 걔한테 듣기로는 1/7이라나 뭐라나. 하여간 ㅈㄹ도 정도껏이지.",                         time: "방금 전"   },
-
-  /* ── 9103: 책 표지 플라스틱 ──────────────────────── */
-  { id: 23, postId: 9103,                 author: "익명", text: "무슨 플라스틱으로 책을 만드냐 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ 그냥 착각이겠지",                    time: "방금 전"   },
+  { id: 22, postId: 9102,                 author: "익명", text: "작년에 걔한테 듣기로는 1/7이라나 뭐라나. 하여간 무시하는것도 아니고",                         time: "방금 전"   },
 
   /* ── 66: 국회의원 뇌물 ───────────────────────────── */
   { id: 24, postId: 66,                   author: "익명", text: "돈 들고 왔던데",              time: "50분 전" },
@@ -1101,7 +795,7 @@ const seedComments = [
   { id: 61, postId: 15,                   author: "익명", text: "ㅇㅇ 몰랐어?",                      time: "25분 전" },
   { id: 62, postId: 15, parentId: 61,     author: "익명", text: "ㅇㅇ…",                              time: "22분 전" },
   { id: 63, postId: 15, parentId: 61,     author: "익명", text: "뭐라는거야",                         time: "20분 전" },
-  { id: 64, postId: 15, parentId: 61,     author: "익명", text: "나 왜요 기장인데 이거 맞다 (최ㅅㄱ)", time: "18분 전" },
+  { id: 64, postId: 15, parentId: 61,     author: "익명", text: "나 왜요 기장인데 이거 맞다", time: "18분 전" },
 
   /* ── 68: 제발 택배좀 제때 가져가 ──────────────────── */
   { id: 65, postId: 68,                   author: "익명", text: "그니까 좀 가져가",                        time: "45분 전" },
@@ -1119,6 +813,112 @@ const seedComments = [
 
   /* ── 71: 이거 눌러보셈 ────────────────────────────── */
   { id: 73, postId: 71,                   author: "익명", text: "나가라그냥", time: "방금 전" },
+
+  /* ── 33: 피묻은 벽돌 ────────────────────────────── */
+  { id: 74, postId: 33,                   author: "익명", text: "그거 마카잖아;; 이걸 몰라?" },
+  { id: 75, postID: 33, parentID: 74,     author: "작성자", text: "ㄹㅇ? 이게 피가 아니네 ㄲㅂ" },
+  /* ── 36: 일산화이수소 ────────────────────────────── */
+  { id: 76, postId: 36,                   author: "익명", text: "???? 그게 뭔데" },
+  { id: 77, postId: 36, parentId: 76,     author: "익명", text: "급식에 들어간다는데" },
+  { id: 78, postId: 36, parentId: 77,     author: "익명", text: "야 그거 염산보다 pH 높은거임 설마 먹었어?" },
+  { id: 79, postId: 36, parentId: 76,     author: "익명", text: "골때리네 그거 금단증상 ㄹㅈㄷ임" },
+  /*── 38: 운돌 놀림 ──────────────────────────────*/
+  { id: 80, postId: 38,                   author: "익명", text: "찔림?" },
+  { id: 81, postId: 38,                   author: "익명", text: "얼레리꼴레리 ㅋ" },
+  { id: 82, postId: 38,                   author: "익명", text: "바텐더, 오늘은 락스온더 락이다" },
+  /*── 39: 운돌 물고기 ──────────────────────────────*/
+  { id: 83, postId: 39,                   author: "익명", text: "진짜 근데 한명도 역주행 안하는게 신기하긴해 ㅋㅋㅋㅋ" },
+  { id: 84, postId: 39, parentId: 83,     author: "익명", text: "맞긴한데 역주행하면 커플들 얼굴 봐야됨" },
+  /*── 40: 최샤갈 ──────────────────────────────*/
+  { id: 85, postId: 40,                   author: "익명", text: "? 오늘만 사네" },
+  { id: 86, postId: 40, parentId: 85,     author: "익명", text: "어음 저건 좀" },
+  { id: 87, postId: 40, parentId: 86,     author: "익명", text: "진짜 얼굴에 대고 샤 갈! 이럼" },
+  { id: 88, postId: 40, parentId: 87,     author: "익명", text: "예?" },
+  { id: 89, postId: 40,                   author: "익명", text: "나 쟤 친군데 모르고 그랬다고 함" },
+  /*── 41: 1학년 코끼리 ──────────────────────────────*/
+  { id: 90, postId: 41,                   author: "익명", text: "ㄹㅇ임?" },
+  { id: 91, postId: 41,                   author: "익명", text: "별명 코끼리인 거 잘못 안 거 아님? 한 명 있는데" },
+  /*── 42: 소개팅 부스 ──────────────────────────────*/
+  { id: 92, postId: 42,                   author: "익명", text: "개최자 승;;" },
+  { id: 93, postId: 42,                   author: "익명", text: "소최몇 뭐 이런거냐 자랑이다" },
+  { id: 94, postId: 42,                   author: "익명", text: "그 정도면 걍 거기서 니 불쌍해서 더 시켜준거임 ㅇㅇ 라고 하면 안되겠죠?" },
+  { id: 95, postId: 42, parentId: 94,     author: "익명", text: "이미 다 말해놓고 뭘 ㅋㅋㅋㅋㅋㅋㅋ" },
+  /*── 43: 합반 짝꿍 ──────────────────────────────*/
+  { id: 96, postId: 43,                   author: "익명", text: "나 합반인데 짝 붙이면서 드디어 교실에 통로 좀 생겨서 그래도 만족하긴 함" },
+  { id: 97, postId: 43, parentId: 96,     author: "익명", text: "다른게 생긴게 아니고??" },
+  { id: 98, postId: 43, parentId: 97,     author: "익명", text: "아 근데 그거도 맞긴해 ㅋㅋ" },
+  /*── 44: 남자 둘 사이 여자 ──────────────────────────────*/
+  { id: 99, postId: 44,                   author: "익명", text: "오우 저건 좀 안타깝긴 하네..." },
+  { id: 100, postId: 44,                  author: "익명", text: "ㄹㅇ임?? 아니 뭐 한자리만 따로 떼놓는건 봤어도 세자리 쭉은 첨보네" },
+  { id: 101, postId: 44, parentId: 100,   author: "익명", text: "나 옆반이라 가끔 보이는데 ㄹㅇ임 심지어 맨앞 가운데" },
+  /*── 45: 공주 ──────────────────────────────*/
+  { id: 102, postId: 45,                  author: "익명", text: "ㅇㅇ 너 공주 해" },
+  { id: 103, postId: 45, parentId: 102,   author: "익명", text: "아니 나 말고 고양이" },
+  { id: 104, postId: 45, parentId: 102,   author: "익명", text: "고양이 이름이 공주라고" },
+  { id: 105, postId: 45, parentId: 104,   author: "익명", text: "알았어 공주" },
+  { id: 106, postId: 45, parentId: 104,   author: "익명", text: "좋은사랑해" },
+  /*── 46: 젓가락 ──────────────────────────────*/
+  { id: 107, postId: 46,                  author: "익명", text: "그 이씨 둘 아니냐" },
+  { id: 108, postId: 46, ParentId: 107,   author: "익명", text: "맞는듯" },
+  { id: 109, postId: 46, ParentId: 108,   author: "익명", text: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ" },
+  { id: 110, postId: 46, ParentId: 108,   author: "익명", text: "아 웃으면 안된다고" },
+  { id: 111, postId: 46, ParentId: 108,   author: "익명", text: "젓가락 이러네 ㅋㅋㅋㅋㅋ 말랐다고 그러지 말라고" },
+  /*── 48: 매점 가격 인상 ──────────────────────────────*/
+  { id: 112, postId: 48,                  author: "익명", text: "아 나 어제 지갑 꺼내기 귀찮다고 제티 참았는데 ㄲㅂ" },
+  { id: 113, postId: 48, ParentId: 112,   author: "익명", text: "? 뭔데" },
+  { id: 114, postId: 48, ParentId: 113,   author: "익명", text: "비싸짐" },
+  { id: 115, postId: 48, ParentId: 114,   author: "익명", text: "ㅇㄴ 얼탱" },
+  /*── 49: 과동 개수 ──────────────────────────────*/
+  { id: 116, postId: 49,                  author: "익명", text: "9개 맞잖아" },
+  { id: 117, postId: 49, ParentId: 116,   author: "익명", text: "10개임 올해 하나 추가됨" },
+  /*── 51: 남자 반 여자 ──────────────────────────────*/
+  { id: 118, postId: 51,                  author: "익명", text: "오늘 며칠이게" },
+  { id: 119, postId: 51, ParentId: 118,   author: "익명", text: "2029년 4월 1일 아 잠만" },
+  { id: 120, postId: 51, ParentId: 119,   author: "익명", text: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ" },
+  { id: 121, postId: 51, ParentId: 119,   author: "익명", text: "세상의 이치를 깨달으셨군..." },
+  { id: 122, postId: 51, ParentId: 119,   author: "익명", text: "만우절 <---- 그저 한민고 행사 GOAT" },
+  /*── 52: 부모 빽 ──────────────────────────────*/
+  { id: 123, postId: 52,                  author: "익명", text: "이번엔 진짜 비리 터진거냐" },
+  { id: 124, postId: 52, ParentId: 123,   author: "익명", text: "아니 나 군자년데" },
+  { id: 125, postId: 52, ParentId: 124,   author: "익명", text: "아씨 진짜 뭐 터진 줄 알았네" },
+  /*── 55: 햇빛 없음 ──────────────────────────────*/
+  { id: 126, postId: 55,                  author: "익명", text: "뭐가 없는데" },
+  { id: 127, postId: 55, ParentId: 126,   author: "익명", text: "햇빛" },
+  { id: 128, postId: 55, ParentId: 127,   author: "익명", text: "에반데" },
+  { id: 129, postId: 55, ParentId: 127,   author: "익명", text: "진짜?" },
+  { id: 130, postId: 55, ParentId: 127,   author: "익명", text: "아냐 있어 그리면 돼^^" },
+  { id: 131, postId: 55, ParentId: 130,   author: "익명", text: "더에바" },
+  /*── 57: 운동장 비명 ──────────────────────────────*/
+  { id: 132, postId: 57,                  author: "익명", text: "ㅇㅇ 너만 들음" },
+  { id: 133, postId: 57,                  author: "익명", text: "안들렸는데 못들었는데" },
+  { id: 134, postId: 57,                  author: "익명", text: "뭔데?뭔데?뭔데?뭔데?" },
+  { id: 135, postId: 57, ParentId: 134,   author: "익명", text: "무서워 하지마..." },
+  { id: 136, postId: 57,                  author: "익명", text: "그거 유성우 떨어져서 그럴걸" },
+  { id: 137, postId: 57, ParentId: 136,   author: "익명", text: "그거 맞지...?" },
+  { id: 138, postId: 57, ParentId: 137,   author: "익명", text: "아닐껄?아닐껄?아닐껄?" },
+  { id: 139, postId: 57, ParentId: 137,   author: "익명", text: "몰라몰라몰라몰라몰라몰라몰라" },
+  { id: 140, postId: 57, ParentId: 139,   author: "익명", text: "오❧늘 덧글 상ㅌH 무슨 일ㅇ1ㅇㅑ" },
+  /*── 59: 맹꽁이 한탈 ──────────────────────────────*/
+  { id: 141, postId: 59,                  author: "익명", text: "아니 진짜로 누가 한탈하는줄" },
+  { id: 142, postId: 59,                  author: "익명", text: "아 걔네가 맹꽁이야? 떡두꺼비같은 건줄" },
+  { id: 143, postId: 59, ParentId: 142,   author: "익명", text: "맹꽁이 ㄱㅇㅇ" },
+  { id: 144, postId: 59, ParentId: 143,   author: "익명", text: "안 기여버ㅓ ㅠㅜㅠㅜㅠ" },
+  { id: 145, postId: 59, ParentId: 144,   author: "익명", text: "걱정마 걸생이 잘해준대" },
+  { id: 146, postId: 59, ParentId: 145,   author: "익명", text: "다행이다... ㅠㅠㅜ" },
+  /*── 60: CPS 숭배 ──────────────────────────────*/
+  { id: 147, postId: 60,                  author: "익명", text: "솔직히맞잖아어떻게CutiePrettyS***teacher가아닐수있어혼자귀엽고예쁘고다하시는…[더보기]" },
+  { id: 148, postId: 60, ParentId: 147,   author: "익명", text: "본인 등판" },
+  { id: 149, postId: 60, ParentId: 147,   author: "익명", text: `그 긴거` },
+  /*── 61: 동아리 유령부원 ──────────────────────────────*/
+  { id: 150, postId: 61,                  author: "익명", text: "2학년이 미안해..." },
+  { id: 151, postId: 61, ParentId: 150,   author: "익명", text: "아닌데? 안 미안한데?" },
+  { id: 152, postId: 61, ParentId: 151,   author: "익명", text: "넌 그냥 나가라 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ" },
+  { id: 153, postId: 61,                  author: "익명", text: "그래서 학기초에는 얼굴 확실히 외워둔 선배 아니면 옷보고 인사하기 위험함" },
+  { id: 154, postId: 61, ParentId: 153,   author: "익명", text: "그러다 진짜 선배면 어캄" },
+  { id: 155, postId: 61, ParentId: 154,   author: "익명", text: "2학년도 후배 얼굴 잘 몰라서 상관 없음" },
+  { id: 156, postId: 61,                  author: "익명", text: "근데 기장 남친분인건 어케 앎" },
+  { id: 157, postId: 61, ParentId: 156,   author: "익명", text: "어제 운돌 목격함... 나도 알고 싶지 않았어" },
+
 ];
 
 /* ── 공개 채팅 (사이드바용 더미) ─────────────────────── */
