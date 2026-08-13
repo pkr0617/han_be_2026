@@ -131,6 +131,29 @@
   font-weight: 700;
 }
 
+/* ── 배드엔딩 대형 라벨 ──────────────────────────────── */
+.ending-badend-label {
+  display: block;
+  font-size: clamp(40px, 9vw, 72px);
+  font-weight: 900;
+  letter-spacing: 6px;
+  color: #ff2d2d;
+  text-shadow: 0 0 10px rgba(255, 45, 45, 0.55), 0 0 28px rgba(255, 0, 0, 0.35);
+  margin-bottom: 10px;
+  animation: badEndPulse 1.1s ease-in-out infinite;
+}
+.ending-badend-sub {
+  display: block;
+  font-size: 16px;
+  font-weight: 400;
+  color: #ccc;
+  letter-spacing: 2px;
+}
+@keyframes badEndPulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.75; }
+}
+
 /* ── 풀 블랙 공포 레이어 ─────────────────────────────── */
 #fullBlackHorror {
   position: fixed;

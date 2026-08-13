@@ -706,9 +706,13 @@ const seedPosts = [
     views: 3401,
     comments: 2,
     likes: 156,
-    body: `(가을이가 만든 퀴즈 이미지)
-이거 풀면 님들도 기장먹기 쌉가능
+    body: `이거 풀면 님들도 기장먹기 쌉가능
 아 나는 풀었음ㅋ`,
+    // ★ 육면체 금고 힌트 퀴즈 이미지 (숫자 대응 문제 → 금고 비번 = ①+②-③)
+    bodyHtml: `이거 풀면 님들도 기장먹기 쌉가능<br>아 나는 풀었음ㅋ
+      <div style="margin-top:16px">
+        <img src="assets/KakaoTalk_20260813_190854002.png" alt="동아리 기장 문제" style="max-width:100%;border:1px solid #ccc;">
+      </div>`,
     hot: false,
   },
 ];

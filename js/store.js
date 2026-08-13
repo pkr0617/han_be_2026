@@ -3,7 +3,7 @@
    ★ 버전을 올리면 localStorage가 초기화됩니다.
    ===================================================== */
 
-const STORAGE_VERSION = "v13"; // v13: 책-지피티 볼드 힌트(bodyHtml) 등 게시글 내용 갱신
+const STORAGE_VERSION = "v14"; // v14: 동아리 기장 퀴즈 이미지(bodyHtml) 추가
 const POSTS_KEY    = `hansseolPosts_${STORAGE_VERSION}`;
 const COMMENTS_KEY = `hansseolComments_${STORAGE_VERSION}`;
 const USER_KEY     = "hansseolUser";

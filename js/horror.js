@@ -293,6 +293,7 @@ function registerViolation(reason) {
   3단계  (4.3초 후) : 접근 차단 메시지 표시
 */
 function triggerBadEnding() {
+  clearLoginCountdown(); // ★ 다른 엔딩(시간초과)과 겹치지 않도록 정리
   const username = currentUser?.nickname || "방문자";
 
   /* 1단계: 화면 일그러짐 + 낮고 느린 경고 음성 */
@@ -507,4 +508,123 @@ function appendLiveCommentToDOM(c, parentId) {
   if (titleEl) {
     titleEl.innerHTML = `<span class="square"></span>댓글 ${commentItems.querySelectorAll("[data-comment-id]").length}`;
   }
+}
+
+/* =====================================================
+   로그인 15분 제한 → 시간 초과 배드엔딩
+   ★ 일반 로그인(또는 게스트 입장) 시점부터 15분 안에 UNKNOWN 계정으로
+     로그인하지 못하면 "시간 초과" 배드엔딩이 뜹니다.
+   ★ 수칙 위반 경고(registerViolation)와는 완전히 별개의 엔딩입니다.
+   ===================================================== */
+const LOGIN_TIME_LIMIT_MS = 15 * 60 * 1000; // 15분
+let loginCountdownTimer = null;
+
+/** 로그인(또는 게스트 입장) 시점에 호출 — 15분 카운트다운 시작
+ *  ★ 이미 타이머가 돌고 있으면 그대로 둠(리셋 안 함) — 로그아웃 후
+ *    재로그인을 반복해서 시간제한을 우회하지 못하게 하기 위함.
+ *    "최초 로그인 시점부터" 15분이 기준. */
+function armLoginCountdown() {
+  if (loginCountdownTimer) return;
+  loginCountdownTimer = setTimeout(triggerTimeoutBadEnding, LOGIN_TIME_LIMIT_MS);
+}
+
+/** UNKNOWN 로그인 성공 / 다른 엔딩 발생 시 호출 — 타이머 취소 (로그아웃으로는 취소되지 않음) */
+function clearLoginCountdown() {
+  if (loginCountdownTimer) {
+    clearTimeout(loginCountdownTimer);
+    loginCountdownTimer = null;
+  }
+}
+
+/* ── 재난경보음 사이렌 (Web Audio 합성, 파일 없이) ────── */
+let _sirenCtx  = null;
+let _sirenOsc  = null;
+let _sirenGain = null;
+let _sirenLfo  = null;
+
+function playSiren(durationMs = 8000) {
+  stopSiren();
+  try {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    _sirenCtx = new Ctx();
+
+    _sirenOsc  = _sirenCtx.createOscillator();
+    _sirenGain = _sirenCtx.createGain();
+    _sirenOsc.type = "sawtooth";
+    _sirenGain.gain.value = 0.001;
+
+    // 주파수를 오르내리며 사이렌처럼 반복 (약 1초 주기)
+    const now = _sirenCtx.currentTime;
+    const cycles = Math.ceil(durationMs / 1000);
+    _sirenOsc.frequency.setValueAtTime(440, now);
+    for (let i = 0; i < cycles; i++) {
+      _sirenOsc.frequency.linearRampToValueAtTime(880, now + i + 0.5);
+      _sirenOsc.frequency.linearRampToValueAtTime(440, now + i + 1.0);
+    }
+
+    // 서서히 커졌다가 끝에서 페이드아웃
+    _sirenGain.gain.linearRampToValueAtTime(0.22, now + 0.3);
+    _sirenGain.gain.setValueAtTime(0.22, now + durationMs / 1000 - 0.4);
+    _sirenGain.gain.linearRampToValueAtTime(0.0001, now + durationMs / 1000);
+
+    _sirenOsc.connect(_sirenGain);
+    _sirenGain.connect(_sirenCtx.destination);
+    _sirenOsc.start();
+    _sirenOsc.stop(now + durationMs / 1000);
+    _sirenOsc.onended = () => stopSiren();
+  } catch (e) {}
+}
+
+function stopSiren() {
+  if (_sirenOsc) { try { _sirenOsc.stop(); } catch (e) {} _sirenOsc = null; }
+  if (_sirenCtx) { try { _sirenCtx.close(); } catch (e) {} _sirenCtx = null; }
+  _sirenGain = null;
+}
+
+/* ── 시간 초과 배드엔딩 ────────────────────────────────── */
+function triggerTimeoutBadEnding() {
+  clearLoginCountdown();
+
+  const TIMEOUT_MSG =
+    "경고. 지정된 시간을 초과하였습니다. " +
+    "이를 인지한 즉시 정신 오염 상태를 파악하시고 " +
+    "방을 나가 최대한 멀리 떨어져 주십시오.";
+
+  /* 1단계: 화면 일그러짐 + 사이렌 + TTS */
+  document.body.classList.add("horror-severe", "horror-distort");
+  playSiren(8000);
+  speakWarning(TIMEOUT_MSG, 0.75, 0.82);
+
+  /* 2단계: 3초 뒤 "화면 다운" */
+  setTimeout(() => {
+    document.body.classList.remove("horror-severe", "horror-distort");
+
+    document.body.style.filter = "invert(1) brightness(3)";
+    setTimeout(() => {
+      document.body.style.filter = "";
+
+      const black     = document.getElementById("fullBlackHorror");
+      const blackText = document.getElementById("blackHorrorText");
+      blackText.textContent = "";
+      black.classList.add("show");
+
+      /* 3단계: 1.3초 뒤 엔딩 메시지 표시 */
+      setTimeout(() => {
+        const ending = document.getElementById("endingScreen");
+        ending.querySelector(".ending-title").innerHTML =
+          `<span class="ending-badend-label">배드엔딩</span><span class="ending-badend-sub">시간 초과</span>`;
+        document.getElementById("endingText").textContent =
+`지정된 시간을 초과하였습니다.
+
+이를 인지한 즉시 정신 오염 상태를 파악하시고
+방을 나가 최대한 멀리 떨어져 주십시오.
+
+사유: 제한 시간(15분) 초과`;
+
+        ending.classList.add("show");
+        setTimeout(() => black.classList.remove("show"), 350);
+      }, 1300);
+
+    }, 150);
+  }, 3000);
 }

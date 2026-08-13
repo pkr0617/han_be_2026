@@ -57,6 +57,8 @@ document.addEventListener("click", (e) => {
   // 먼저 로그아웃할 수 있어야 하므로 비밀번호로 막지 않음)
   // ★ 게시글/댓글은 그대로 남겨서 다음 사용자가 이어볼 수 있게 하되,
   //   수칙 위반 경고(violationCount)는 사용자별로 초기화됩니다.
+  // ★ 15분 시간초과 타이머는 로그아웃해도 취소되지 않습니다 — 오직 UNKNOWN
+  //   계정으로 성공 로그인해야만 멈춥니다 (로그아웃으로 우회 못 하게 하려는 의도).
   if (e.target.id === "logoutBtn") {
     currentUser = null;
     violationCount = 0;
@@ -154,6 +156,8 @@ if (_dark) {
  */
 function _fullReset(reload = true) {
   stopHorrorAmbience();
+  clearLoginCountdown();
+  stopSiren();
   localStorage.clear();
   sessionStorage.clear();
   currentUser        = null;
