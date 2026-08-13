@@ -55,11 +55,16 @@ document.addEventListener("click", (e) => {
 
   // 로그아웃 (자유롭게 가능 — UNKNOWN 계정 로그인을 시도하려면
   // 먼저 로그아웃할 수 있어야 하므로 비밀번호로 막지 않음)
+  // ★ 게시글/댓글은 그대로 남겨서 다음 사용자가 이어볼 수 있게 하되,
+  //   수칙 위반 경고(violationCount)는 사용자별로 초기화됩니다.
   if (e.target.id === "logoutBtn") {
     currentUser = null;
+    violationCount = 0;
+    document.body.classList.remove("horror-distort", "horror-severe");
+    document.getElementById("horrorWarning")?.classList.remove("show");
     save();
     updateAccount();
-    goBoard("home");
+    renderLogin();
     showModal("로그아웃", "로그아웃되었습니다.");
   }
 });
@@ -80,8 +85,10 @@ document.getElementById("openChat").onclick = () =>
   );
 
 /* ── 초기화 ──────────────────────────────────────────── */
+// ★ 파일을 열면(=새 사용자가 앉으면) 로그인 화면이 먼저 뜹니다.
+//   로그인 없이 둘러보고 싶으면 상단 네비게이션의 "홈"을 누르면 됩니다.
 updateAccount();
-renderHome();
+renderLogin();
 
 /* ── dark.html: UNKNOWN 계정 → 마지막 편지 엔딩 ────────
    unknown 계정으로 로그인하면 dark.html 로 리다이렉트되고,
