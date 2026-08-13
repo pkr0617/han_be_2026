@@ -444,8 +444,6 @@ function renderWrite() {
 }
 
 /* ── 로그인 ──────────────────────────────────────────── */
-// ★ 제작자 비밀번호 (로그아웃 시 모든 상태 초기화)
-const CREATOR_LOGOUT_PASSWORD = "3141";
 // ★ UNKNOWN 계정 (숨겨진 엔딩 트리거)
 const UNKNOWN_ID       = "unknown";
 const UNKNOWN_PASSWORD = "0917";

@@ -150,3 +150,13 @@ const seedComments = [
   { postId: 8001, author: "익명", text: "★ [협업자] 첫 번째 게시글 댓글", time: "방금 전" },
   { postId: 8002, author: "익명", text: "★ [협업자] 두 번째 게시글 댓글", time: "1분 전"  },
 ];
+
+/* ── 공개 채팅 (사이드바 "최근 댓글" 용 더미) ────────────
+   ★ data.js 의 publicChat과 동일한 변수명 — store.js/render.js가 그대로 읽음
+   ───────────────────────────────────────────────────── */
+const publicChat = [
+  { author: "unknown", text: "찾은 사람에게 말하는 거야.",   time: "방금 전" },
+  { author: "unknown", text: "여기까지 온 건 네가 처음이 아니야.", time: "1분 전" },
+  { author: "익명",    text: "이 계정 뭐임..",               time: "2분 전" },
+  { author: "익명",    text: "여기 원래 있던 곳 맞아?",       time: "3분 전" },
+];

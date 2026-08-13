@@ -53,15 +53,14 @@ document.addEventListener("click", (e) => {
   const goEl = e.target.closest("[data-go]");
   if (goEl) { go(goEl.dataset.go); return; }
 
-  // 로그아웃 (제작자 비밀번호 필요)
+  // 로그아웃 (자유롭게 가능 — UNKNOWN 계정 로그인을 시도하려면
+  // 먼저 로그아웃할 수 있어야 하므로 비밀번호로 막지 않음)
   if (e.target.id === "logoutBtn") {
-    const pw = prompt("로그아웃하려면 제작자 비밀번호 4자리를 입력하세요.");
-    if (pw === CREATOR_LOGOUT_PASSWORD) {
-      _fullReset(false);
-      showModal("로그아웃", "로그아웃되었습니다.");
-    } else if (pw !== null) {
-      showModal("접근 거부", "제작자 비밀번호가 일치하지 않습니다.");
-    }
+    currentUser = null;
+    save();
+    updateAccount();
+    goBoard("home");
+    showModal("로그아웃", "로그아웃되었습니다.");
   }
 });
 
