@@ -71,3 +71,15 @@
   justify-content: space-between;
   align-items: center;
 }
+
+/* ── 실시간 댓글 티커 (홈 화면 왼쪽) ──────────────────── */
+.ticker-item {
+  transition: background 0.3s;
+}
+.ticker-item.ticker-new {
+  animation: ticker-flash 2.2s ease-out;
+}
+@keyframes ticker-flash {
+  0%   { background: #fff4cc; }
+  100% { background: transparent; }
+}

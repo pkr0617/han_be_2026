@@ -67,16 +67,25 @@
         <!-- 홈 페이지 -->
         <section class="page active" id="page-home">
           <div class="home-grid">
-            <section class="box">
-              <div class="box-title">
-                <div class="title-left"><span class="dot"></span>핫이슈</div>
-                <button class="more-link" style="border:0;background:transparent" data-board="hot">
-                  더보기 ▶
-                </button>
-              </div>
-              <div id="homeHotBoard"></div>
-              <button class="more-board" data-board="hot">더보기 ▼</button>
-            </section>
+            <div class="main-col">
+              <section class="box">
+                <div class="box-title">
+                  <div class="title-left"><span class="dot"></span>핫이슈</div>
+                  <button class="more-link" style="border:0;background:transparent" data-board="hot">
+                    더보기 ▶
+                  </button>
+                </div>
+                <div id="homeHotBoard"></div>
+                <button class="more-board" data-board="hot">더보기 ▼</button>
+              </section>
+
+              <section class="box">
+                <div class="box-title">
+                  <div class="title-left"><span class="dot"></span>실시간 댓글</div>
+                </div>
+                <div class="rank-list" id="liveCommentTicker"></div>
+              </section>
+            </div>
 
             <aside class="sidebar">
               <div class="box">
@@ -254,18 +263,18 @@
          ===================================================== -->
     <!-- 다크 사이트 플래그: store.js 가 이 값을 읽어 localStorage 를 건드리지 않음 -->
     <script>window.__DARK_SITE__ = true;</script>
-    <script src="js/dark-data.js?v=11"></script>  <!-- data.js 대신 dark-data.js -->
-    <script src="js/store.js?v=11"></script>
-    <script src="js/utils.js?v=11"></script>
-    <script src="js/horror.js?v=11"></script>
-    <script src="js/notices.js?v=11"></script>
-    <script src="js/render.js?v=11"></script>
-    <script src="js/app.js?v=11"></script>
-    <script src="js/game-data.js?v=11"></script>
-    <script src="js/game-corrupt.js?v=11"></script>
-    <script src="js/game-trigger.js?v=11"></script>
-    <script src="js/game-kakao.js?v=11"></script>
-    <script src="js/game-minigame.js?v=11"></script>
+    <script src="js/dark-data.js?v=14"></script>  <!-- data.js 대신 dark-data.js -->
+    <script src="js/store.js?v=14"></script>
+    <script src="js/utils.js?v=14"></script>
+    <script src="js/horror.js?v=14"></script>
+    <script src="js/notices.js?v=14"></script>
+    <script src="js/render.js?v=14"></script>
+    <script src="js/app.js?v=14"></script>
+    <script src="js/game-data.js?v=14"></script>
+    <script src="js/game-corrupt.js?v=14"></script>
+    <script src="js/game-trigger.js?v=14"></script>
+    <script src="js/game-kakao.js?v=14"></script>
+    <script src="js/game-minigame.js?v=14"></script>
     <script>
       (function bootMinigame() {
         if (typeof GM_TRIGGER   !== "undefined") GM_TRIGGER.init();

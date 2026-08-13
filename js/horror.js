@@ -14,10 +14,12 @@ const JUMPSCARE_SOUND_URL      = "assets/jumpscarem.mp3";                   // �
 const HORROR_AMBIENCE_URL = "assets/horror_ambience.mp3"; // ★★★ 먹통 배경음 교체 위치
 
 /* ── 상태 ────────────────────────────────────────────── */
-let violationCount    = Number(localStorage.getItem("hansseolViolationCount") || 0);
+// 수칙 위반 횟수는 localStorage에 저장하지 않음 — 파일/사이트를 다시 열면 항상 0부터 시작합니다.
+let violationCount    = 0;
 let normalEndingPlayed = false;
 let ambienceAudio     = null;
 let ambienceFallback  = null;
+let liveCommentTimers = [];
 
 /* ── 음성 경고 ───────────────────────────────────────── */
 // pitch / rate 를 인자로 받아 1회(밝음)↔2회(다소 기괴함) 구분
@@ -199,7 +201,6 @@ function triggerHorrorEvent(type, postId = null) {
 /* ── 수칙 위반 카운트 ────────────────────────────────── */
 function registerViolation(reason) {
   violationCount++;
-  localStorage.setItem("hansseolViolationCount", String(violationCount));
 
   const COUNT_TEXT = `경고 ${violationCount}회, 안전하고 행복한 사이트 운영을 위해 협조해 주세요!`;
   const warning     = document.getElementById("horrorWarning");
@@ -374,5 +375,92 @@ function showUnknownEnding() {
   if (letterAudio) {
     letterAudio.currentTime = 0;
     letterAudio.play().catch(() => {});
+  }
+}
+
+/* =====================================================
+   실시간 댓글 — 일부 게시글에서 열람 중 댓글이 하나씩 달림
+   ★★★ 게시글에 아래 형식으로 liveComments 배열을 추가하면 동작합니다 (data.js).
+     liveComments: [
+       { key: "c1", delay: 3500, author: "익명", text: "..." },
+       { key: "c2", delay: 7000, author: "익명", replyToKey: "c1", text: "..." }, // c1에 대댓글
+       { key: "c3", delay: 9000, author: "익명", parentId: 14, text: "..." },     // 기존 댓글(id:14)에 대댓글
+     ]
+   ★ 같은 게시글을 다시 열어도 이미 달린 댓글(key로 식별)은 중복으로 다시 달리지 않습니다.
+   ===================================================== */
+
+/** 이전에 열어둔 게시글의 실시간 댓글 타이머를 모두 취소 */
+function clearLiveComments() {
+  liveCommentTimers.forEach((t) => clearTimeout(t));
+  liveCommentTimers = [];
+}
+
+/** 게시글의 liveComments 예약 — 이미 달린(key 기준) 항목은 건너뜀 */
+function startLiveComments(post) {
+  const fired = comments.filter((c) => c.postId === post.id && c._liveKey);
+  const firedKeys = new Set(fired.map((c) => c._liveKey));
+
+  // 대댓글이 이미 달린 항목의 key → 댓글 id (replyToKey 해석용)
+  const keyToId = {};
+  fired.forEach((c) => { keyToId[c._liveKey] = c.id; });
+
+  post.liveComments
+    .filter((lc) => !firedKeys.has(lc.key))
+    .forEach((lc) => {
+      const timerId = setTimeout(() => {
+        const parentId = lc.parentId || (lc.replyToKey ? keyToId[lc.replyToKey] : undefined);
+        const nextId = Math.max(0, ...comments.map((c) => c.id || 0)) + 1;
+        const newComment = {
+          id: nextId,
+          postId: post.id,
+          author: lc.author,
+          text: lc.text,
+          time: "방금 전",
+          _liveKey: lc.key,
+          ...(parentId ? { parentId } : {}),
+        };
+        comments.push(newComment);
+        save();
+        keyToId[lc.key] = nextId;
+
+        appendLiveCommentToDOM(newComment, parentId);
+      }, lc.delay);
+      liveCommentTimers.push(timerId);
+    });
+}
+
+/** 새 실시간 댓글을 현재 열려있는 게시글 화면에 반영 (전체 재렌더 없이) */
+function appendLiveCommentToDOM(c, parentId) {
+  const postPage = document.getElementById("page-post");
+  if (!postPage || !postPage.classList.contains("active")) return; // 다른 페이지로 이동한 상태면 DOM 반영 생략 (데이터는 이미 저장됨)
+
+  const commentItems = document.getElementById("commentItems");
+  if (!commentItems) return;
+
+  // "아직 댓글이 없습니다" 플레이스홀더 제거
+  const placeholder = commentItems.querySelector(".comment-row:not([data-comment-id])");
+  if (placeholder) commentItems.innerHTML = "";
+
+  let depth = 0;
+  let container = commentItems;
+  if (parentId) {
+    const parentEl = commentItems.querySelector(`[data-comment-id="${parentId}"]`);
+    if (parentEl) {
+      depth = Number(parentEl.dataset.depth || 0) + 1;
+      container = parentEl;
+    }
+  }
+
+  container.insertAdjacentHTML("beforeend", renderCommentNode({ ...c, children: [] }, depth));
+
+  const newEl = commentItems.querySelector(`[data-comment-id="${c.id}"]`);
+  if (newEl) {
+    newEl.classList.add("comment-live-new");
+    setTimeout(() => newEl.classList.remove("comment-live-new"), 2200);
+  }
+
+  const titleEl = document.querySelector(".comment-zone .title-left");
+  if (titleEl) {
+    titleEl.innerHTML = `<span class="square"></span>댓글 ${commentItems.querySelectorAll("[data-comment-id]").length}`;
   }
 }

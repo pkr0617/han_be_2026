@@ -28,6 +28,87 @@ function renderHome() {
       </div>`,
     )
     .join("");
+
+  renderLiveTicker();
+}
+
+/* ── 실시간 댓글 티커 (홈 화면 왼쪽, 실시간 검색어 스타일) ──
+   전체 댓글(comments) 중에서 무작위로 하나씩 맨 위로 끌어올려
+   순위가 계속 바뀌는 것처럼 보이게 합니다.
+   ─────────────────────────────────────────────────────── */
+const TICKER_SIZE         = 8;    // 동시에 보여줄 댓글 개수
+const TICKER_INTERVAL_MS  = 4000; // 새 댓글이 올라오는 간격
+let tickerTimer = null;
+
+// 너무 짧은 댓글("…", "ㅇㅈ" 등)은 티커에서 어색해 보여 제외
+function pickTickerPool() {
+  return comments.filter((c) => c.text && c.text.trim().length >= 3);
+}
+
+function tickerRowHtml(c, rank) {
+  const raw = c.text.length > 26 ? c.text.slice(0, 26) + "…" : c.text;
+  return `
+    <div class="rank-item ticker-item" data-comment-id="${c.id}">
+      <span class="rank-num">${rank}</span>
+      <span class="rank-text" data-post="${c.postId}">${esc(c.author)}: ${esc(raw)}</span>
+    </div>`;
+}
+
+function renderLiveTicker() {
+  const el = document.getElementById("liveCommentTicker");
+  const pool = pickTickerPool();
+  if (!el || !pool.length) return;
+
+  const initial = [...pool].sort((a, b) => b.id - a.id).slice(0, TICKER_SIZE);
+  el.innerHTML = initial.map((c, i) => tickerRowHtml(c, i + 1)).join("");
+
+  startLiveTicker();
+}
+
+function startLiveTicker() {
+  stopLiveTicker();
+  tickerTimer = setInterval(() => {
+    const homePage = document.getElementById("page-home");
+    if (!homePage || !homePage.classList.contains("active")) return;
+
+    const el = document.getElementById("liveCommentTicker");
+    if (!el) return;
+
+    const pool = pickTickerPool();
+    if (!pool.length) return;
+
+    const topId = el.firstElementChild ? Number(el.firstElementChild.dataset.commentId) : null;
+    const candidates = pool.filter((c) => c.id !== topId);
+    const picked = (candidates.length ? candidates : pool)[
+      Math.floor(Math.random() * (candidates.length || pool.length))
+    ];
+
+    promoteTickerItem(picked);
+  }, TICKER_INTERVAL_MS);
+}
+
+function stopLiveTicker() {
+  if (tickerTimer) { clearInterval(tickerTimer); tickerTimer = null; }
+}
+
+// 댓글을 티커 맨 위로 끌어올리고(이미 있으면 제거 후 재삽입) 순번을 다시 매김
+function promoteTickerItem(c) {
+  const el = document.getElementById("liveCommentTicker");
+  if (!el) return;
+
+  const dup = el.querySelector(`[data-comment-id="${c.id}"]`);
+  if (dup) dup.remove();
+
+  el.insertAdjacentHTML("afterbegin", tickerRowHtml(c, 1));
+
+  [...el.children].forEach((row, i) => {
+    row.querySelector(".rank-num").textContent = i + 1;
+  });
+  while (el.children.length > TICKER_SIZE) el.lastElementChild.remove();
+
+  const newTop = el.firstElementChild;
+  newTop.classList.add("ticker-new");
+  setTimeout(() => newTop.classList.remove("ticker-new"), 2200);
 }
 
 /* ── 게시판 목록 ─────────────────────────────────────── */
@@ -38,6 +119,8 @@ function goBoard(key) {
   document.querySelectorAll(".nav-btn").forEach((b) =>
     b.classList.toggle("active", b.dataset.board === key),
   );
+
+  if (key !== "home") stopLiveTicker(); // 홈을 벗어나면 티커 타이머 정리
 
   if (key === "home") {
     showPage("page-home");
@@ -123,7 +206,7 @@ function renderCommentNode(c, depth) {
     ? `style="margin-left:${indent}px;background:#f5f7f9;border-left:2px solid #c5cfd8;"`
     : '';
   return `
-    <div class="comment-row" ${depthStyle}>
+    <div class="comment-row" data-comment-id="${c.id}" data-depth="${depth}" ${depthStyle}>
       <div class="comment-row-top">
         <b>${esc(c.author)}</b>
         <span>${esc(c.time || '방금 전')}${replyBtn ? '&ensp;' + replyBtn : ''}</span>
@@ -135,7 +218,8 @@ function renderCommentNode(c, depth) {
 }
 
 /* ── 게시글 상세 ─────────────────────────────────────── */
-function openPost(id) {
+// countView: false로 호출하면 조회수를 올리지 않음 (댓글 등록 후 같은 게시글을 다시 그릴 때 사용)
+function openPost(id, { countView = true } = {}) {
   const p = posts.find((x) => x.id === Number(id));
   if (!p) return;
 
@@ -146,7 +230,9 @@ function openPost(id) {
   if (p.horror === "author")   { registerViolation("작성자 게시글 접근"); }
   // "audio" 트리거는 세 번째 녹음 재생 시 적립됩니다 (아래 audio 이벤트 참조).
 
-  p.views++;
+  clearLiveComments(); // 이전에 열어둔 게시글의 실시간 댓글 타이머 정리
+
+  if (countView) p.views++;
   save();
 
   const pcs = comments.filter((c) => c.postId === p.id);
@@ -249,7 +335,7 @@ function openPost(id) {
       const nextId = Math.max(0, ...comments.map(c => c.id || 0)) + 1;
       comments.push({ id: nextId, postId: p.id, author: currentUser.nickname, text, time: "방금 전" });
       save();
-      openPost(p.id);
+      openPost(p.id, { countView: false });
     };
   }
   const cl = document.getElementById("commentLoginBtn");
@@ -278,10 +364,13 @@ function openPost(id) {
         const nextId = Math.max(0, ...comments.map(c => c.id || 0)) + 1;
         comments.push({ id: nextId, postId: p.id, author: currentUser.nickname, text, time: "방금 전", parentId });
         save();
-        openPost(p.id);
+        openPost(p.id, { countView: false });
       };
     });
   }
+
+  // 실시간 댓글 (일부 게시글에서만 동작)
+  if (p.liveComments) startLiveComments(p);
 }
 
 /* ── 글쓰기 ──────────────────────────────────────────── */

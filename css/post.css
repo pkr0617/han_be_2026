@@ -104,3 +104,12 @@
   padding: 1px 4px;
 }
 .reply-btn:hover { text-decoration: underline; }
+
+/* ── 실시간 댓글 강조 효과 ────────────────────────────── */
+.comment-live-new {
+  animation: comment-live-flash 2.2s ease-out;
+}
+@keyframes comment-live-flash {
+  0%   { background: #fff4cc; }
+  100% { background: transparent; }
+}

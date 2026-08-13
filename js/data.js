@@ -37,6 +37,11 @@ const seedPosts = [
     likes: 389,
     body: `00당 그분 왜 한민고 왔음?`,
     hot: false,
+    // ★ 실시간 댓글: 열람 중 새 댓글이 달림 (같은 게시글 재방문 시 중복 재생 안 됨)
+    liveComments: [
+      { key: "c1", delay: 4000, author: "익명", text: "실화냐 ㄷㄷ" },
+      { key: "c2", delay: 8000, author: "익명", text: "이거 기사남?" },
+    ],
   },
   {
     id: 67,
@@ -184,6 +189,10 @@ const seedPosts = [
       "assets/unknown_letter.mp3",  // ★ 녹음 2 교체 위치
       "assets/jumpscare.mp3",       // ★ 녹음 3 교체 위치 — 마지막은 이상한 소리/노래
     ],
+    liveComments: [
+      { key: "c1", delay: 5000, author: "익명", text: "지금 몇명 보고있는거임" },
+      { key: "c2", delay: 9500, author: "익명", text: "재생하지 말라니까" },
+    ],
   },
   {
     id: 9002,
@@ -201,6 +210,11 @@ const seedPosts = [
 왜냐하면 이 게시물은 원래 존재하지 않아야 하기 때문입니다.`,
     hot: true,
     horror: "author",
+    liveComments: [
+      { key: "c1", delay: 3500, author: "익명", text: "어 방금 조회수 올라갔는데" },
+      { key: "c2", delay: 7500, author: "익명", replyToKey: "c1", text: "나만 그런거아니지?" },
+      { key: "c3", delay: 12500, author: "???", text: "나가라" },
+    ],
   },
   {
     id: 9101,
@@ -941,6 +955,11 @@ const seedPosts = [
 
 쨌든 개학하자마자 반 애들이랑 싸우고 진짜 끝핑 말도 아니었음 진짜 한민 어케 들어옴??`,
     hot: false,
+    // parentId: 14 → 기존 시드 댓글 "쟤 첫룸멘데 공부는 진짜잘함..."에 대댓글로 이어짐
+    liveComments: [
+      { key: "c1", delay: 4000, author: "익명", parentId: 14, text: "오늘도 자냐 ㅋㅋ" },
+      { key: "c2", delay: 8000, author: "익명", replyToKey: "c1", text: "얘 맨날 그러던데 안피곤한가" },
+    ],
   },
   {
     id: 63,
