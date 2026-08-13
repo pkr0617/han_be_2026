@@ -313,14 +313,14 @@ const GM_MINIGAME = (() => {
 
   /* ── 초기화 ────────────────────────────────────── */
   function init() {
-    // ── 게시글 클릭 → 게임 시작 / 열람 기록 ──────
+    // ── 게시글 열람 기록만 (게임은 여기서 시작시키지 않음) ──
+    // ★ 모든 게시글 클릭마다 게임이 시작되면 너무 자주 걸려서 방해가 됨.
+    //   게임 시작은 검색창 트리거 단어 입력(game-trigger.js checkText)으로만 발동됨.
     document.addEventListener("click", (e) => {
       const btn = e.target.closest("[data-post]");
       if (!btn) return;
       const id = parseInt(btn.dataset.post, 10);
       if (!id) return;
-
-      if (stage === 0) start();
 
       if (typeof posts !== "undefined" && Array.isArray(posts)) {
         const p = posts.find((x) => x.id === id);
