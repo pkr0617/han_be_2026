@@ -16,19 +16,21 @@
     "productName": "한찌.com",
     "files": [
       "index.html",
+      "dark.html",
       "main.js",
       "css/**",
       "js/**",
       "assets/**"
     ],
     "win": {
-      "target": "nsis",
-      "icon": "assets/icon.ico"
+      "target": "portable",
+      "signAndEditExecutable": false
     },
-    "nsis": {
-      "oneClick": true,
-      "installerLanguages": ["ko"],
-      "language": "1042"
+    "portable": {
+      "artifactName": "${productName}.${ext}"
     }
+  },
+  "allowScripts": {
+    "electron@31.7.7": true
   }
 }
