@@ -223,6 +223,11 @@ function triggerHorrorEvent(type, postId = null) {
 
             text.textContent = "";
 
+            goBoard("home");
+            // 발견된 게시물은 현재 세션에서 사라집니다.
+            if (postId !== null) posts = posts.filter((p) => p.id !== postId);
+            save();
+
           }, 7900);
 
         }, 1800);
